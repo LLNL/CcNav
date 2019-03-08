@@ -1,0 +1,74 @@
+{
+	"lines": [
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "31", "from": 704, "to": 714 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "7", "from": 714, "to": 719 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "17", "from": 719, "to": 801 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "7", "from": 801, "to": 856 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "33", "from": 856, "to": 901 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "12", "from": 901, "to": 905 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "7", "from": 905, "to": 910 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "17", "from": 910, "to": 915 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "7", "from": 915, "to": 920 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "12", "from": 920, "to": 930 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "7", "from": 930, "to": 935 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "12", "from": 935, "to": 962 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "23", "from": 962, "to": 967 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "17", "from": 967, "to": 1002 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "24", "from": 1002, "to": 1007 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "33", "from": 1007, "to": 1029 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "31", "from": 1029, "to": 1038 },
+		{ "file": "/g/g0/legendre/tools/optparser/test.c", "line": "37", "from": 1038, "to": 1039 }
+	],
+	"functions": [
+		{ "name": "doloop", "entry": 704,
+		  "basicblocks": [
+			 { "start": 704, "end": 788 },
+			 { "start": 788, "end": 856 },
+			 { "start": 856, "end": 1020 },
+			 { "start": 1020, "end": 1038 },
+			 { "start": 1038, "end": 1039 }
+		  ],
+		  "inlines": [
+			{ "name": "dosum",
+			  "ranges": [
+				{ "start": 714, "end": 856},
+				{ "start": 901, "end": 1007}
+			  ],
+			  "callsite_file": "/g/g0/legendre/tools/optparser/test.c",
+			  "callsite_line": 33,
+			  "inlines": [
+				{ "name": "mult3",
+				  "ranges": [
+					{ "start": 719, "end": 801},
+					{ "start": 910, "end": 915},
+					{ "start": 967, "end": 1002}
+				  ],
+				  "callsite_file": "/g/g0/legendre/tools/optparser/test.c",
+				  "callsite_line": 24
+				},
+				{ "name": "mult1",
+				  "ranges": [
+					{ "start": 714, "end": 719},
+					{ "start": 801, "end": 856},
+					{ "start": 905, "end": 910},
+					{ "start": 915, "end": 920},
+					{ "start": 930, "end": 935}
+				  ],
+				  "callsite_file": "/g/g0/legendre/tools/optparser/test.c",
+				  "callsite_line": 22
+				},
+				{ "name": "mult2",
+				  "ranges": [
+					{ "start": 901, "end": 905},
+					{ "start": 920, "end": 930},
+					{ "start": 935, "end": 962}
+				  ],
+				  "callsite_file": "/g/g0/legendre/tools/optparser/test.c",
+				  "callsite_line": 23
+				}
+			  ]
+			}
+		  ]
+		}
+	]
+}
