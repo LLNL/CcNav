@@ -5,3 +5,5 @@ import sys
 sys.path.append('../server')
 
 import GetFileChoices
+
+GetFileChoices.getFiles()
