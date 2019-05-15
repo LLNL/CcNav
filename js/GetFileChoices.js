@@ -1,4 +1,4 @@
-var OV;
+var OV = {};
 
 OV.GetFileChoices = function() {
 
@@ -8,7 +8,7 @@ OV.GetFileChoices = function() {
     var get_ = function() {
 
         Ajax.call({
-            url: "/data",
+            url: 'ajax/GetFileChoices.cgi',
             type: "GET",
             success: success_,
             error: success_
@@ -19,3 +19,6 @@ OV.GetFileChoices = function() {
         get: get_
     }
 }();
+
+
+    $(document).ready(OV.GetFileChoices.get);

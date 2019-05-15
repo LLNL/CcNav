@@ -4,13 +4,12 @@ Ajax = function() {
 
         var obj = {
             type: par.type,
-            data: par.data
+            data: par.data,
+            url: par.url
         };
 
         var absolute = par.url.indexOf('https://') > -1;
-        obj.url = absolute ? par.url : "server/rest.cgi" + par.url;
-
-		obj.url = 'ajax/create.cgi';
+        //obj.url = absolute ? par.url : "server/rest.cgi" + par.url;
 
         obj.success = function( dat ) {
 
