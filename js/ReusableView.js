@@ -1,4 +1,7 @@
-
+/*
+Run like so:
+ReusableView.modal({header: "Select a file", body: "files"})
+ */
 ReusableView = function() {
 
     var button_ = function( text, classes, button_type ) {
