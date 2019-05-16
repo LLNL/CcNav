@@ -19,7 +19,8 @@ OV.GetFileChoices = function() {
             }
         }
 
-        var sel = '<select class="file_select">' + selects + '</select>';
+        var sel = '<select class="file_select">' + selects + '</select>' +
+            ReusableView.button('SUBMIT', 'submit_file_choice');
 
         ReusableView.modal({header: "Select a file", body: "files: " + sel });
 
@@ -32,19 +33,31 @@ OV.GetFileChoices = function() {
         //  Load file contents into containers.
         //  We'll need to modify loadFile such that it can handle the file
         //  content loaded directly from file, rather than through the file loader.
+        var file_select = $('.file_select').val();
 
-        loadFile( dat );
+        submit_file_choice_( file_select );
+
+        //loadFile( dat );
     };
 
-    var submit_file_choice_ = function() {
+
+    var submit_file_choice_ = function( file_select ) {
+
+        var dat = "file_select=" + file_select;
 
         Ajax.call({
             url: 'ajax/SubmitFileChoices.cgi',
             type: "GET",
-            success: file_submitted_,
-            error: file_submitted_
+            data: dat,
+            success: file_submitted_done_,
+            error: file_submitted_done_
         });
     };
+
+    var file_submitted_done_ = function() {
+
+    };
+
 
     var get_ = function() {
 

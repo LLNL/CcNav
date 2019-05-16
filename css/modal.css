@@ -34,9 +34,9 @@
 }
 
 .modal .close.black_button .inner_button {
-	padding: 6px 6px 6px 9px;
-	width: 20px;
-	font-size: 18px;
+	padding: 4px 4px 4px 7px;
+	width: 16px;
+	font-size: 14px;
 }
 
 .outer_modal {
@@ -91,7 +91,7 @@
 	display: inline-block;
 }
 
-.button_outer .black_button:active {
+.button_outer .inner_button:active {
 	position: relative;
 	top: 1px;
 	left: 1px;
@@ -99,7 +99,7 @@
 	-moz-box-shadow: 0 0 0;
 }
 
-.button_outer .black_button {
+.button_outer .inner_button {
 	position: relative;
 	top: 0;
 	box-shadow: 1px 1px 2px #666666;
