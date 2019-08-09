@@ -1,6 +1,12 @@
 #! /usr/bin/env python
 
 from flask import Flask, render_template, request
+import detector
+import time
+import os
+import subprocess
+import pickle
+import json
 
 app = Flask(__name__)
 app.config['MAX_CONTENT_LENGTH'] = 50 * 8 * 1024 * 1024 # 50 MB Limit
@@ -29,7 +35,39 @@ def optvis4():
 def optvis5():
   return render_template('optVIS_collapsible_tree_2_small_nodes.html')
 
+@app.route('/6/')
+def optvis6():
+  return render_template('optVIS_with_mvc.html')
+
+@app.route('/7/')
+def optvis7():
+  return render_template('goldenlayouttest.html') 
+
+@app.route('/8/')
+def optvis8():
+  return render_template('optVIS_with_mvc_goldenlayout_stackbar.html')
+
 @app.route('/optvis/')
 def optvis_mvc():
-  return render_template('optVIS_with_mvc.html')
+  return render_template('optVIS_with_mvc_goldenlayout.html')
+
+@app.route('/findLoops/', methods=['GET', 'POST'])
+def findLoops():
+  if request.method=='POST':
+    data = request.data
+  else:
+    #Only for testing purpose
+    # with open('opt.43.dot', 'r') as myfile:
+    #     data = myfile.read()
+    return
+  # Write the data to a file
+  fileName = str(time.time())
+  with open(fileName, 'wb' ) as tempfile:
+    tempfile.write(data)
+  outStr = detector.main([fileName])
+  #Delete the file
+  os.remove(fileName)
+  return outStr
+
+
 

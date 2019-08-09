@@ -2,7 +2,7 @@ html, body {margin:0;padding:0;height:100%;
 font-family: monospace;
 }
 
-.split {
+/*.split {
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -30,49 +30,53 @@ font-family: monospace;
   .split.split-horizontal, .gutter.gutter-horizontal {
     height: 100%;
     float: left;
-  }
+  }*/
   
 #highlightList {
   overflow:auto;
-  float:left;
+  /*float:left;*/
   background-color: #FFFFFF;
   padding: 5px;
   margin:0;
+  width:100%;
+  height:100%;
 
 }
 
 #left {
-  /*overflow: hidden;*/
   overflow: auto;
-  float: left;
-  /*background-color: #F6F6F6;*/
+  /*float: left;*/
   background-color: #FFFFFF;
-  
-  /*
-  position: relative;
-  left: 0px;  // positioned by default 
-  top: 0px;
-  */
+  width:100%;
+  height:100%;
   
 }
 
 #middle {
-  /*overflow: hidden;*/
   overflow: auto;
-  float: left;
-  /*background-color: #F6F6F6;*/
+  /*float: left;*/
   background-color: #FFFFFF;
-  
+  width: 100%;
+  height: 100%;
 }
 
 #right {
 	overflow: auto;
-	float:left;
+	/*float:left;*/
   /*background-color: #FDF3E7;*/
   background-color: #FFFFFF;
-
   padding:0;
+  width: 100%;
+  height: 100%;
 
+}
+
+#var_rename_window {
+  overflow: auto;
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 10px;
 }
 
 .text_code {
@@ -138,7 +142,6 @@ svg {
   stroke-width: 3px;
 }
 
-
 #tooltip {
         position: absolute;
         width: 300px;
@@ -187,6 +190,13 @@ label {
   border-width: 2px;
 }
 
+.text_code span.highlight{
+  background-color:#e5a6a6;
+  padding-left:2px;
+  padding-right:2px;
+
+}
+
 .text_code p.active {
   background-color:antiquewhite;
   border-color: teal;
@@ -215,7 +225,7 @@ label {
 }
 
 .node.highlight rect{
-  /* fill:#19a122; */
+  /*fill:#19a122; */
   /* stroke:darksalmon; */
   /*stroke-width:2px; */
 
@@ -368,6 +378,7 @@ hr {
     display: none;
     
     /*position: absolute;*/
+    
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -395,5 +406,11 @@ hr {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-    background-color: #5060a0;
+  background-color: #5060a0;
+}
+
+.template_locHolder {
+  margin-left: 10px; 
+  padding-bottom: 3px;
+  padding-top:2px;
 }
