@@ -26,3 +26,9 @@ The sample input files for the application can be found in the `sample_outputs` 
 
 
 
+Potential problems:
+suexec failure: could not open log file., referer: https://lc.llnl.gov/lorenz_base/dev/pascal/optvis/
+
+Answer:
+This means that you need to point the GetFileChoices.cgi script to the correct python virtualenvironment:
+#!/usr/global/tools/lorenz/python/narf-env/bin/python

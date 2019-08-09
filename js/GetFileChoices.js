@@ -2,8 +2,11 @@ var OV = {};
 
 OV.GetFileChoices = function() {
 
+    var input_files_;
+
     var success_ = function( dat ) {
 
+        input_files_ = dat.input_files;
         var selects = "";
 
         var lines = dat.json.lines;
@@ -24,11 +27,11 @@ OV.GetFileChoices = function() {
 
         ReusableView.modal({header: "Select a file", body: "files: " + sel });
 
-        $('.submit_file_choice').unbind('click').bind('click', submit_file_choice_);
+        $('.submit_file_choice').unbind('click').bind('click', file_submitted_);
     };
 
 
-    var file_submitted_ = function( dat ) {
+    var file_submitted_ = function() {
 
         //  Load file contents into containers.
         //  We'll need to modify loadFile such that it can handle the file
@@ -36,14 +39,12 @@ OV.GetFileChoices = function() {
         var file_select = $('.file_select').val();
 
         submit_file_choice_( file_select );
-
-        //loadFile( dat );
     };
 
 
     var submit_file_choice_ = function( file_select ) {
 
-        var dat = "file_select=" + file_select;
+        var dat = "file_select=" + file_select + "&input_files=" + JSON.stringify( input_files_ );
 
         Ajax.call({
             url: 'ajax/SubmitFileChoices.cgi',
@@ -54,8 +55,9 @@ OV.GetFileChoices = function() {
         });
     };
 
-    var file_submitted_done_ = function() {
+    var file_submitted_done_ = function( file_contents ) {
 
+        //loadFile( file_contents );
     };
 
 
