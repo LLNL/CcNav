@@ -212,9 +212,9 @@ OV.GetFileChoices = function() {
     };
 
     $(document).ready( function() {
-        $('.DOT_FULL_DATA').unbind('click').bind('click', OV.GetFileChoices.get);
+        $('#file_chooser').unbind('click').bind('click', OV.GetFileChoices.get);
     });
-    
+
     return {
         get: get_
     }

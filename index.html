@@ -20,24 +20,32 @@
     <script src="js/GetFileChoices.js"></script>
         <script src="js/ReusableView.js"></script>
 
+        <style>
+            #file_chooser {
+                position: absolute;
+                left: 260px;
+                width: 100px;
+            }
+        </style>
 </head>
   <body>
 
   	  <button class="dropbtn" id= "mydropbtn">Menu</button>
+      <button class="dropbtn" id="file_chooser">Choose</button>
 
         <div id="myHoverTopNav" class="dropdown">
-          
+
             <div id="topPanel" class="dropdown-content">
-            
+
             <label style=" padding: 3px;" for="fi_src">Input source file</label>
             <input style=" padding: 3px;" type="file" id="fi_src"/>
-            <br/>  
+            <br/>
             <label style=" padding: 3px;" for="fi_dot">Input dot file</label>
             <input style=" padding: 3px;" type="file" id="fi_dot"/>
             <br/>
             <label style=" padding: 3px;" for="fi_json">Input json analysis file</label>
             <input style=" padding: 3px;" type="file" id="fi_json"/>
-            
+
             <br/>
             <input style=" margin: 3px;" type="button" id="loadFile" value="LoadFiles"/>
             <br/>
@@ -49,7 +57,7 @@
             <label style=" margin:3px; font-weight: bold; padding:1px"><input style=" margin: 3px;" type="checkbox" id="countEncoding" value="countEncoding" checked>Show Node Visit</label>
 
             <label style=" margin:3px; background-color:#fdd0a2; padding:1px"><input style=" margin: 3px;" type="checkbox" id="loopBgFill" value="loopBgFill" checked>Show Loop Boundaries</label>
-           
+
 
             <br/>
 
@@ -59,12 +67,12 @@
           </div>
         </div>
 
-        
+
 
       <div id="highlightList" class="split split-horizontal">
-        
+
          <h2> Selected Source Code: </h2>
-         <pre class="text_code"> 
+         <pre class="text_code">
           <code id="text_highlight_src" class="js"> </code>
          </pre>
 
@@ -72,17 +80,17 @@
          <pre class="text_code">
           <div id="text_highlight_assembly"> </div>
          </pre>
-         
+
          <h2> Selected Graph Nodes: </h2>
          <div id="text_highlight_graph_nodes"> </div>
-            
+
       </div>
-     
+
       <div id="left" class="split split-horizontal">
       	<pre class="text_code">
          <code id="text_src" class="js"> </code> 
         </pre>
-            
+
       </div>
 
       <div id="middle" class="split split-horizontal">
@@ -98,13 +106,13 @@
         </div>
 
         <svg id="graphContainer">
-            
+
           <g/>
         </svg>
-            
+
       </div>
 
     <script src="static/opt_vis/main_with_mvc.js"></script>
-        
+
   </body>
 </html>
