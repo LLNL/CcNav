@@ -213,9 +213,29 @@ OV.GetFileChoices = function() {
         });
     };
 
+
     $(document).ready( function() {
+
         $('#file_chooser').unbind('click').bind('click', OV.GetFileChoices.get);
+
+        callOptParser_();
     });
+
+
+    var callOptParser_ = function() {
+
+        var command = '/usr/gapps/spot/optvis/optparser.py open /g/g0/pascal/a.out';
+        //command = 'optparser.py open /g/g0/pascal/a.out';
+
+        var comm22 = "command=/usr/gapps/spot/dev_spot.py getData /usr/gapps/spot/datasets/lulesh_gen/1000 ";
+        var comm = "command=" + command + "&route=/command/oslic&via=post";
+
+        $.getJSON("https://lc.llnl.gov/lorenz/lora/lora.cgi/jsonp?" + comm + "&callback=?", after_);
+    };
+
+    var after_ = function( json ) {
+
+    };
 
     return {
         get: get_
