@@ -198,6 +198,8 @@ OV.GetFileChoices = function() {
         view_source.register(controller.dispatch);
         view_inline_tree.register(controller.dispatch);
         view_graph.register(controller.dispatch);
+
+        ReusableView.close();
     };
 
 

@@ -66,7 +66,13 @@ ReusableView = function() {
         });
     };
 
+    var close_ = function() {
+        $('.outer_modal').remove();
+    };
+
+
     return {
+        close: close_,
         alert: alert_,
         prompt: prompt_,
         modal: modal_,

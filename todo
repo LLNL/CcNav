@@ -1,0 +1,8 @@
+
+
+
+1. run JSONP: https://lc.llnl.gov/lorenz/lora/lora.cgi/
+    command: /usr/gapps/spot/optvis/optparser.py open ~/a.out
+    using FE ajax call and try to get the string back and use it in subsequent requests.
+2. do it for all 3 requests.
+3. Load it into our loadFile_
