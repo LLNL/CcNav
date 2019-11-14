@@ -1,0 +1,26 @@
+var fnBody = getFunction(fnName);
+functionVars = fnBody.vars;
+
+d3.select("#fnName")
+	.text(fnName);
+
+d3.select("#divId")
+	.selectAll("div")
+	.data(vars)
+	.append("div")
+	.append("p")
+	.text(d.name)
+	.append("input")
+	.text(d.)
+
+var varSelections = d3.select("#divId")
+	.selectAll("div")
+	.data(vars);
+
+varSelections.append("div")
+	.append("p")
+	.append("span")	
+
+	.selectAll("div")
+	.data(function(d){d.locations})
+	.
