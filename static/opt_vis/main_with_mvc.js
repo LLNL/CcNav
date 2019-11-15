@@ -130,6 +130,7 @@ function loadFile(){
 	} 
 
   SRC_FILENAME = f_src_file.files[0].name;
+  console.log(SRC_FILENAME);
 
 	fr1.readAsText(f_json_file.files[0]);
   fr1.onloadend=function(){

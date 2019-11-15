@@ -20,7 +20,7 @@ python -m flask run
 The application runs on `http://localhost:5000/optvis/` 
 
 ## Sample input files
-The sample input files for the application can be found in the `sample_outputs` directory. The files are generated using the [lulesh](https://github.com/LLNL/lulesh) benchmark code using -O0, -O1 and -O3 compile options. The sample files are `lulesh.cc`, `lulesh.o.dot`, and `lulesh.o.json`. 
+The sample input files for the application can be found in the `static` directory. The files are generated using the [lulesh](https://github.com/LLNL/lulesh) benchmark code. The sample files are `lulesh.cc`, `lulesh.o.dot`, and `lulesh.o.json`. 
 
 
 

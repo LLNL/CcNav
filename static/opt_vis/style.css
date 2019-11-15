@@ -2,7 +2,7 @@ html, body {margin:0;padding:0;height:100%;
 font-family: monospace;
 }
 
-.split {
+/*.split {
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -30,49 +30,60 @@ font-family: monospace;
   .split.split-horizontal, .gutter.gutter-horizontal {
     height: 100%;
     float: left;
-  }
+  }*/
   
 #highlightList {
   overflow:auto;
-  float:left;
+  /*float:left;*/
   background-color: #FFFFFF;
   padding: 5px;
   margin:0;
+  width:100%;
+  height:100%;
 
 }
 
 #left {
-  /*overflow: hidden;*/
   overflow: auto;
-  float: left;
-  /*background-color: #F6F6F6;*/
+  /*float: left;*/
   background-color: #FFFFFF;
-  
-  /*
-  position: relative;
-  left: 0px;  // positioned by default 
-  top: 0px;
-  */
+  width:100%;
+  height:100%;
   
 }
 
 #middle {
-  /*overflow: hidden;*/
   overflow: auto;
-  float: left;
-  /*background-color: #F6F6F6;*/
+  /*float: left;*/
   background-color: #FFFFFF;
-  
+  width: 100%;
+  height: 100%;
 }
 
 #right {
 	overflow: auto;
-	float:left;
+	/*float:left;*/
   /*background-color: #FDF3E7;*/
   background-color: #FFFFFF;
-
   padding:0;
+  width: 100%;
+  height: 100%;
 
+}
+
+#var_rename_window {
+  overflow: auto;
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 10px;
+}
+
+.panel {
+  overflow: auto;
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 100%;
 }
 
 .text_code {
@@ -104,13 +115,13 @@ svg {
   fill: none;
 }
 
+/*
 .node.selected rect{
-	/* stroke: #F44336;
-	stroke-width: 2px; */
-
-  stroke-width:9; stroke:#F44336;
-	
+	stroke-width:9; stroke:#F44336;
 }
+*/
+
+
 
 .brush .extent {
 	fill-opacity: .1;
@@ -137,7 +148,6 @@ svg {
   stroke: #3f51b5;
   stroke-width: 3px;
 }
-
 
 #tooltip {
         position: absolute;
@@ -187,6 +197,13 @@ label {
   border-width: 2px;
 }
 
+.text_code span.highlight{
+  background-color:#e5a6a6;
+  padding-left:2px;
+  padding-right:2px;
+
+}
+
 .text_code p.active {
   background-color:antiquewhite;
   border-color: teal;
@@ -215,7 +232,7 @@ label {
 }
 
 .node.highlight rect{
-  /* fill:#19a122; */
+  /*fill:#19a122; */
   /* stroke:darksalmon; */
   /*stroke-width:2px; */
 
@@ -268,6 +285,10 @@ label {
 
 .edgePath.dashed {
   stroke-dasharray: 5,8;
+}
+
+.edgePath.inline {
+  stroke:blue;
 }
 
 #lineContainer line{
@@ -368,6 +389,7 @@ hr {
     display: none;
     
     /*position: absolute;*/
+    
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
@@ -395,5 +417,25 @@ hr {
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
 .dropdown:hover .dropbtn {
-    background-color: #5060a0;
+  background-color: #5060a0;
+}
+
+.template_locHolder {
+  margin-left: 10px; 
+  padding-bottom: 3px;
+  padding-top:2px;
+}
+
+p.selected{
+  opacity:0.75;
+  /*background-color: darksalmon;*/
+  background-color: #d2e4f5 !important;
+  border-width:1px !important;
+}
+
+.node.selected rect{
+  fill-opacity:0.75;
+  fill: #d2e4f5 !important;
+  stroke-width:3px !important;
+  stroke:#386793 !important;
 }
