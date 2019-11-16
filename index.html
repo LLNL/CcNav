@@ -3,15 +3,15 @@
 	<head>
     <meta charset="utf-8">
     <title>Compiler Optimization Explorer</title>
-    <!--script src="../static/opt_vis/lib/split.js"></script -->
-    <!-- script src="../static/opt_vis/lib/d3.v5.js"></script -->
+    <!--script src="static/opt_vis/lib/split.js"></script -->
+    <!-- script src="static/opt_vis/lib/d3.v5.js"></script -->
     <script src="static/opt_vis/lib/d3.min.js"></script>
     <script src="static/opt_vis/lib/graphlib.min.js"></script>
     <script src="static/opt_vis/lib/graphlib-dot.min.js"></script>
     <script src="static/opt_vis/lib/dagre-d3.min.js"></script>
     <script src="static/opt_vis/lib/convexhull.js"></script>
     
-    <!-- script src="../static/opt_vis/lib/jquery-3.3.1.min.js"></script -->
+    <!-- script src="static/opt_vis/lib/jquery-3.3.1.min.js"></script -->
     <script src="static/opt_vis/lib/jquery-1.11.1.min.js"></script>
     
     <script src="static/opt_vis/lib/goldenlayout.min.js"></script>
@@ -38,24 +38,26 @@
                 width: 100px;
             }
         </style>
+    
+  
 </head>
   <body>
 
   	  <button class="dropbtn invisible" id= "mydropbtn">Menu</button>
 
         <div id="myHoverTopNav" class="dropdown">
-
+          
             <div id="topPanel" class="dropdown-content">
-
+            
             <label style=" padding: 3px;" for="fi_src">Input source file</label>
             <input style=" padding: 3px;" type="file" id="fi_src"/>
-            <br/>
+            <br/>  
             <label style=" padding: 3px;" for="fi_dot">Input dot file</label>
             <input style=" padding: 3px;" type="file" id="fi_dot"/>
             <br/>
             <label style=" padding: 3px;" for="fi_json">Input json analysis file</label>
             <input style=" padding: 3px;" type="file" id="fi_json"/>
-
+            
             <br/>
             <input style=" margin: 3px;" type="button" id="loadFile" value="LoadFiles"/>
             <br/>
@@ -67,7 +69,7 @@
             <label style=" margin:3px; font-weight: bold; padding:1px"><input style=" margin: 3px;" type="checkbox" id="countEncoding" value="countEncoding" checked>Show Node Visit</label>
 
             <label style=" margin:3px; background-color:#fdd0a2; padding:1px"><input style=" margin: 3px;" type="checkbox" id="loopBgFill" value="loopBgFill" checked>Show Loop Boundaries</label>
-
+           
 
             <br/>
 
@@ -77,13 +79,8 @@
           </div>
         </div>
 
+        
 
-
-      <div id="highlightList" class="split split-horizontal">
-
-         <h2> Selected Source Code: </h2>
-         <pre class="text_code">
-          <code id="text_highlight_src" class="js"> </code>
       <div id="sub_highlightList" class="invisible">
         
          <h2> Selected Source Code: </h2>
@@ -95,13 +92,8 @@
          <pre class="text_code">
           <div id="sub_text_highlight_assembly"> </div>
          </pre>
-
+         
          <h2> Selected Graph Nodes: </h2>
-         <div id="text_highlight_graph_nodes"> </div>
-
-      </div>
-
-      <div id="left" class="split split-horizontal">
          <div id="sub_text_highlight_graph_nodes"> </div>
       </div>
 
@@ -136,11 +128,10 @@
       </div>
      
       <div id="sub_left" class="invisible">
->>>>>>> Stashed changes
       	<pre class="text_code">
          <code id="sub_text_src" class="js"> </code> 
         </pre>
-
+            
       </div>
 
       <div id="sub_middle" class="invisible">
@@ -158,18 +149,14 @@
            <p><span id="sub_tp_value"></span></p>
         </div>
 
-        <svg id="graphContainer">
-
         <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="checkbox" id="sub_enableBrush_cfg" value="enableBrush">Enable Brush</label>
 
         <svg id="sub_graphContainer">
             
           <g/>
         </svg>
-
+            
       </div>
-
-    <script src="static/opt_vis/main_with_mvc.js"></script>
 
        <div id="sub_call_graph" class="invisible panel">
        <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="checkbox" id="sub_enableBrush_callgraph" value="enableBrush">Enable Brush</label>
