@@ -228,6 +228,7 @@ OV.GetFileChoices = function() {
             '<div class="enter_exe">Enter executable input dir / name: <br>(for example /g/g0/pascal/a.out)</div>' +
             '<input type="text" class="exe_filename" value="/g/g0/pascal/a.out"/>' +
             ReusableView.button('GET', 'get') +
+            '<div class="sel_gen"></div>' +
             '</div>');
 
         $('.executable_input .get').unbind('click').bind('click', callOptParser_);
@@ -246,11 +247,39 @@ OV.GetFileChoices = function() {
         $.getJSON("https://lc.llnl.gov/lorenz/lora/lora.cgi/jsonp?" + comm + "&callback=?", after_);
 
         //  Once we get the return blocking problem worked out we can make those 3 JSONP requests we talked about.
+        $('.sel_gen').html( get_dropdown_() );
+        $('.source_viewer').change( source_selected_ );
+    };
 
+    var get_dropdown_ = function() {
+
+        var ht = "";
+        for( var x in STUB0.sourcefiles ) {
+            ht += '<option>' + STUB0.sourcefiles[x].file + '</option>';
+        }
+
+        return '<select class="source_viewer">' + ht + '</select>';
+    };
+
+    var source_selected_ = function() {
+
+        var see_sourcecode = $(this).val();
+        console.log(see_sourcecode);
+
+        var dat = "see_sourcecode=" + see_sourcecode;
+
+        Ajax.call({
+            url: 'ajax/GetFile.cgi',
+            type: "GET",
+            data: dat,
+            success: after_,
+            error: after_
+        });
     };
 
     var after_ = function( json ) {
 
+        alert( json.see_sourcecode );
     };
 
     return {

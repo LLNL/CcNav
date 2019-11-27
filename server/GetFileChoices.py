@@ -54,3 +54,14 @@ def getJSONTexts( input_files ):
     res.add('f_json', f_json_file.read())
 
     res.respond()
+
+
+
+def getFile( see_sourcecode ):
+
+    file = open(see_sourcecode)
+    read = file.read()
+
+    res = Response.res
+    res.add('see_sourcecode', read )
+    res.respond()

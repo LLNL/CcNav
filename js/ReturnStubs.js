@@ -261,6 +261,8 @@ STUB0.parse = {
 };
 
 STUB0.sourcefiles = [
-	{ "file": "/g/g0/pascal/hello.c" }
+	{ "file": "/g/g0/pascal/hello.c" },
+	{ "file": "/g/g0/pascal/hello_madeup1.c" },
+	{ "file": "/g/g0/pascal/hello_madeup2.c" }
 ];
 

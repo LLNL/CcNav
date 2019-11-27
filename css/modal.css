@@ -160,3 +160,9 @@
 .executable_input .enter_exe {
 	padding: 6px 0;
 }
+
+.executable_input .source_viewer {
+	margin: 15px 0;
+	height: 24px;
+	font-size: 14px;
+}
