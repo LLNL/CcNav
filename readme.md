@@ -32,3 +32,11 @@ suexec failure: could not open log file., referer: https://lc.llnl.gov/lorenz_ba
 Answer:
 This means that you need to point the GetFileChoices.cgi script to the correct python virtualenvironment:
 #!/usr/global/tools/lorenz/python/narf-env/bin/python
+
+It could also mean that the persmissions are not correct:
+These work:
+-rwx------ 1 pascal pascal 220 Nov 15 16:26 GetFileChoices.cgi
+-rwx------ 1 pascal pascal 253 Nov 15 16:26 SubmitFileChoices.cgi
+
+This does not work:
+-rw------- 1 pascal pascal 222 Nov 19 11:03 findLoops.cgi

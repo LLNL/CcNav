@@ -218,19 +218,35 @@ OV.GetFileChoices = function() {
 
         $('#file_chooser').unbind('click').bind('click', OV.GetFileChoices.get);
 
-        callOptParser_();
+        show_executable_input_();
+        //callOptParser_();
     });
+
+    var show_executable_input_ = function() {
+
+        $("body").append('<div class="executable_input">' +
+            '<div class="enter_exe">Enter executable input dir / name: <br>(for example /g/g0/pascal/a.out)</div>' +
+            '<input type="text" class="exe_filename" value="/g/g0/pascal/a.out"/>' +
+            ReusableView.button('GET', 'get') +
+            '</div>');
+
+        $('.executable_input .get').unbind('click').bind('click', callOptParser_);
+    };
 
 
     var callOptParser_ = function() {
 
-        var command = '/usr/gapps/spot/optvis/optparser.py open /g/g0/pascal/a.out';
+        var executable = $('.exe_filename').val();
+        var command = '/usr/gapps/spot/optvis/optparser.py open ' + executable;
         //command = 'optparser.py open /g/g0/pascal/a.out';
 
         var comm22 = "command=/usr/gapps/spot/dev_spot.py getData /usr/gapps/spot/datasets/lulesh_gen/1000 ";
         var comm = "command=" + command + "&route=/command/oslic&via=post";
 
         $.getJSON("https://lc.llnl.gov/lorenz/lora/lora.cgi/jsonp?" + comm + "&callback=?", after_);
+
+        //  Once we get the return blocking problem worked out we can make those 3 JSONP requests we talked about.
+
     };
 
     var after_ = function( json ) {

@@ -287,9 +287,14 @@ var makeCFGGraphView = function(model, svgId, divId) {
     // Render the modified file (output from loopified code) i.e. 
     // the file with invisible edges, ports etc.
 
-    /*** loopify dagre ***/
+    var is_lc = function() {
+      return location.origin.indexOf("lc.llnl.gov") > -1;
+    };
 
-    d3.xhr("../findLoops/")
+    var server_dir = is_lc() ? "ajax/findLoops.cgi" : "../findLoops/";
+
+    /*** loopify dagre ***/
+    d3.xhr( server_dir )
         .header("Content-Type", "text/plain")
         // .post(dotFile,
         // .post(graphlibDot.write(g),

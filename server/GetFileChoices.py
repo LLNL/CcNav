@@ -6,21 +6,7 @@ import json
 import Response
 from pprint import pprint
 
-#vi hello.c
-# 1002  gcc hello.c
-# 1003  gcc -g hello.c
-# 1004  ls a.out
-# 1005  ./a.out
-# 1006  cd /usr/gapps/spot/optvis/
-# 1007  ls
-# 1008  ./optparser.py open ~/a.out
-# 1009  ./optparser.py dot /var/tmp/pascal/optvis_8cm_nh07
-# 1010  history
-# 1011  ./optparser.py parse /var/tmp/pascal/optvis_8cm_nh07
-# 1012  ./optparser.py sourcefiles /var/tmp/pascal/optvis_8cm_nh07
-# 1013  history
-# ./optparser.py close /var/tmp/pascal/optvis_8cm_nh07
-# ./optparser.py --help
+
 
 
 

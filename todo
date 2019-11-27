@@ -1,12 +1,81 @@
 
+- DONE - integrated Sabin's branch into my branch and allow it to run on LC
+    * had to move things around, change permissions, change js and css references, and some other stuff
+- DONE - now able to send JSONP -> /usr/gapps/spot/optvis/optparser.py open /g/g0/pascal/a.out via the GET button and input on the left.
+- DONE - Stubs for the request (until we can get the real data back)
 
-
-1. run JSONP: https://lc.llnl.gov/lorenz/lora/lora.cgi/
-    command: /usr/gapps/spot/optvis/optparser.py open ~/a.out
-    using FE ajax call and try to get the string back and use it in subsequent requests.
-2. do it for all 3 requests.
-3. Load it into our loadFile_
+1. Show a file in the view that the user selects
+    * needs to send an AJAX request fetch the file needed.
+3. Load the 3 stubs into our loadFile_
+4. Get findLoops requests working without flask
+    * partly working.  Request is sent but nothing get sent back.
+5. do a custom virtualenv for this application: currently we're using the narf one i created.
 
 
 TODO:
 https://lc.llnl.gov/lorenz_base/dev/pascal/optvis/
+
+
+
+#vi hello.c
+# 1002  gcc hello.c
+# 1003  gcc -g hello.c
+# 1004  ls a.out
+# 1005  ./a.out
+# 1006  cd /usr/gapps/spot/optvis/
+# 1007  ls
+# 1008  ./optparser.py open ~/a.out
+# 1009  ./optparser.py dot /var/tmp/pascal/optvis_8cm_nh07
+# 1010  history
+# 1011  ./optparser.py parse /var/tmp/pascal/optvis_8cm_nh07
+# 1012  ./optparser.py sourcefiles /var/tmp/pascal/optvis_8cm_nh07
+#       Use the source files that are sent back to the client to create a drop down or something that the user can seelct.
+#       The sourcecode files that the user picks will be shown to the user on a pane.
+# 1013  history
+# ./optparser.py close /var/tmp/pascal/optvis_8cm_nh07
+# ./optparser.py --help
+
+
+Permissions:
+chmod 755 index.html
+chmod 755 `find . \( ! -regex '.*/\..*' \) -type d`;
+chmod 755 `find . -name *.js`
+chmod 755 `find . -name *.json`
+chmod 755 `find . -name *.css`
+chmod 755 `find . -name *.cc`
+
+
+
+Installing flask
+pip install flask
+
+Running the server:
+- From the terminal, cd to the root directory of optvis (i.e. the directory where server.py is located)
+- Then run the following commands
+
+$ export FLASK_APP=server.py
+$ python -m flask run
+
+It should run a webserver. The main page can accessed using the following URL.
+
+http://localhost:5000/optvis/
+
+For more details, I find this quick start guide useful https://flask.palletsprojects.com/en/1.1.x/quickstart/. Thanks.
+
+
+
+
+This one already has flask installed:
+(narf-env)pascal@oslic2 /usr/global/tools/lorenz/python/narf-env/bin: pip install flask
+Requirement already satisfied: flask in /usr/global/tools/lorenz/python/narf-env/lib/python3.5/site-packages (1.0.3)
+Requirement already satisfied: Werkzeug>=0.14 in /usr/global/tools/lorenz/python/narf-env/lib/python3.5/site-packages (from flask) (0.15.4)
+Requirement already satisfied: Jinja2>=2.10 in /usr/global/tools/lorenz/python/narf-env/lib/python3.5/site-packages (from flask) (2.10.1)
+Requirement already satisfied: click>=5.1 in /usr/global/tools/lorenz/python/narf-env/lib/python3.5/site-packages (from flask) (7.0)
+Requirement already satisfied: itsdangerous>=0.24 in /usr/global/tools/lorenz/python/narf-env/lib/python3.5/site-packages (from flask) (1.1.0)
+Requirement already satisfied: MarkupSafe>=0.23 in /usr/global/tools/lorenz/python/narf-env/lib/python3.5/site-packages (from Jinja2>=2.10->flask) (1.1.1)
+
+
+1. attempt to install FLASK on LC VM.  if that doesn't work we'll have to figure out a work around for the Flask.
+    * flask stuff is in server.py
+    * sabin will send me the commands he's using to install flask
+    * he uses the url: http://localhost:5000/optvis/

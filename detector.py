@@ -240,6 +240,7 @@ def findLoops(graph_text):
   graph = parse_dot_from_text(graph_text)
   roots = get_roots( graph )
   if(len(roots)==0):
+    print("roots empty")
     return json.dumps([])
   root = roots[0]
 

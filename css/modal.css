@@ -137,3 +137,26 @@
 .file_select option {
 	padding: 8px;
 }
+
+.executable_input {
+	position: fixed;
+	top: 100px;
+	left: 0;
+	padding: 10px;
+	z-index: 1000;
+	border: 1px solid #bbbbbb;
+	background-color: #EEEEEE;
+}
+
+.executable_input .exe_filename {
+	padding: 8px;
+	font-size: 14px;
+}
+
+.executable_input [type="button"] {
+	padding: 8px;
+}
+
+.executable_input .enter_exe {
+	padding: 6px 0;
+}
