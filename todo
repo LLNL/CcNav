@@ -4,12 +4,16 @@
 - DONE - now able to send JSONP -> /usr/gapps/spot/optvis/optparser.py open /g/g0/pascal/a.out via the GET button and input on the left.
 - DONE - Stubs for the request (until we can get the real data back)
 
-1. Show a file in the view that the user selects
-    * needs to send an AJAX request fetch the file needed.
-3. Load the 3 stubs into our loadFile_
-4. Get findLoops requests working without flask
+- DONE - Show a file in the view that the user selects
+    - DONE - needs to send an AJAX request fetch the file needed.
+3. Load files the user requested into it's own window View box.
+- update sabin.
+4. Load the 3 stubs into our loadFile_
+4.5  Make a better stub a.out that's at least got a couple of function calls.
+5. Get findLoops requests working without flask
     * partly working.  Request is sent but nothing get sent back.
-5. do a custom virtualenv for this application: currently we're using the narf one i created.
+6. Go from using the 3 stubs to actually getting a response back from the Server via matt's executables.
+8. do a custom virtualenv for this application: currently we're using the narf one i created.
 
 
 TODO:
