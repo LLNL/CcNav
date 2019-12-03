@@ -81,10 +81,10 @@ OV.GetFileChoices = function() {
         */
 
         /***** Edit Comment Out for load menu ********/
-        /*
-        SRC_FILENAME = f_src_file.files[0].name;
+
+        SRC_FILENAME = "source0.c";
         console.log(SRC_FILENAME);
-        */
+
 
         /***** Edit Comment Out for load menu ********/
         /*
@@ -169,7 +169,14 @@ OV.GetFileChoices = function() {
 
         // Check if this line number has any mapping to assembly instructions
         for(var i = 0; i < lines.length; i++){
-            SRC_CODE_ARRAY[lines[i].line].hasMatchingAssembly = true;
+
+            var lin = lines[i].line;
+
+            if( SRC_CODE_ARRAY[lin]) {
+                SRC_CODE_ARRAY[lin].hasMatchingAssembly = true;
+            } else {
+                console.log('Warning.  Line # not found: ' + lin);
+            }
         }
 
         // console.log(SRC_DATA);
