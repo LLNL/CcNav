@@ -1,3 +1,10 @@
+- Go from using the 3 stubs to actually getting a response back from the Server via matt's executables.
+- put the enter executable input dir modal in it's own panel in the left upper view but take the space out of VarRenamer.
+
+-> may want to clean this up every now and then: ls /tmp/opt*
+    * use rm to clean it up, if it's not already cleaned up.
+
+
 
 - DONE - integrated Sabin's branch into my branch and allow it to run on LC
     * had to move things around, change permissions, change js and css references, and some other stuff
@@ -7,12 +14,10 @@
 - DONE - Show a file in the view that the user selects
     - DONE - needs to send an AJAX request fetch the file needed.
 3. Load files the user requested into it's own window View box.
-- update sabin.
 4. Load the 3 stubs into our loadFile_
 4.5  Make a better stub a.out that's at least got a couple of function calls.
 5. Get findLoops requests working without flask
     * partly working.  Request is sent but nothing get sent back.
-6. Go from using the 3 stubs to actually getting a response back from the Server via matt's executables.
 8. do a custom virtualenv for this application: currently we're using the narf one i created.
 
 
@@ -83,3 +88,8 @@ Requirement already satisfied: MarkupSafe>=0.23 in /usr/global/tools/lorenz/pyth
     * flask stuff is in server.py
     * sabin will send me the commands he's using to install flask
     * he uses the url: http://localhost:5000/optvis/
+
+
+Permissions:
+lorenz_base/dev => lcstaff only
+/usr/global/web-pages/lc/www/devel/pascal => lorenzdv

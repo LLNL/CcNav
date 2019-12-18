@@ -459,21 +459,30 @@ OV.GetFileChoices = function() {
 
     var STUB;
 
-    var after_ = function() {
-        alert('getJSON came back');
+    var after_ = function( output_obj ) {
+
+        var key = output_obj.output.command_out;
+        console.dir( key );
+
+    };
+
+    var command_ = function( type, executable ) {
+
+        var command = '/usr/gapps/spot/optvis/optparser.py ' + type + ' ' + executable;
+        //command = 'optparser.py open /g/g0/pascal/a.out';
+        //var command = '/bin/bash -c "' + command_prev + '"';
+        var comm = "command=" + command + "&route=/command/oslic8\"&via=post";
+
+        return "https://lc.llnl.gov/lorenz/lora/lora.cgi/jsonp?" + comm + "&callback=?";
     };
 
     //  GET button pressed.
     var callOptParser_ = function() {
 
         var executable = $('.exe_filename').val();
-        var command = '/usr/gapps/spot/optvis/optparser.py open ' + executable;
-        //command = 'optparser.py open /g/g0/pascal/a.out';
+        //var comm22 = "command=/usr/gapps/spot/dev_spot.py getData /usr/gapps/spot/datasets/lulesh_gen/1000 ";
 
-        var comm22 = "command=/usr/gapps/spot/dev_spot.py getData /usr/gapps/spot/datasets/lulesh_gen/1000 ";
-        var comm = "command=" + command + "&route=/command/oslic&via=post";
-
-        $.getJSON("https://lc.llnl.gov/lorenz/lora/lora.cgi/jsonp?" + comm + "&callback=?", after_);
+        $.getJSON( command_("open", executable ), after_);
 
         //  Once we get the return blocking problem worked out we can make those 3 JSONP requests we talked about.
         $('.sel_gen').html( get_dropdown_() );
@@ -490,6 +499,7 @@ OV.GetFileChoices = function() {
             });
         });
     };
+
 
     var get_dropdown_ = function() {
 

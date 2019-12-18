@@ -65,13 +65,18 @@ var makeSourceCodeView = function(model, viewId, divId){
   // #text_src
   var _render = function(){
 
+      //  get rid of all the old <p> so that new ones can be updated.
+      d3.select("#" + viewId + " p").remove();
+
       var lines = d3.select("#" + viewId)
     // .html(null)  // clear the element
       .selectAll("p")
       .data(sourceArray);
-      
+
      lines.enter().append("p")
-      .text(function(d, i){ return (i+1) + ": " + d.code; })
+      .text(function(d, i){
+        return (i+1) + ": " + d.code;
+      })
       .classed("empty", function(d){ return !(d.hasMatchingAssembly);})
       .classed("highlight", function(d) {return d.highlight;})
       .classed("selected", function(d) {return d.selected;})
