@@ -462,16 +462,35 @@ OV.GetFileChoices = function() {
     var after_ = function( output_obj ) {
 
         var key = output_obj.output.command_out;
-        console.dir( key );
+        OV.opt_result = {};
+        OV.opt_result.key = output_obj.output.command_out;
 
+        $.getJSON( command_("dot", key ), function( out ) {
+
+            OV.opt_result.dot = out.output.command_out;
+            $.getJSON( command_("parse", key ), function( out2 ) {
+
+                OV.opt_result.parse = out2.output.command_out;
+
+                $.getJSON( command_("sourcefiles", key ), function( out3 ) {
+
+                    OV.opt_result.sourcefiles = out3.output.command_out;
+                    console.dir( OV.opt_result );
+
+                    $.getJSON(command_("close", key));
+                    pre_html_();
+                });
+            });
+        });
     };
+
 
     var command_ = function( type, executable ) {
 
         var command = '/usr/gapps/spot/optvis/optparser.py ' + type + ' ' + executable;
         //command = 'optparser.py open /g/g0/pascal/a.out';
         //var command = '/bin/bash -c "' + command_prev + '"';
-        var comm = "command=" + command + "&route=/command/oslic8\"&via=post";
+        var comm = "command=" + command + "&route=/command/oslic8&via=post";
 
         return "https://lc.llnl.gov/lorenz/lora/lora.cgi/jsonp?" + comm + "&callback=?";
     };
@@ -482,30 +501,49 @@ OV.GetFileChoices = function() {
         var executable = $('.exe_filename').val();
         //var comm22 = "command=/usr/gapps/spot/dev_spot.py getData /usr/gapps/spot/datasets/lulesh_gen/1000 ";
 
-        $.getJSON( command_("open", executable ), after_);
+        $.getJSON(command_("open", executable), after_);
+    };
+
+    var get_result_ = function( res ) {
+
+        var wrap = JSON.parse('{' + res.sourcefiles + '}');
+
+        return {
+            key: res.key,
+            dot: res.dot,
+            parse: JSON.parse(res.parse),
+            sourcefiles: wrap.sourcefiles
+        };
+    };
+
+
+    var pre_html_ = function() {
+
+        var model = get_result_( OV.opt_result );
+        console.dir( model );
 
         //  Once we get the return blocking problem worked out we can make those 3 JSONP requests we talked about.
-        $('.sel_gen').html( get_dropdown_() );
+        $('.sel_gen').html( get_dropdown_( model ) );
         $('.source_viewer').change( source_selected_ );
 
-        get_source_( STUB.sourcefiles[0].file, function( json ) {
+        get_source_( model.sourcefiles[0].file, function( json ) {
 
             console.log('source got = ' + json.see_sourcecode );
 
             loadFile_({
-                f_dot: STUB.dot,
-                f_json: STUB.parse,
+                f_dot: model.dot,
+                f_json: model.parse,
                 f_src: json.see_sourcecode
             });
         });
     };
 
 
-    var get_dropdown_ = function() {
+    var get_dropdown_ = function( model ) {
 
         var ht = "";
-        for( var x in STUB.sourcefiles ) {
-            ht += '<option>' + STUB.sourcefiles[x].file + '</option>';
+        for( var x in model.sourcefiles ) {
+            ht += '<option>' + model.sourcefiles[x].file + '</option>';
         }
 
         return '<select class="source_viewer">' + ht + '</select>';
@@ -517,7 +555,18 @@ OV.GetFileChoices = function() {
         var see_sourcecode = $(this).val();
         get_source_( see_sourcecode, function( json ) {
 
-            alert( json.see_sourcecode );
+            //  We've received the actual source code and can load the editor now.
+            console.log( json.see_sourcecode );
+
+            //var model = makeModel();
+            //view_source = makeSourceCodeView(model, 'text_src', 'left');
+            var model = get_result_( OV.opt_result );
+
+            loadFile_( {
+                f_dot: model.dot,
+                f_json: model.parse,
+                f_src: json.see_sourcecode
+            } );
         } );
     };
 
