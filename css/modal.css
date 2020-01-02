@@ -138,29 +138,17 @@
 	padding: 8px;
 }
 
-.executable_input {
-	position: fixed;
-	top: 400px;
-	left: 0;
-	padding: 22px;
-	z-index: 1000;
-	border: 1px solid #777777;
-	background-color: #EEEEEE;
-	width: 480px;
-	-webkit-box-shadow: 3px 3px 3px #555555;
-}
-
-.executable_input .exe_filename {
+#enter_exec .exe_filename {
 	padding: 8px;
 	font-size: 15px;
 	width: 350px;
 }
 
-.executable_input .enter_exe {
+#enter_exec .enter_exe {
 	padding: 6px 0;
 }
 
-.executable_input .source_viewer {
+#enter_exec .source_viewer {
 	margin: 15px 0;
 	height: 38px;
 	font-size: 15px;

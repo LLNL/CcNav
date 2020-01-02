@@ -436,26 +436,10 @@ OV.GetFileChoices = function() {
     $(document).ready( function() {
 
         $('#file_chooser').unbind('click').bind('click', OV.GetFileChoices.get);
+        $('#enter_exec .get').unbind('click').bind('click', callOptParser_);
 
-        show_executable_input_();
         //callOptParser_();
     });
-
-    var show_executable_input_ = function() {
-
-        STUB = STUB2;
-
-        var def0 = '/g/g0/pascal/inputs/1/a.out';
-
-        $("body").append('<div class="executable_input">' +
-            '<div class="enter_exe">Enter executable input dir / name: <br>(for example ' + def0 + ')</div>' +
-            '<input type="text" class="exe_filename" value="' + def0 + '"/>' +
-            ReusableView.button('GET', 'get') +
-            '<div class="sel_gen"></div>' +
-            '</div>');
-
-        $('.executable_input .get').unbind('click').bind('click', callOptParser_);
-    };
 
     var STUB;
 

@@ -96,6 +96,13 @@ var config =
             {
                "type":"column",
                "content":[
+                   {
+                     "type":"component",
+                     "componentName":"SubEnterExec",
+                     "componentState":{
+                        "label":"SubEnterExecItems"
+                     }
+                   },
                   {
                      "type":"component",
                      "componentName":"HighlightedItems",
@@ -151,6 +158,19 @@ var config =
 };
 
 var myLayout = new GoldenLayout(config);
+
+myLayout.registerComponent('SubEnterExec', function( container, componentState) {
+
+    var see = d3.select('#sub_enter_exec');
+    var node = see.node();
+    var str = node.outerHTML;
+
+	str = str.replace(/sub_/g, '');
+	str = str.replace(/invisible/g, '');
+
+    container.getElement().html( str );
+});
+
 
 myLayout.registerComponent('HighlightedItems', function (container, componentState){
 
