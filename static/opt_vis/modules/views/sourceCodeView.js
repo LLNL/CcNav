@@ -78,7 +78,7 @@ var makeSourceCodeView = function(model, viewId, divId){
 
      lines.enter().append("p")
       .text(function(d, i){
-          console.log(d.code);
+
         return (i+1) + ": " + d.code;
       })
       .classed("empty", function(d){ return !(d.hasMatchingAssembly);})

@@ -449,17 +449,23 @@ OV.GetFileChoices = function() {
         OV.opt_result = {};
         OV.opt_result.key = output_obj.output.command_out;
 
+        Common.spinner("Getting dot ...");
+
         $.getJSON( command_("dot", key ), function( out ) {
 
             OV.opt_result.dot = out.output.command_out;
+            Common.spinner("Getting parse ...");
+
             $.getJSON( command_("parse", key ), function( out2 ) {
 
                 OV.opt_result.parse = out2.output.command_out;
+                Common.spinner("Getting sourcefiles ...");
 
                 $.getJSON( command_("sourcefiles", key ), function( out3 ) {
 
                     OV.opt_result.sourcefiles = out3.output.command_out;
                     console.dir( OV.opt_result );
+                    Common.spinner(false);
 
                     $.getJSON(command_("close", key));
                     pre_html_();
@@ -482,7 +488,7 @@ OV.GetFileChoices = function() {
     //  GET button pressed.
     var callOptParser_ = function() {
 
-        var executable = $('.exe_filename').val();
+        var executable = $('#enter_exec .exe_filename').val();
         //var comm22 = "command=/usr/gapps/spot/dev_spot.py getData /usr/gapps/spot/datasets/lulesh_gen/1000 ";
 
         $.getJSON(command_("open", executable), after_);
@@ -573,5 +579,22 @@ OV.GetFileChoices = function() {
 
     return {
         get: get_
+    }
+}();
+
+
+var Common = function() {
+
+    var spinner_ = function( comment ) {
+
+        $('.spinner, .curtain').remove();
+
+        if( comment !== false ) {
+            $('body').append('<div class="curtain"></div><div class="spinner">' + comment + "</div>");
+        }
+    };
+
+    return {
+        spinner: spinner_
     }
 }();
