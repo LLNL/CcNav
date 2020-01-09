@@ -1,9 +1,11 @@
 DONE - Go from using the 3 stubs to actually getting a response back from the Server via matt's executables.
 DONE - put the enter executable input dir modal in it's own panel in the left upper view but take the space out of VarRenamer.
-DONE - fix input source - it should come from what's actually in the input box, not hard coded.
-- add a spinner to let user know something is running.
 
-- Notes: Remember to compile with -g so that the sourcefiles will be returned.
+DONE - fix input source - it should come from what's actually in the input box, not hard coded.
+DONE - add a spinner to let user know something is running.
+DONE - Notes: Remember to compile with -g so that the sourcefiles will be returned.
+
+
 
 -> may want to clean this up every now and then: ls /tmp/opt*
     * use rm to clean it up, if it's not already cleaned up.
