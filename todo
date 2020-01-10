@@ -5,6 +5,18 @@ DONE - fix input source - it should come from what's actually in the input box, 
 DONE - add a spinner to let user know something is running.
 DONE - Notes: Remember to compile with -g so that the sourcefiles will be returned.
 
+Next:
+- get Jira board working and give Sabin and Myself 1 ticket each.
+- Need better error reporting.  Show the user the error clearly whatever is returned from BE.
+- Work on the display issues: why is the text getting smaller and boxes getting bigger with each click
+- Display issue: why is it jumping around to the left and right.
+
+Sabin Next:
+- Work on linking source code to the Callgraph.
+
+
+Later On:
+Use a Source Tree to show the source files in the top left.
 
 
 -> may want to clean this up every now and then: ls /tmp/opt*
