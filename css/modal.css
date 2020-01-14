@@ -175,3 +175,19 @@
 	background-color: white;
 	z-index: 2;
 }
+
+.main_message {
+	margin: 20px;
+}
+
+.error_text {
+	color: red;
+	border: 1px solid red;
+	background-color: #FFDDDD;
+	padding: 20px;
+	font-size: 15px;
+}
+
+.each_mess {
+	padding: 5px 0 5px 0;
+}

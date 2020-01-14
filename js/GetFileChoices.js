@@ -64,34 +64,9 @@ OV.GetFileChoices = function() {
     //  this is based on main_with_mvc_goldenlayout.js
     var loadFile_ = function( fc ) {
 
-        /***** Edit Comment Out for load menu ********/
-        /*
-        if(f_src_file.files[0] == undefined){
-            alert("Please provide the source code file");
-        return;
-        }
-        if(f_dot_file.files[0] == undefined){
-            alert("Please provide the dot file");
-        return;
-        }
-        if(f_json_file.files[0] == undefined){
-            alert("Please provide the json analysis file");
-        return;
-        }  jf
-        */
-
-        /***** Edit Comment Out for load menu ********/
-
         SRC_FILENAME = "source0.c";
         console.log(SRC_FILENAME);
 
-
-        /***** Edit Comment Out for load menu ********/
-        /*
-        fr1.readAsText(f_json_file.files[0]);
-          fr1.onloadend=function(){
-          JSON_DATA = JSON.parse(this.result);
-        */
 
         /***** Edit Comment for load menu ********/
         //d3.json(prefix + JSON_FILENAME, function(data) {
@@ -149,17 +124,7 @@ OV.GetFileChoices = function() {
             return a.from - b.from;
         });
 
-        /***** Edit Comment Out for load menu ********/
-        /*
-        fr2.readAsText(f_src_file.files[0]);
-      fr2.onloadend=function(){
-            SRC_DATA = this.result;
-            */
-
-        /***** Edit Comment for load menu ********/
-        //d3.text(prefix + SRC_FILENAME, function(data){
         SRC_DATA = fc.f_src;
-        /***** Edit Comment Out for load menu ********/
 
         SRC_CODE_ARRAY = SRC_DATA.split('\n');
 
@@ -450,22 +415,26 @@ OV.GetFileChoices = function() {
         OV.opt_result.key = output_obj.output.command_out;
 
         Common.spinner("Getting dot ...");
+        Common.clear();
 
         $.getJSON( command_("dot", key ), function( out ) {
 
             OV.opt_result.dot = out.output.command_out;
             Common.spinner("Getting parse ...");
+            Common.error( out );
 
             $.getJSON( command_("parse", key ), function( out2 ) {
 
                 OV.opt_result.parse = out2.output.command_out;
                 Common.spinner("Getting sourcefiles ...");
+                Common.error( out2 );
 
                 $.getJSON( command_("sourcefiles", key ), function( out3 ) {
 
                     OV.opt_result.sourcefiles = out3.output.command_out;
                     console.dir( OV.opt_result );
                     Common.spinner(false);
+                    Common.error( out3 );
 
                     $.getJSON(command_("close", key));
                     pre_html_();
@@ -594,7 +563,22 @@ var Common = function() {
         }
     };
 
+    var error_ = function( ret ) {
+
+        if( ret.error !== "" ) {
+
+            var prev = $('.main_message .error_text').html() || "";
+            $('.main_message').html( '<div class="error_text">' + prev + "<div class='each_mess'>" + ret.error + '</div></div>');
+        }
+    };
+
+    var clear_ = function() {
+        $('.main_message').html("");
+    };
+
     return {
-        spinner: spinner_
+        clear: clear_,
+        spinner: spinner_,
+        error: error_
     }
 }();
