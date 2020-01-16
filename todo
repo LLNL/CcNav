@@ -6,10 +6,13 @@ DONE - add a spinner to let user know something is running.
 DONE - Notes: Remember to compile with -g so that the sourcefiles will be returned.
 
 Next:
-- get Jira board working and give Sabin and Myself 1 ticket each.
-- Need better error reporting.  Show the user the error clearly whatever is returned from BE.
+DONE - get Jira board working and give Sabin and Myself 1 ticket each.
+DONE - Need better error reporting.  Show the user the error clearly whatever is returned from BE.
+DONE - Permission script for better environment set up.
 - Work on the display issues: why is the text getting smaller and boxes getting bigger with each click
 - Display issue: why is it jumping around to the left and right.
+
+/usr/global/web-pages/lc/www/lorenz_base/dev/pascal/optvis/sample_inputs/3/
 
 Sabin Next:
 - Work on linking source code to the Callgraph.

@@ -460,6 +460,7 @@ OV.GetFileChoices = function() {
         var executable = $('#enter_exec .exe_filename').val();
         //var comm22 = "command=/usr/gapps/spot/dev_spot.py getData /usr/gapps/spot/datasets/lulesh_gen/1000 ";
 
+        Common.spinner("Open call.  getting key.");
         $.getJSON(command_("open", executable), after_);
     };
 
@@ -554,12 +555,20 @@ OV.GetFileChoices = function() {
 
 var Common = function() {
 
+    var remove_ = function() {
+        $('.spinner, .curtain').remove();
+    };
+
     var spinner_ = function( comment ) {
 
-        $('.spinner, .curtain').remove();
+        remove_();
 
         if( comment !== false ) {
             $('body').append('<div class="curtain"></div><div class="spinner">' + comment + "</div>");
+            $('.curtain').unbind('click').bind('click', function() {
+
+                remove_();
+            });
         }
     };
 
