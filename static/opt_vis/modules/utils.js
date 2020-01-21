@@ -86,9 +86,15 @@ function transformRectPoints(rectPts, parsedTransform){
 }
 
 // This function checks if the website is hosted inside LLNL servers. Checks the hostname
-// for the string "LLNL"
+// for the string "llnl"
 function isHostLLNL(){
   return document.location.hostname.includes('llnl');
+}
+
+// This function checks if the website is hosted using XAMPP. Checks the pathname for 
+// the string "xampp"
+function isXAMPP(){
+  return document.location.pathname.includes("xampp");
 }
 
 

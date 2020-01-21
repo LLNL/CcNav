@@ -301,7 +301,16 @@ var makeCFGGraphView = function(model, svgId, divId) {
       return location.origin.indexOf("lc.llnl.gov") > -1;
     };
 
-    var server_dir = is_lc() ? "ajax/findLoops.cgi" : "../findLoops/";
+    // var server_dir = is_lc() ? "ajax/findLoops.cgi" : "../findLoops/";
+
+    var server_dir = "";
+    if(is_lc()){
+      server_dir = "ajax/findLoops.cgi";
+    } else if(isXAMPP()){
+      server_dir = "ajax/findLoops_xampp.cgi";
+    } else {
+      server_dir = "../findLoops/";
+    }
 
     /*** loopify dagre ***/
     d3.xhr( server_dir )

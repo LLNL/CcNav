@@ -17,6 +17,9 @@ var DOT_FILENAME_FULL = 'lulesh2.0.dot';
 if(isHostLLNL()){
   var pre2 = "/lorenz_base/dev/pascal/optvis";
   var prefix = pre2 + "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
+} else if(isXAMPP()){
+  var pre2 = "/sd_xampp_dev/opt_vis";
+  var prefix = pre2 + "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
 } else {
   var prefix = "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
 }
