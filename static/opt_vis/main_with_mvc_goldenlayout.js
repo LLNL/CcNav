@@ -10,10 +10,16 @@ var DOT_FILENAME_FULL = 'lulesh2.0.dot';
 
 // var prefix = "/static/opt_vis/";
 // var prefix = "/static/opt_vis/sample_inputs/lulesh_out_serial/out_serial_O3/";
-var pre2 = "/lorenz_base/dev/pascal/optvis";
-var prefix = pre2 + "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
+// var pre2 = "/lorenz_base/dev/pascal/optvis";
+// var prefix = pre2 + "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
 // var prefix = "/static/opt_vis/sample_inputs/lulesh_out_mpi_openMP/";
 
+if(isHostLLNL()){
+  var pre2 = "/lorenz_base/dev/pascal/optvis";
+  var prefix = pre2 + "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
+} else {
+  var prefix = "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
+}
 
 var tree_data = {};
 

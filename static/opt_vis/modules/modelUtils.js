@@ -497,6 +497,141 @@ function getKHopGraph(full_graph, setOfNodes, numHops, maxNodes){
 
 }
 
+// This function returns the filtered graph from the full graph given the set of nodes to filter on.
+// Uses BFS to retrieve the K-hop graph 
+// Params:
+//  full_graph: the full graph to filter on
+//  setOfNodes: the set of nodes to filter on
+//  numHops: number of hops (K)
+//  direction: "up", "down", or "both"
+//    "up" - hops only on predecessors
+//    "down" - hops only on successors
+//    "both" - hops on both direction
+// Returns: a new graph with only the filtered nodes and edges
+
+function getKHopGraphDirected(full_graph, setOfNodes, numHops, maxNodes, direction){
+
+  // Perform BFS in the full_graph starting with the input set of nodes in the queue
+  // If any edge not in the new graph, store the edge in the new graph
+
+  // console.log("Inside khop graph");
+  // console.log(setOfNodes);
+  // console.log(numHops);
+
+  var visited = {};
+
+  var queue0 = [];
+  var queue1 = [];
+  var queues = [queue0, queue1];
+  var thisQueue;
+  var nextQueue;
+
+  var ctNodes=0;
+
+  // var graphToReturn = new graphlib.Graph();
+  var graphToReturn = graphlibDot.parse("digraph {}");
+
+  for (var i=0; i<setOfNodes.length; i++){
+    visited[setOfNodes[i]] = true;
+    queues[0].push(setOfNodes[i]);
+    graphToReturn.addNode(setOfNodes[i], full_graph.node(setOfNodes[i]));
+    ctNodes++;
+  }
+
+  for(var thisLevel = 0; thisLevel < numHops; thisLevel++){
+
+    // console.log("This level " + thisLevel );
+
+    thisQueue = queues[thisLevel%2];
+    nextQueue = queues[(thisLevel+1)%2];
+
+    // clear the array while not affecting the reference
+    nextQueue.length = 0;
+
+    // console.log("This Queue");
+    // console.log(thisQueue.join(" "));
+
+    while (thisQueue.length > 0){
+      var this_node = thisQueue.shift();
+
+      // var adj_nodes = full_graph.successors(this_node);
+      // Undirected k-hop search
+      // var adj_nodes = full_graph.neighbors(this_node);
+
+      var adj_nodes = [];
+      var in_nodes = full_graph.predecessors(this_node);
+      var out_nodes = full_graph.successors(this_node);
+
+      var out_edges = full_graph.outEdges(this_node);
+      var in_edges = full_graph.inEdges(this_node);
+
+      var node_edges = [];
+
+      if(direction == "up"){
+
+        node_edges = in_edges;
+        adj_nodes = in_nodes;
+
+      } else if (direction == "down"){
+
+        node_edges = out_edges;
+        adj_nodes = out_nodes;
+
+      } else if(direction == "both"){
+
+        // concatenate the two edge lists
+        node_edges = out_edges.concat(in_edges);
+        adj_nodes = out_nodes.concat(in_nodes);
+
+      }
+
+      for(var i = 0; i<node_edges.length; i++){
+        var this_edge = full_graph._strictGetEdge(node_edges[i]);
+
+        if(!graphToReturn.hasNode(this_edge.u)){
+          graphToReturn.addNode(this_edge.u, full_graph.node(this_edge.u));
+          ctNodes++;
+
+        }
+
+        if(!graphToReturn.hasNode(this_edge.v)){
+          graphToReturn.addNode(this_edge.v, full_graph.node(this_edge.v));
+          ctNodes++;
+        }
+
+        if(!graphToReturn.hasEdge(node_edges[i])){
+          graphToReturn.addEdge(this_edge.id, this_edge.u, this_edge.v, full_graph.edge(this_edge.id));
+        }
+
+        if(ctNodes >= maxNodes){
+          return graphToReturn;
+        }
+
+      }
+
+      for(var i=0; i<adj_nodes.length; i++){
+        if(!visited[adj_nodes[i]]){
+          visited[adj_nodes[i]] = true;
+          nextQueue.push(adj_nodes[i]);
+
+          // This is already added when adding the edge
+          // graphToReturn.addNode(adj_nodes[i], full_graph.node(adj_nodes[i]));
+
+        }
+      }
+
+
+    }
+  }
+
+  // console.log(queues);
+
+  return graphToReturn;
+
+}
+
+
+
 // Binary search on an array of objects
 // Note: The passed array must be sorted on key in ascending order
 // Params: arr: the array to search for

@@ -140,7 +140,8 @@ var makeCallGraphView = function(model, svgId, divId){
 		  		setOfNodes = [callGraph.nodes()[0]];
 		  	}
 
-		  	graph_to_display = getKHopGraph(callGraph, setOfNodes, numHops, maxNodes);
+		  	// graph_to_display = getKHopGraph(callGraph, setOfNodes, numHops, maxNodes);
+		  	graph_to_display = getKHopGraphDirected(callGraph, setOfNodes, numHops, maxNodes, "up");
 			
 		}
 

@@ -135,8 +135,15 @@ var makeCFGGraphView = function(model, svgId, divId) {
 
   var _configureBrush = function(svg, inner, zoom){
 
-	d3.select("#enableBrush_cfg").on("change", function(){
-    isBrushEnabled = this.checked;
+	// d3.select("#enableBrush_cfg").on("change", function(){
+  //    isBrushEnabled = this.checked;
+
+  d3.selectAll("input[name='cfgBrush']").on("change", function(){
+      if(this.value === "enableBrush"){
+        isBrushEnabled = true;
+      } else {
+        isBrushEnabled = false;
+      }
 
     if(isBrushEnabled ){
       if(!brushInitialized){
@@ -222,6 +229,9 @@ var makeCFGGraphView = function(model, svgId, divId) {
 
 
       var extent = d3.event.target.extent();
+
+      brushg.call(brush.clear());
+
       var nodeList = [];
 
       var nodes = svg.selectAll("g.node.enter");

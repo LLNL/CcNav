@@ -53,7 +53,7 @@ def test():
 
 @app.route('/optvis/')
 def optvis_mvc():
-  return render_template('optVIS_with_mvc_goldenlayout.html')
+  return render_template('index.html')
 
 @app.route('/findLoops/', methods=['GET', 'POST'])
 def findLoops():
