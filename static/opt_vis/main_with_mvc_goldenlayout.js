@@ -1,18 +1,8 @@
 
 var SRC_FILENAME = 'lulesh.cc';
-// var JSON_FILENAME = 'lulesh.o.json';
 var JSON_FILENAME = 'lulesh2.0.json';
 
-// var DOT_FILENAME = 'lulesh.o_small_nodes.dot';
-// var DOT_FILENAME_FULL = 'lulesh.o.dot';
-// // var DOT_FILENAME = 'lulesh2.0_small_nodes.dot';
 var DOT_FILENAME_FULL = 'lulesh2.0.dot';
-
-// var prefix = "/static/opt_vis/";
-// var prefix = "/static/opt_vis/sample_inputs/lulesh_out_serial/out_serial_O3/";
-// var pre2 = "/lorenz_base/dev/pascal/optvis";
-// var prefix = pre2 + "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
-// var prefix = "/static/opt_vis/sample_inputs/lulesh_out_mpi_openMP/";
 
 if(isHostLLNL()){
   var pre2 = "/lorenz_base/dev/pascal/optvis";
@@ -31,12 +21,9 @@ var SRC_DATA = "";
 var DOT_DATA = "";
 var DOT_FULL_DATA = "";
 
-/*** Edit for loopify dagre ***/
-
+// variables for loopify_dagre
 var loopsObj = null;
 var dotFile = "";
-
-/*** Edit end ***/
 
 var SRC_CODE_ARRAY = [];
 
@@ -84,6 +71,8 @@ var ASSEMBLY_ARRAY = [
 // When working with the data from json file, 
 // always filter on the current filename that is active or in context 
 
+
+/* FIle input from browser
 var f_src_file = document.getElementById('fi_src');
 var f_dot_file = document.getElementById('fi_dot');
 var f_json_file = document.getElementById('fi_json');
@@ -91,6 +80,7 @@ var f_json_file = document.getElementById('fi_json');
 var fr1 = new FileReader();
 var fr2 = new FileReader();
 var fr3 = new FileReader();
+*/
 
 // Split(['#highlightList', '#left', '#middle' , '#right']);
 
@@ -188,22 +178,7 @@ myLayout.registerComponent('HighlightedItems', function (container, componentSta
 	str = str.replace(/invisible/g, '');
 	container.getElement().html(str);
 
-  // console.log(d3.select("#sub_highlightList").node().outerHTML);
-  // container.getElement().html('<h2>hi</h2>');
 });
-
-/*
-myLayout.registerComponent('RegRenamer', function (container, componentState){
-
-	var str = d3.select("#sub_reg_rename_window").node().outerHTML;
-	str = str.replace(/sub_/g, '');
-	str = str.replace(/invisible/g, '');
-	container.getElement().html(str);
-
-  // console.log(d3.select("#sub_highlightList").node().outerHTML);
-  // container.getElement().html('<h2>hi</h2>');
-});
-*/
 
 myLayout.registerComponent('VarRenamer', function (container, componentState){
 
@@ -221,8 +196,6 @@ myLayout.registerComponent('SourceCode', function (container, componentState){
 	str = str.replace(/invisible/g, '');
 	container.getElement().html(str);
 
-  // container.getElement().html(d3.select("#sub_left").node().outerHTML);
-  // container.getElement().html('<h2>le</h2>');
 });
 
 myLayout.registerComponent('Disassembly', function (container, componentState){
@@ -232,8 +205,6 @@ myLayout.registerComponent('Disassembly', function (container, componentState){
 	str = str.replace(/invisible/g, '');
 	container.getElement().html(str);
 
-  // container.getElement().html(d3.select("#sub_middle").node().outerHTML);
-  // container.getElement().html('<h2>mi</h2>');
 });
 
 myLayout.registerComponent('CFG', function (container, componentState){
@@ -242,8 +213,6 @@ myLayout.registerComponent('CFG', function (container, componentState){
 	str = str.replace(/invisible/g, '');
 	container.getElement().html(str);
 
-  // container.getElement().html(d3.select("#sub_right").node().outerHTML);
-  // container.getElement().html('<h2>ri</h2>');
 });
 
 myLayout.registerComponent('CallGraph', function (container, componentState){
@@ -258,6 +227,8 @@ myLayout.init();
 // console.log(config);
 // console.log(myLayout);
 
+/* Menu stuff */
+/*
 // Wire the handler for file loading
 d3.select("#loadFile")
   .on("click", function(){
@@ -285,6 +256,7 @@ d3.select("#mydropbtn")
 d3.select("#closeMenu").on("click", function(){
   d3.select(".dropdown-content").style("display", "none");
 });
+*/
 
 /***** Edit Comment for load menu ********/
 loadFile();
@@ -345,13 +317,6 @@ function loadFile(){
 	  }
 
 	  lines = JSON_DATA.lines = filtered_lines;
-
-	  /*
-	  // convert the line numbers to 0-based index
-	  for(var i=0; i<lines.length; i++){
-	   lines[i].line = parseInt(lines[i].line) - 1;
-	  }
-	  */
 
 	  // shallow copy the lines object since its composed of only string literals 
 	  // and integers
@@ -418,12 +383,7 @@ function loadFile(){
 
 	      DOT_FULL_DATA = DOT_FULL_DATA.replace(/\\l/g, "\n");    
 
-	      // d3.text(prefix + DOT_FILENAME, function(data){
-	      //   DOT_DATA = data;
-	      //   DOT_DATA = DOT_DATA.replace(/\\l/g, "\n");
-
-	        // console.log(DOT_DATA);
-
+	      
 	        g_full = graphlibDot.parse(DOT_FULL_DATA);
 	        console.log(g_full);
 
@@ -448,13 +408,7 @@ function loadFile(){
 	        ASSEMBLY_ARRAY = getAssemblyInstrs();
 	        console.log(ASSEMBLY_ARRAY);
 
-	        // tree_data = createInlineTree();
-	        // NOTE: Replacement for the complete inlining tree
-	        // tree_data = createLinearTree();
-	        // console.log(tree_data);
-	        
-          var callGraph = makeCallGraph(JSON_DATA);
-          // console.log(graphlibDot.write(callGraph));
+	        var callGraph = makeCallGraph(JSON_DATA);
           console.log(callGraph);
 
 	        model = makeModel();
@@ -462,13 +416,11 @@ function loadFile(){
 
 	        view_source = makeSourceCodeView(model, 'text_src', 'left');
 	        
-          	// view_inline_tree = makeTreeListView(model, 'assemblyContainer', 'middle');
-	        view_disassembly = makeDisassemblyView(model, 'text_assembly', 'middle');
+          view_disassembly = makeDisassemblyView(model, 'text_assembly', 'middle');
 
           view_graph = makeCFGGraphView(model, 'graphContainer', 'right');
 	        view_highlighted_items = makeHighlightedItemsView(model, 'highlightList');
 	        
-          // view_register_renamer = makeRegRenamingView(model, 'reg_rename');
           view_var_renamer = makeVarRenamingView(model, 'var_rename_window');
           view_callgraph = makeCallGraphView(model, 'callGraphContainer' , 'call_graph');
 
@@ -477,13 +429,11 @@ function loadFile(){
 	        // model.register(view_source.render);
 	        model.register(view_source.highlight);
 	        
-          	// model.register(view_inline_tree.highlight);
-	        model.register(view_disassembly.highlight);
+          model.register(view_disassembly.highlight);
 
           model.register(view_graph.highlight);
 	        model.register(view_highlighted_items.render);
-	        // model.register(view_register_renamer.render);
-          model.register(view_var_renamer.render);
+	        model.register(view_var_renamer.render);
           model.register(view_callgraph.highlight);
           
           model.registerWithTag(view_disassembly.highlight, viewTypes.viewDisassembly);
@@ -492,12 +442,10 @@ function loadFile(){
 
 	        view_source.register(controller.dispatch);
 	        
-          	// view_inline_tree.register(controller.dispatch);
-	        view_disassembly.register(controller.dispatch);
+          view_disassembly.register(controller.dispatch);
 
           view_graph.register(controller.dispatch);
-        	// view_register_renamer.register(controller.dispatch);
-          view_var_renamer.register(controller.dispatch);
+        	view_var_renamer.register(controller.dispatch);
           view_callgraph.register(controller.dispatch);
 
 	      }

@@ -1,3 +1,6 @@
+int loopme() {
+  printf("i am being looped\r\n");
+}
 
 int source0() {
   printf("i am source0\r\n");
@@ -9,6 +12,3 @@ int source0() {
   }
 }
 
-int loopme() {
-  printf("i am being looped\r\n");
-}

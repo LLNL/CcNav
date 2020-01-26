@@ -67,6 +67,8 @@ OV.GetFileChoices = function() {
         SRC_FILENAME = "source0.c";
         console.log(SRC_FILENAME);
 
+        //[NOTE]: SRC_FILENAME is hardcoded here; Change it to reflect the actual filename
+
 
         /***** Edit Comment for load menu ********/
         //d3.json(prefix + JSON_FILENAME, function(data) {
