@@ -2,4 +2,4 @@
 # Thumbnails
 ._*
 *.pyc
-
+__pycache__
