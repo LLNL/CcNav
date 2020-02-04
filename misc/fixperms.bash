@@ -9,7 +9,7 @@ chmod 644 `find . -name '*.html' -o -name '*.css' -o -name '*.js' -o -name 'READ
 
 
 # this needs to be executable otherwise we get an internal server error.
-chmod 755 `find . -name '*.cgi' -o -name '*.pm' -o -name '*.bash' -o -name 'test-rest'`
+chmod 755 `find . -name '*.cgi' -o -name '*.pm' -o -name '*.bash' -o -name 'test-rest' -o -name '*.py' -o -name '*.pyc'`
 
 chgrp -R lorenz *
 
