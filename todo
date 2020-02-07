@@ -10,13 +10,14 @@ DONE - get Jira board working and give Sabin and Myself 1 ticket each.
 DONE - Need better error reporting.  Show the user the error clearly whatever is returned from BE.
 DONE - Permission script for better environment set up.
 
-- Solved a difficult venv issue (LC had moved a bunch of stuff that broke my existing venv)
-    * now we have a brand new venv that we can install stuff into (not reusing the narf one)
-    * plus documentation on how to create the venv.
-
 - Start with a blank application, not Lulesh.
     * try helloworld and manually cut out the json so it looks empty.
     * maybe just blank panes.
+DONE - Solved a difficult venv issue (LC had moved a bunch of stuff that broke my existing venv)
+    * now we have a brand new venv that we can install stuff into (not reusing the narf one)
+    * plus documentation on how to create the venv.
+DONE - fixed the static stub loading to switch to dynamic name of the source file.  Instead of using a hardcoded filename, it will now use a dynamic filename based on what you select.
+
 - text size change
 - Work on the display issues: why is the boxes getting bigger with each click
     * figured out it's coming from the graphlibDot library, can override?  or find the true source.
