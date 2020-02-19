@@ -64,7 +64,7 @@ OV.GetFileChoices = function() {
     //  this is based on main_with_mvc_goldenlayout.js
     var loadFile_ = function( fc ) {
 
-        SRC_FILENAME = "source0.c";
+        SRC_FILENAME = fc.source_filename;
         console.log(SRC_FILENAME);
 
 
@@ -486,14 +486,17 @@ OV.GetFileChoices = function() {
         $('.sel_gen').html( get_dropdown_( model ) );
         $('.source_viewer').change( source_selected_ );
 
-        get_source_( model.sourcefiles[0].file, function( json ) {
+        var source_filename = model.sourcefiles[0].file;
+
+        get_source_( source_filename, function( json ) {
 
             console.log('source got = ' + json.see_sourcecode );
 
             loadFile_({
                 f_dot: model.dot,
                 f_json: model.parse,
-                f_src: json.see_sourcecode
+                f_src: json.see_sourcecode,
+                source_filename: source_filename
             });
         });
     };
@@ -513,6 +516,7 @@ OV.GetFileChoices = function() {
     var source_selected_ = function() {
 
         var see_sourcecode = $(this).val();
+
         get_source_( see_sourcecode, function( json ) {
 
             //  We've received the actual source code and can load the editor now.
@@ -525,15 +529,14 @@ OV.GetFileChoices = function() {
             loadFile_( {
                 f_dot: model.dot,
                 f_json: model.parse,
-                f_src: json.see_sourcecode
+                f_src: json.see_sourcecode,
+                source_filename: see_sourcecode
             } );
         } );
     };
 
 
     var get_source_ = function( see_sourcecode, callback ) {
-
-        console.log(see_sourcecode);
 
         var dat = "see_sourcecode=" + see_sourcecode;
 

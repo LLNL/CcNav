@@ -277,12 +277,10 @@ d3.select("#closeMenu").on("click", function(){
   d3.select(".dropdown-content").style("display", "none");
 });
 
-/***** Edit Comment for load menu ********/
-loadFile();
 
 // Loads the files selected from the menu
 function loadFile(){
-	
+
 	/***** Edit Comment Out for load menu ********/
 	/*
 	if(f_src_file.files[0] == undefined){

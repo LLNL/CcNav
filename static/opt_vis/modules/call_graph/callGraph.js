@@ -150,6 +150,10 @@ var makeCallGraphView = function(model, svgId, divId){
 
 		var renderer = new dagreD3.Renderer();
 		// renderer.run(callGraph, d3.select('#' + svgId + ' g'));
+		if( graph_to_display._nodes._init ) {
+			console.dir(graph_to_display._nodes._init.value.width);
+		}
+
 		renderer.run(graph_to_display, d3.select('#' + svgId + ' g'));
 
 		_fillCGNodesandEdges(callGraph,svgId);
@@ -163,16 +167,23 @@ var makeCallGraphView = function(model, svgId, divId){
 		var graph_svg_height = bbox.height;
 		var initialScale = parseInt(svg.style("height"), 10) / graph_svg_height;
 
+		initialScale = 1;
+		console.log( "initialScale=" + initialScale );
+
 		 zoom = d3.behavior.zoom().on("zoom", function() {
-	      inner.attr("transform", "translate(" + d3.event.translate + ")" +
-	                                  "scale(" + d3.event.scale + ")");
+
+		 	console.log( "d3.event.scale=" + d3.event.scale );
+		 	console.dir(d3.event.translate);
+
+		 	inner.attr("transform", "translate(" + d3.event.translate + ")" +
+	                                  "scale(" + 1 + ")");
 	    });
 	    
 	    svg.call(zoom).on("dblclick.zoom", null);
 
-	    zoom
-	        // .translate([0 , 20])
-	        .scale(initialScale)
+		// .translate([0 , 20])
+
+	    zoom.scale(initialScale)
 	        .event(svg);
 
 	    // Setup event listeners    
@@ -208,7 +219,7 @@ var makeCallGraphView = function(model, svgId, divId){
 
 	          if(!found_highlight) {
 	            found_highlight = true;
-	            _centerToNode(d3.select(this));
+	            //_centerToNode(d3.select(this));
 	          }
 	        }
 	    		return callGraph.node(d).highlight;
@@ -244,8 +255,7 @@ var makeCallGraphView = function(model, svgId, divId){
 	    nodetY += svgHeight/2.0;
 
 	    // inner.attr("transform", "translate("+ nodetX + "," + nodetY + ") scale(" + scale + ")");
-	    zoom
-	      .translate([nodetX , nodetY])
+	    zoom.translate([nodetX , nodetY])
 	      .event(svg);
 
   	};
