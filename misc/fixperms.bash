@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd ..
+
 chmod 755 index.html
 chmod 755 js/*.js
 chmod 755 static/opt_vis/*.js
@@ -10,7 +12,6 @@ chmod 755 css
 chmod 755 css/*.css
 chmod 755 static/opt_vis/*.css
 
-cd ..
 #  Set permissions to these and any other directories: js server scss img deploy
 chmod 755 `find . \( ! -regex '.*/\..*' \) -type d`;
 
