@@ -1,5 +1,15 @@
 #!/bin/bash
 
+chmod 755 index.html
+chmod 755 js/*.js
+chmod 755 static/opt_vis/*.js
+chmod -R 755 static/opt_vis
+chmod -R 755 sample_inputs
+
+chmod 755 css
+chmod 755 css/*.css
+chmod 755 static/opt_vis/*.css
+
 cd ..
 #  Set permissions to these and any other directories: js server scss img deploy
 chmod 755 `find . \( ! -regex '.*/\..*' \) -type d`;
@@ -12,7 +22,7 @@ chmod 644 `find . -name '*.html' -o -name '*.css' -o -name '*.js' -o -name 'READ
 chmod 755 `find . -name '*.cgi' -o -name '*.pm' -o -name '*.bash' -o -name 'test-rest'`
 #chmod 755 `find -name '*.py' -o -name '*.pyc'`
 
-chgrp -R lorenz *
+#chgrp -R lorenz *
 
 cd ..
 # this is the newly created osb directory repo name.
