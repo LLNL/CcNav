@@ -15,13 +15,15 @@
     <script src="../static/opt_vis/lib/jquery-1.11.1.min.js"></script>
     
     <script src="../static/opt_vis/lib/goldenlayout.min.js"></script>
-
+    <script src="../static/opt_vis/lib/autocomplete.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../static/opt_vis/goldenlayout-base.css">
     <link rel="stylesheet" type="text/css" href="../static/opt_vis/goldenlayout-light-theme.css">
+    <link rel="stylesheet" type="text/css" href="../static/opt_vis/lib/autocomplete.css">
 
     <link rel="stylesheet" type="text/css" href="../static/opt_vis/style.css">
     <link rel="stylesheet" href="../static/opt_vis/lib/atom-one-light.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <script src="../static/opt_vis/lib/highlight.pack.js"></script>
 
@@ -44,7 +46,7 @@
 </head>
   <body>
 
-  	  <button class="dropbtn invisible" id= "mydropbtn">Menu</button>
+      <button class="dropbtn invisible" id= "mydropbtn">Menu</button>
 
         <div id="myHoverTopNav" class="dropdown">
           
@@ -95,6 +97,22 @@
           <div class="sel_gen"></div>
       </div>
 
+      <div id="sub_fn_loopView" class="invisible panel">
+            <div class="search-container">
+              <input type="text" placeholder="Search function.." id="sub_searchFnText">
+              <button><i class="fa fa-search" id = "sub_searchFnBtn"></i></button>
+            </div>
+
+            <h3 id = "sub_fnHeader">Function Inlining Tree</h3>
+              <svg id="sub_fnInlineView">
+                <g/>
+              </svg>
+
+            <h3 id="sub_loopHeader">Loop Hierarchy</h3>
+              <svg id="sub_loopsView">
+                <g/>
+              </svg>  
+      </div>
 
       <div id="sub_highlightList" class="invisible">
         
@@ -190,6 +208,7 @@
     <script src="../static/opt_vis/modules/views/sourceCodeView.js"></script>
     <script src="../static/opt_vis/modules/views/disassemblyView.js"></script>
     <script src="../static/opt_vis/modules/views/cfgView.js"></script>
+    <script src="../static/opt_vis/modules/views/loopFnTreeView.js"></script>
     <script src="../static/opt_vis/modules/call_graph/callGraph.js"></script>
     <script src="../static/opt_vis/modules/var_rename/varRenamer.js"></script>
     <script src="../static/opt_vis/modules/modelUtils.js"></script>

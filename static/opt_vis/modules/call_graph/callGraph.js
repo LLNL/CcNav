@@ -90,7 +90,7 @@ var addInlineEdge = function(callGraph, source, target, isBothInline){
 	}
 
 	var callObj = {type: callTypes.inline, targetAddr: target["ranges"][0]["start"], 
-		callsite_file: target["callsite_file"], callsite_line: target["callsite_line"], label:"", style:"dashed", color:"blue" };
+		callsite_file: target["callsite_file"], callsite_line: target["callsite_line"], label:"", style:"dashed", color:"red" };
 
 	// IF no edge exists, then add this edge
 	var outEdges = callGraph.outEdges(sourceName, targetName);	
@@ -141,7 +141,8 @@ var makeCallGraphView = function(model, svgId, divId){
 		  	}
 
 		  	// graph_to_display = getKHopGraph(callGraph, setOfNodes, numHops, maxNodes);
-		  	graph_to_display = getKHopGraphDirected(callGraph, setOfNodes, numHops, maxNodes, "up");
+		  	// graph_to_display = getKHopGraphDirected(callGraph, setOfNodes, numHops, maxNodes, "up");
+		  	graph_to_display = getKHopGraphDirected(callGraph, setOfNodes, numHops, maxNodes, "both");
 			
 		}
 

@@ -187,8 +187,8 @@ var makeCFGGraphView = function(model, svgId, divId) {
         .on("touchend.zoom", null);
 
     var bbox = svg.node().getBBox();
-    console.log("svg bbox");
-    console.log(bbox);
+    // console.log("svg bbox");
+    // console.log(bbox);
 
     // var x = d3.scale.linear()
     // .range([0, bbox.width]);
@@ -320,7 +320,7 @@ var makeCFGGraphView = function(model, svgId, divId) {
         .post(graphlibDot.write(filtered_graph),
           
           function(err, result){
-            loopsObj = JSON.parse(result.responseText);
+          	loopsObj = JSON.parse(result.responseText);
             // model.set("loopsObj",loopsObj);
             // console.log(loopsObj);
             
@@ -706,3 +706,6 @@ function fillNodesandEdges(g, svgId) {
       }); 
 
 }
+
+
+

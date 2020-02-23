@@ -97,4 +97,8 @@ function isXAMPP(){
   return document.location.pathname.includes("xampp");
 }
 
+var is_lc = function() {
+  return location.origin.indexOf("lc.llnl.gov") > -1;
+};
+
 

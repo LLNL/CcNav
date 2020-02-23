@@ -120,6 +120,13 @@ var config =
             },
             {
                "type":"component",
+               "componentName":"FnLoops",
+               "componentState":{
+                  "label":"Function and Loops"
+               }
+            },
+            {
+               "type":"component",
                "componentName":"SourceCode",
                "componentState":{
                   "label":"SourceCode"
@@ -168,6 +175,15 @@ myLayout.registerComponent('SubEnterExec', function( container, componentState) 
 	str = str.replace(/invisible/g, '');
 
     container.getElement().html( str );
+});
+
+myLayout.registerComponent('FnLoops', function (container, componentState){
+  
+  var str = d3.select("#sub_fn_loopView").node().outerHTML;
+  str = str.replace(/sub_/g, '');
+  str = str.replace(/invisible/g, '');
+  container.getElement().html(str);
+
 });
 
 
@@ -227,7 +243,7 @@ myLayout.init();
 // console.log(config);
 // console.log(myLayout);
 
-/* Menu stuff */
+/* Top menu code starts */
 /*
 // Wire the handler for file loading
 d3.select("#loadFile")
@@ -257,8 +273,9 @@ d3.select("#closeMenu").on("click", function(){
   d3.select(".dropdown-content").style("display", "none");
 });
 */
+/* Top menu code ends */
 
-/***** Edit Comment for load menu ********/
+
 loadFile();
 
 // Loads the files selected from the menu
@@ -423,6 +440,8 @@ function loadFile(){
 	        
           view_var_renamer = makeVarRenamingView(model, 'var_rename_window');
           view_callgraph = makeCallGraphView(model, 'callGraphContainer' , 'call_graph');
+
+          view_navBar_Loops = makeLoopFnTreeView(model, 'loopsView', 'fnInlineView', 'fn_loopView');
 
 	        controller = makeController(model);
 
