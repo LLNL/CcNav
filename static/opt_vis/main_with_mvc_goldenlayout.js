@@ -280,7 +280,7 @@ loadFile();
 
 // Loads the files selected from the menu
 function loadFile(){
-	
+
 	/***** Edit Comment Out for load menu ********/
 	/*
 	if(f_src_file.files[0] == undefined){
