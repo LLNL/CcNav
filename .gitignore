@@ -1,4 +1,5 @@
 .DS_Store
 # Thumbnails
 ._*
-.idea/
+*.pyc
+__pycache__

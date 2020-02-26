@@ -79,6 +79,14 @@ font-family: monospace;
   margin-bottom: 10px;
 }
 
+.panel {
+  overflow: auto;
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 100%;
+  
+}
+
 .text_code {
 	/*padding-left:10px;*/
   margin:0;
@@ -108,13 +116,13 @@ svg {
   fill: none;
 }
 
+/*
 .node.selected rect{
-	/* stroke: #F44336;
-	stroke-width: 2px; */
-
-  stroke-width:9; stroke:#F44336;
-	
+	stroke-width:9; stroke:#F44336;
 }
+*/
+
+
 
 .brush .extent {
 	fill-opacity: .1;
@@ -280,6 +288,11 @@ label {
   stroke-dasharray: 5,8;
 }
 
+.edgePath.inline {
+  stroke:red;
+  stroke-dasharray: 5,8;
+}
+
 #lineContainer line{
   opacity:0.5;
   stroke-width:0.5;
@@ -409,8 +422,120 @@ hr {
   background-color: #5060a0;
 }
 
+/* Style end for top hovermenu */
+
 .template_locHolder {
   margin-left: 10px; 
   padding-bottom: 3px;
   padding-top:2px;
 }
+
+p.selected{
+  opacity:0.75;
+  /*background-color: darksalmon;*/
+  background-color: #d2e4f5 !important;
+  border-width:1px !important;
+}
+
+.node.selected rect{
+  fill-opacity:0.75;
+  fill: #d2e4f5 !important;
+  stroke-width:3px !important;
+  stroke:#386793 !important;
+}
+
+/* Style for the side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 10; /* Stay on top */
+    top: 0;
+    left: 0;
+    /* background-color: #111; *//* Black*/
+    background-color: #7386D5;
+
+    overflow-x: auto; /* Disable horizontal scroll */
+    overflow-y: auto;
+    padding-top: 40px; /* Place content 40px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover, .offcanvas a:focus{
+    color: #ff7f00;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    color: darkorange;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.sidenavHolderDiv {
+  background-color: #e3f0f7;
+}
+
+.sidenavHolderDiv h4 {
+  margin: 5px;
+  color: #001ba5;
+}
+
+.sidenavHolderDiv h4:hover{
+  color: #ff7f00;
+}
+
+/* Style end for side navigation menu */
+
+
+/* Style start for search box */
+
+.search-container{
+  padding: 6px;
+  font-size: 17px;
+  border:none;
+}
+
+.search-container input[type=text]{
+  padding:0;
+  margin:0;
+}
+
+.search-container button{
+  background-color: #ddd;
+  cursor:pointer;
+  padding:0;
+  margin:0;
+}
+
+.search-container button:hover{
+  background-color: #ccc;
+}
+
+/* Style end for search box */

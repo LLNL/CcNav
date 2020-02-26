@@ -77,6 +77,29 @@ def parse_dot_to_graph( file_path ):
 
   return graph
 
+def parse_dot_from_text( graph_text ):
+  # Regex to capture edges ("node_a -> node_b")
+  # edge_rx = re.compile( r"^\s*(?P<src>[\w_][\w_\d]*)\s*\-\>\s*(?P<tgt>[\w_][\w_\d]*)\s*\[.*?label=\"\s*ct\s*:\s*(?P<count>\d+)\s*\".*\]\s*;\s*$" )
+  # edge_rx = re.compile( r"^\s*(?P<src>[\w_][\w_\d]*)\s*\-\>\s*(?P<tgt>[\w_][\w_\d]*)" )
+  edge_rx = re.compile( r"^\s*(?P<src>[\w_][\w_\d]*)(:[\w]*)?\s*\-\>\s*(?P<tgt>[\w_][\w_\d]*)(:[\w]*)?" )
+  
+  graph = nwx.DiGraph()
+
+  # For each line
+  # for line in fileinput.input( file_path ):
+  for line in graph_text.splitlines():
+    # Try and match edges
+    match = edge_rx.match( line )
+    if match != None:
+      # Add edge in graph
+      graph.add_node( match.group("src"), _name=match.group("src") )
+      graph.add_node( match.group("tgt"), _name=match.group("tgt") )
+      graph.add_edge( match.group("src"), match.group("tgt") )
+
+      continue
+
+  return graph
+
 
 def parse_dot_for_last_instructions( file_path ):
   node_rx = re.compile( r"^\s*(?P<name>[\w_][\w_\d]*)\s*\[.*?label=\"(?P<label>.*)\".*\]\s*;\s*$" )
@@ -174,16 +197,28 @@ def getNodes(graph, backedge):
 Farms out work to a pool of tasks to collect loops
 '''
 def collect_loops( graph, backedges, dominanators, processes ):
-  pool = mp.Pool(processes)
-  return list(
-    pool.map(
+  # pool = mp.Pool(processes)
+  with mp.Pool(processes) as pool:
+    loops = list(pool.map(
       compute_loops_from_backedges,
       map(
         lambda backedge: compute_loops_from_backedges_WorkUnit( backedge=backedge, graph=graph, dominanators=dominanators ),
         backedges
+        )
       )
     )
-  )
+
+  return loops
+
+  # return list(
+  #   pool.map(
+  #     compute_loops_from_backedges,
+  #     map(
+  #       lambda backedge: compute_loops_from_backedges_WorkUnit( backedge=backedge, graph=graph, dominanators=dominanators ),
+  #       backedges
+  #     )
+  #   )
+  # )
 
 def addParentInfo(loopsObj):
   loopsObj.sort(key=lambda x: len(x["nodes"]))
@@ -200,6 +235,22 @@ def addParentInfo(loopsObj):
         else:
           loopsObj[i]["parent"] = j
           break
+
+def findLoops(graph_text):
+  graph = parse_dot_from_text(graph_text)
+  roots = get_roots( graph )
+  if(len(roots)==0):
+    print("roots empty")
+    return json.dumps([])
+  root = roots[0]
+
+  dominanator_dict = dominanators( graph, root )
+  backedges = compute_backedges( graph, dominanator_dict )
+  loops = collect_loops( graph, backedges, dominanator_dict, 1 )
+
+  addParentInfo(loops)
+  return json.dumps(loops)
+
 
 
 def main(inp_args):
@@ -235,7 +286,7 @@ def main(inp_args):
 
   # assert len(roots) == 1, "Must have exactly one root to perform analysis: {}".format( str(roots) )
   if(len(roots)==0):
-    return []
+    return json.dumps([])
 
   root = roots[0]
 

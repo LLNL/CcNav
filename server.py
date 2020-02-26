@@ -47,27 +47,24 @@ def optvis7():
 def optvis8():
   return render_template('optVIS_with_mvc_goldenlayout_stackbar.html')
 
+@app.route('/test/')
+def test():
+	return render_template('test.html')
+
 @app.route('/optvis/')
 def optvis_mvc():
-  return render_template('optVIS_with_mvc_goldenlayout.html')
+  return render_template('index.html')
 
 @app.route('/findLoops/', methods=['GET', 'POST'])
 def findLoops():
   if request.method=='POST':
-    data = request.data
+    data = request.data.decode('utf-8')
   else:
     #Only for testing purpose
     # with open('opt.43.dot', 'r') as myfile:
     #     data = myfile.read()
     return
-  # Write the data to a file
-  fileName = str(time.time())
-  with open(fileName, 'wb' ) as tempfile:
-    tempfile.write(data)
-  outStr = detector.main([fileName])
-  #Delete the file
-  os.remove(fileName)
-  return outStr
+  return detector.findLoops(data)
 
 
 
