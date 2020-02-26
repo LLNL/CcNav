@@ -25,7 +25,16 @@ DONE - Start with a blank application, not Lulesh.
 
 ============================================================================
 
-- GoldenLayouts -> how to open a new window.
+- StateManagement
+    - Get Event handler for whenever window get's moved around
+    - Get State of the windows
+    - Load Windows according to state
+    - How do we reopen things that have already been closed?
+- TreeView -> to sort all those source files.
+
+
+
+- GoldenLayouts -> State Management.
     * there's a config file,
     * GoldenLayouts.
 
@@ -34,7 +43,6 @@ DONE - Start with a blank application, not Lulesh.
 - Work on the display issues: why is the boxes getting bigger with each click
     * figured out it's coming from the graphlibDot library, can override?  or find the true source.
 - Display issue: why is it jumping around to the left and right.
-- TreeView -> that would be fun!
 
 /usr/global/web-pages/lc/www/lorenz_base/dev/pascal/optvis/sample_inputs/3/
 

@@ -4,6 +4,7 @@ OV.StateManager = function() {
 
     };
 
+
     //  Run this every time the user moves window
     var save_ = function() {
 
