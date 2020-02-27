@@ -25,7 +25,8 @@ DONE - Start with a blank application, not Lulesh.
 
 ============================================================================
 
-- StateManagement
+DONE (almost) - update the Optvis live with Sabin's new code, plus any integration and merge issues.
+(started) - StateManagement
     - Get Event handler for whenever window get's moved around
     - Get State of the windows
     - Load Windows according to state
