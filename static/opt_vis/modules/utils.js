@@ -85,6 +85,7 @@ function transformRectPoints(rectPts, parsedTransform){
 
 }
 
+
 // This function checks if the website is hosted inside LLNL servers. Checks the hostname
 // for the string "llnl"
 function isHostLLNL(){

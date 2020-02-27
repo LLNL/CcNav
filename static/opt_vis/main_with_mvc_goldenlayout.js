@@ -239,6 +239,7 @@ myLayout.registerComponent('CallGraph', function (container, componentState){
 });
 
 myLayout.init();
+//OV.StateManager.bind();
 
 // console.log(config);
 // console.log(myLayout);
