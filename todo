@@ -25,12 +25,13 @@ DONE - Start with a blank application, not Lulesh.
 
 ============================================================================
 
-DONE (almost) - update the Optvis live with Sabin's new code, plus any integration and merge issues.
+DONE - update the Optvis live with Sabin's new code, plus any integration and merge issues.
+    - Fix empty loading - one of sabin's changes must have loaded a default.
 (started) - StateManagement
-    - Get Event handler for whenever window get's moved around
-    - Get State of the windows
-    - Load Windows according to state
-    - How do we reopen things that have already been closed?
+    * Left Off: get 'stateChanged' event working.
+
+
+Later:
 - TreeView -> to sort all those source files.
 
 
