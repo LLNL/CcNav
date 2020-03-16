@@ -239,7 +239,6 @@ myLayout.registerComponent('CallGraph', function (container, componentState){
 });
 
 myLayout.init();
-//OV.StateManager.bind();
 
 // console.log(config);
 // console.log(myLayout);
@@ -277,7 +276,7 @@ d3.select("#closeMenu").on("click", function(){
 /* Top menu code ends */
 
 
-loadFile();
+//loadFile();
 
 // Loads the files selected from the menu
 function loadFile(){
