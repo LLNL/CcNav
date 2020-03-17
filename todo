@@ -1,3 +1,16 @@
+- reopen the closed windows.
+    * Open drop down menu from top left and show a list of checkboxes for every window, and show checked if it's open, unchecked if not open
+    * if they click on the checkbox
+        * if checked then close that window
+        * if unchecked then open that window.
+
+DONE - update the Optvis live with Sabin's new code, plus any integration and merge issues.
+- perhaps later on: being able to define "/g/g0/pacal/input", root path because this path could be incorrect.
+- StateManagement (started)
+    * Left Off: get 'stateChanged' event working.
+
+
+============================================================================================
 DONE - Go from using the 3 stubs to actually getting a response back from the Server via matt's executables.
 DONE - put the enter executable input dir modal in it's own panel in the left upper view but take the space out of VarRenamer.
 

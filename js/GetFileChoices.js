@@ -218,6 +218,8 @@ OV.GetFileChoices = function() {
         view_var_renamer = makeVarRenamingView(model, 'var_rename_window');
         view_callgraph = makeCallGraphView(model, 'callGraphContainer' , 'call_graph');
 
+        view_navBar_Loops = makeLoopFnTreeView(model, 'loopsView', 'fnInlineView', 'fn_loopView');
+
         controller = makeController(model);
 
         // model.register(view_source.render);
