@@ -1,3 +1,4 @@
+
 - reopen the closed windows.
     * Open drop down menu from top left and show a list of checkboxes for every window, and show checked if it's open, unchecked if not open
     * if they click on the checkbox
