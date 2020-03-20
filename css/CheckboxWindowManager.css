@@ -1,12 +1,12 @@
 .CheckboxWindowManager {
 	position: fixed;
 	top: 20px;
-	left: 200px;
+	left: 160px;
 	padding: 0;
 	background-color: white;
 	border: 1px solid #888888;
 	z-index: 100;
-	-webkit-box-shadow: 3px 3px 2px #333333;
+	-webkit-box-shadow: 2px 2px 3px #333333;
 }
 
 .CheckboxWindowManager .txt {
@@ -14,6 +14,22 @@
 }
 
 .CheckboxWindowManager .check_line {
-	padding: 10px 0 10px 0;
-	border-bottom: 1px solid #333333;
+	padding: 12px 15px 12px 15px;
+	border-bottom: 1px solid #aaaaaa;
+}
+
+.CheckboxWindowManager .check_line:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+.checkbox_open_close {
+	position:fixed;
+	top: 0;
+	left: 160px;
+	border: 1px solid #888888;
+	background-color: #dddddd;
+	padding: 2px 7px 2px 7px;
+	cursor: pointer;
+	z-index: 101;
+	color: #888888;
 }
