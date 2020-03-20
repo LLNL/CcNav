@@ -1,15 +1,15 @@
-- take a look at jeff's request with log file.
-
 - next week do some LTRAIN.
-1. iterate through all contentItems tree and find thing we're looking for, and remove it.
-2. render menu with checkboxes
-3. uncheckbox -> extract name of content item and call removal function
+
+DONE 1. iterate through all contentItems tree and find thing we're looking for, and remove it.
+DONE 2. render menu with checkboxes
+DONE 3. uncheckbox -> extract name of content item and call removal function
     * remember location and index of each place where a tab gets removed.
 4. checkboxed -> extract name of content item and call addChild with with hard coded location
     * use location and index to AddChild to precise location where it was taken from.
     * Corner case: if that parent no longer exists place it in the first tab section.
 5. open and close render menu.
 6. every time a tab is closed, need to update the location of where it is and index
+- Keep X buttons on Tabs.
 
 
 high = myLayout.root.contentItems[ 0 ].contentItems[0].contentItems[1]
