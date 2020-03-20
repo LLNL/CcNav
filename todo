@@ -1,12 +1,35 @@
+- take a look at jeff's log file.
 
+- next week do some LTRAIN.
+1. iterate through all contentItems tree and find thing we're looking for, and remove it.
+2. render menu with checkboxes
+3. uncheckbox -> extract name of content item and call removal function
+4. checkboxed -> extract name of content item and call addChild with with hard coded location
+5. open and close render menu.
+
+high = myLayout.root.contentItems[ 0 ].contentItems[0].contentItems[1]
+myLayout.root.contentItems[0].contentItems[0].removeChild(high)
+
+#  for this use configs in main_with_mvc_goldenlayouts.js
+myLayout.root.contentItems[0].contentItems[0].addChild(high.config)
+
+
+- can we just disable the close winodw?  it might be much easier.
 - reopen the closed windows.
-    * Open drop down menu from top left and show a list of checkboxes for every window, and show checked if it's open, unchecked if not open
-    * if they click on the checkbox
-        * if checked then close that window
-        * if unchecked then open that window.
+    1. Be able to get list of windows using goldenlayouts API
+        * start with myLayout and use some function to retrieve list of windows.
+        * Open drop down menu from top left and show a list of checkboxes for every window, and show checked if it's open, unchecked if not open
+        * found myLayout.config but it's not up to date!
+
+    2. if they click on a checkbox that is checked then close that window: removeChild( contentItem, true )
+    3. if unchecked then open that window.  addChild()
+    4. if they close a window through other means, update dropdown.
+        * or just close the dropdown selector and regenerate it, when they reopen it.
+    5. if they open a new window, update dropdown.
+
 
 DONE - update the Optvis live with Sabin's new code, plus any integration and merge issues.
-- perhaps later on: being able to define "/g/g0/pacal/input", root path because this path could be incorrect.
+- perhaps later on: being able to define "/g/g0/pascal/input", root path because this path could be incorrect.
 - StateManagement (started)
     * Left Off: get 'stateChanged' event working.
 

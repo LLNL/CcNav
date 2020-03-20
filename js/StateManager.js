@@ -30,7 +30,7 @@ OV.StateManager = function() {
         //}, 2000);
     };
 
-    $(document).ready(load_);
+    //$(document).ready(load_);
 
     return {
         bind: bind_

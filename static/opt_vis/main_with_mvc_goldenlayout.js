@@ -239,6 +239,7 @@ myLayout.registerComponent('CallGraph', function (container, componentState){
 });
 
 myLayout.init();
+//console.dir(myLayout.toConfig());
 
 // console.log(config);
 // console.log(myLayout);
