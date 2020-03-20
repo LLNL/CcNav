@@ -1,4 +1,5 @@
 
+var OP = OP || {};
 var SRC_FILENAME = 'lulesh.cc';
 var JSON_FILENAME = 'lulesh2.0.json';
 
@@ -162,6 +163,8 @@ var config =
       }
    ]
 };
+
+OP.original_config = $.extend(config);
 
 var myLayout = new GoldenLayout(config);
 
