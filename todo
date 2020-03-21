@@ -7,8 +7,17 @@ DONE 3. uncheckbox -> extract name of content item and call removal function
 4. checkboxed -> extract name of content item and call addChild with with hard coded location
     * use location and index to AddChild to precise location where it was taken from.
     * Corner case: if that parent no longer exists place it in the first tab section.
-5. open and close render menu.
+DONE 5. open and close render menu.
 6. every time a tab is closed, need to update the location of where it is and index
+7. Need to reinitialize connections, call some init function on front end.
+    - call this again:             loadFile_( {
+                f_dot: model.dot,
+                f_json: model.parse,
+                f_src: json.see_sourcecode,
+                source_filename: see_sourcecode
+            } );
+8. Rebind SubEnterExec when it comes back.
+9. Why can't we close HighlightedItems?
 - Keep X buttons on Tabs.
 
 

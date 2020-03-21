@@ -14,13 +14,14 @@ OV.CheckboxWindowManager = function() {
         $('.CheckboxWindowManager').toggle();
     };
 
-    var win_name_;
+    var win_name_,
+        parents_ = {};
 
     var checked_ = function() {
 
         win_name_ = $(this).parent().find('.txt').html();
-        var becoming_checked = $(this).is(':checked');
 
+        var becoming_checked = $(this).is(':checked');
         var varRe = myLayout.root.getItemsByFilter( find_ );
 
         //console.dir( ret );
@@ -29,19 +30,18 @@ OV.CheckboxWindowManager = function() {
 
         if( becoming_checked ) {
 
-            var child = {
-                "type":"component",
-                "componentName":"FnLoops",
-                "componentState":{
-                    "label":"Function and Loops"
-                }
-            };
-
             var child = specs_[win_name_];
 
             myLayout.root.contentItems[0].contentItems[0].addChild( child );
         } else {
-            varRe[0].remove();
+
+            parents_[win_name_] = {
+                node: varRe[0].parent,
+                index: 0
+            };
+
+            //  keep child and don't destroy it.
+            varRe[0].parent.removeChild(varRe[0], true);
         }
     };
 

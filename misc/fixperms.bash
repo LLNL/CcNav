@@ -29,3 +29,7 @@ cd ..
 # this is the newly created osb directory repo name.
 # without this permission you get a permission error on osb/
 chmod 755 optvis
+
+# the virtual env must also have the right permissions too!
+cd /usr/global/tools/lorenz/python
+chmod 755 optvis-env2
