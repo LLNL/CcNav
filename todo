@@ -4,7 +4,7 @@ DONE 1. iterate through all contentItems tree and find thing we're looking for, 
 DONE 2. render menu with checkboxes
 DONE 3. uncheckbox -> extract name of content item and call removal function
     * remember location and index of each place where a tab gets removed.
-4. checkboxed -> extract name of content item and call addChild with with hard coded location
+DONE 4. checkboxed -> extract name of content item and call addChild with with hard coded location
     * use location and index to AddChild to precise location where it was taken from.
     * Corner case: if that parent no longer exists place it in the first tab section.
 DONE 5. open and close render menu.
@@ -19,6 +19,19 @@ DONE 5. open and close render menu.
 8. Rebind SubEnterExec when it comes back.
 9. Why can't we close HighlightedItems?
 - Keep X buttons on Tabs.
+
+
+More FE things to debug.  Here’s a binary from the intel compiler (previous one was gcc):
+/usr/gapps/spot/optvis/tests/raja/build_intel_toss_3_x86_64_ib/bin/ltimes.
+
+After clicking on ltimes.cpp line 144:
+
+- The FE goes unresponsive for a minute or so after opening this.  Can you look for some optimization opportunities?
+- The FnLoops panel’s horizontal scrollbar is width limited.  So I can’t see the names of routines that are too far right.
+- The CFG panel is still blank for me.  I clicked in it to scroll and seem to have hung up the whole FE for a couple minutes.
+
+
+
 
 
 high = myLayout.root.contentItems[ 0 ].contentItems[0].contentItems[1]

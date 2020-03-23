@@ -31,18 +31,41 @@ OV.CheckboxWindowManager = function() {
         if( becoming_checked ) {
 
             var child = specs_[win_name_];
+            var save_context = parents_[win_name_];
+            var ind = +save_context.index;
 
-            myLayout.root.contentItems[0].contentItems[0].addChild( child );
+            save_context.node.addChild( child, ind );
+
+            //myLayout.root.contentItems[0].contentItems[0].addChild( child );
         } else {
 
+            var child = varRe[0];
+            var parent0 = child.parent;
+            var index = get_index_( parent0, child );
+
             parents_[win_name_] = {
-                node: varRe[0].parent,
-                index: 0
+                node: parent0,
+                index: index
             };
 
+            console.dir(index);
+
             //  keep child and don't destroy it.
-            varRe[0].parent.removeChild(varRe[0], true);
+            parent0.removeChild(child, true);
         }
+    };
+
+
+    var get_index_ = function( parent0, child ) {
+
+        for( var x in parent0.contentItems ) {
+
+            if( parent0.contentItems[x] === child ) {
+                return x;
+            }
+        }
+
+        return 0;
     };
 
     var find_ = function( node ) {
