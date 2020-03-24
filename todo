@@ -3,22 +3,16 @@
 DONE 1. iterate through all contentItems tree and find thing we're looking for, and remove it.
 DONE 2. render menu with checkboxes
 DONE 3. uncheckbox -> extract name of content item and call removal function
-    * remember location and index of each place where a tab gets removed.
 DONE 4. checkboxed -> extract name of content item and call addChild with with hard coded location
-    * use location and index to AddChild to precise location where it was taken from.
-    * Corner case: if that parent no longer exists place it in the first tab section.
 DONE 5. open and close render menu.
-6. every time a tab is closed, need to update the location of where it is and index
-7. Need to reinitialize connections, call some init function on front end.
-    - call this again:             loadFile_( {
-                f_dot: model.dot,
-                f_json: model.parse,
-                f_src: json.see_sourcecode,
-                source_filename: see_sourcecode
-            } );
-8. Rebind SubEnterExec when it comes back.
+DONE 6. every time a tab is closed, need to update the checkbox so it reflects that closure.
+DONE 6.5 get rid of redundant x button on the right.
+- SubEnterExec
+    8. Rebind SubEnterExec when it comes back.
+- try to return to original position.
 9. Why can't we close HighlightedItems?
-- Keep X buttons on Tabs.
+TEST - Reinitializing.
+
 
 
 More FE things to debug.  Here’s a binary from the intel compiler (previous one was gcc):
@@ -30,6 +24,11 @@ After clicking on ltimes.cpp line 144:
 - The FnLoops panel’s horizontal scrollbar is width limited.  So I can’t see the names of routines that are too far right.
 - The CFG panel is still blank for me.  I clicked in it to scroll and seem to have hung up the whole FE for a couple minutes.
 
+
+Later (very difficult)
+    * remember location and index of each place where a tab gets removed.
+    * use location and index to AddChild to precise location where it was taken from.
+    * Corner case: if that parent no longer exists place it in the first tab section.
 
 
 

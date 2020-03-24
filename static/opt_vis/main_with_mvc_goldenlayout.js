@@ -242,7 +242,18 @@ myLayout.registerComponent('CallGraph', function (container, componentState){
 });
 
 myLayout.init();
-//console.dir(myLayout.toConfig());
+myLayout.on('hide', function() {
+    alert('iadsf');
+} );
+myLayout.on('close', function() {
+    alert('max');
+});
+myLayout.on('tabClosed', function() {
+    alert('hi');
+    console.log('hi');
+});
+
+    //console.dir(myLayout.toConfig());
 
 // console.log(config);
 // console.log(myLayout);

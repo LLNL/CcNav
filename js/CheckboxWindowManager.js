@@ -7,6 +7,18 @@ OV.CheckboxWindowManager = function() {
 
         $('[type="checkbox"]').unbind('click').bind('click', checked_ );
         $('.checkbox_open_close').unbind('click').bind('click', open_close_ );
+
+        $('.lm_close_tab').unbind('click').bind('click', closed_clicked_ );
+
+        $('.lm_header .lm_controls>li').css({"display": "none"});
+    };
+
+    var closed_clicked_ = function() {
+
+        var title = $(this).parent().find('.lm_title').html().toLowerCase();
+        console.log(title);
+
+        $('[check_type="' + title + '"] input').prop('checked', '');
     };
 
     var open_close_ = function() {
@@ -24,35 +36,51 @@ OV.CheckboxWindowManager = function() {
         var becoming_checked = $(this).is(':checked');
         var varRe = myLayout.root.getItemsByFilter( find_ );
 
+        //var varRe = myLayout.getComponent(win_name_);
+
         //console.dir( ret );
+
 
         console.log('check: ' + win_name_ + "   ch=" + becoming_checked );
 
         if( becoming_checked ) {
 
             var child = specs_[win_name_];
-            var save_context = parents_[win_name_];
-            var ind = +save_context.index;
 
-            save_context.node.addChild( child, ind );
+            //var save_context = parents_[win_name_];
+            //var ind = +save_context.index;
+            //save_context.parent.addChild( save_context.child, ind );
+            //  save_context.child
 
-            //myLayout.root.contentItems[0].contentItems[0].addChild( child );
+            //save_context.child.show();
+            myLayout.root.contentItems[0].contentItems[0].addChild( child );
+            OV.GetFileChoices.loadFile();
+
         } else {
 
+            //  remove the tab, becoming unchecked.
             var child = varRe[0];
             var parent0 = child.parent;
             var index = get_index_( parent0, child );
 
             parents_[win_name_] = {
-                node: parent0,
+                "parent": parent0,
+                child: child,
                 index: index
             };
 
-            console.dir(index);
+            console.dir(child);
 
             //  keep child and don't destroy it.
+            //child.close(); //  close seems to work, but I can't find the command: open (WTH?)
+            //parent0.hide();
+
             parent0.removeChild(child, true);
         }
+    };
+
+    var destroy_handler_ = function() {
+        console.log('was destroyed.');
     };
 
 
@@ -95,7 +123,10 @@ OV.CheckboxWindowManager = function() {
     };
 
     var box_ = function( str ) {
-        return "<div class='check_line'>" +
+
+        var sc = str.toLowerCase();
+
+        return "<div class='check_line' check_type='" + sc + "'>" +
             "<input type='checkbox' checked='checked'/>" +
             "<div class='txt'>" + str + "</div>" +
             "</div>";

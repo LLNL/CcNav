@@ -61,8 +61,17 @@ OV.GetFileChoices = function() {
         loadFile_( file_contents );
     };
 
+    var cached_fc_ = null;
+
     //  this is based on main_with_mvc_goldenlayout.js
     var loadFile_ = function( fc ) {
+
+        if( !fc ) {
+            //  For when we need to reload.
+            fc = cached_fc_;
+        }
+
+        cached_fc_ = fc;
 
         SRC_FILENAME = fc.source_filename;
         console.log(SRC_FILENAME);
@@ -555,7 +564,8 @@ OV.GetFileChoices = function() {
 
 
     return {
-        get: get_
+        get: get_,
+        loadFile: loadFile_
     }
 }();
 
