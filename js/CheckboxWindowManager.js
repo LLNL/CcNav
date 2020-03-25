@@ -54,6 +54,11 @@ OV.CheckboxWindowManager = function() {
 
             //save_context.child.show();
             myLayout.root.contentItems[0].contentItems[0].addChild( child );
+
+            OV.GetFileChoices.init();
+
+            //  This will generally just work if something is already loaded.
+            //  We're just re-initializing everything.
             OV.GetFileChoices.loadFile();
 
         } else {
