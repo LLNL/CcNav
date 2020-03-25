@@ -7,6 +7,7 @@
 	border: 1px solid #888888;
 	z-index: 100;
 	-webkit-box-shadow: 2px 2px 3px #333333;
+	display: none;
 }
 
 .CheckboxWindowManager .txt {
