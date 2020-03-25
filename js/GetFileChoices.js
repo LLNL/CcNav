@@ -410,17 +410,14 @@ OV.GetFileChoices = function() {
         });
     };
 
-
-    $(document).ready( init_ );
-
     var init_ = function() {
 
         $('#file_chooser').unbind('click').bind('click', OV.GetFileChoices.get);
         $('#enter_exec .get').unbind('click').bind('click', callOptParser_);
     };
 
+    $(document).ready( init_ );
 
-    var STUB;
 
     var after_ = function( output_obj ) {
 
@@ -568,45 +565,5 @@ OV.GetFileChoices = function() {
         get: get_,
         init: init_,
         loadFile: loadFile_
-    }
-}();
-
-
-var Common = function() {
-
-    var remove_ = function() {
-        $('.spinner, .curtain').remove();
-    };
-
-    var spinner_ = function( comment ) {
-
-        remove_();
-
-        if( comment !== false ) {
-            $('body').append('<div class="curtain"></div><div class="spinner">' + comment + "</div>");
-            $('.curtain').unbind('click').bind('click', function() {
-
-                remove_();
-            });
-        }
-    };
-
-    var error_ = function( ret ) {
-
-        if( ret.error !== "" ) {
-
-            var prev = $('.main_message .error_text').html() || "";
-            $('.main_message').html( '<div class="error_text">' + prev + "<div class='each_mess'>" + ret.error + '</div></div>');
-        }
-    };
-
-    var clear_ = function() {
-        $('.main_message').html("");
-    };
-
-    return {
-        clear: clear_,
-        spinner: spinner_,
-        error: error_
     }
 }();
