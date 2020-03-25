@@ -411,13 +411,14 @@ OV.GetFileChoices = function() {
     };
 
 
-    $(document).ready( function() {
+    $(document).ready( init_ );
+
+    var init_ = function() {
 
         $('#file_chooser').unbind('click').bind('click', OV.GetFileChoices.get);
         $('#enter_exec .get').unbind('click').bind('click', callOptParser_);
+    };
 
-        //callOptParser_();
-    });
 
     var STUB;
 
@@ -565,6 +566,7 @@ OV.GetFileChoices = function() {
 
     return {
         get: get_,
+        init: init_,
         loadFile: loadFile_
     }
 }();

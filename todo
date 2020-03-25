@@ -1,5 +1,3 @@
-- next week do some LTRAIN.
-
 DONE 1. iterate through all contentItems tree and find thing we're looking for, and remove it.
 DONE 2. render menu with checkboxes
 DONE 3. uncheckbox -> extract name of content item and call removal function
@@ -10,8 +8,7 @@ DONE 6.5 get rid of redundant x button on the right.
 - SubEnterExec
     8. Rebind SubEnterExec when it comes back.
 - try to return to original position.
-9. Why can't we close HighlightedItems?
-TEST - Reinitializing.
+TEST - Reinitializing.  When a program has already been loaded, will the removed panels that have been re-added still work?
 
 
 

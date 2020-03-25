@@ -96,13 +96,20 @@ OV.CheckboxWindowManager = function() {
         return 0;
     };
 
+
     var find_ = function( node ) {
-        return node.config.componentName === win_name_;
+
+        var wc = win_name_.toLowerCase();
+        console.log( node.config.componentName + '   wn=' + wc );
+
+        return node.config && node.config.componentName &&
+            node.config.componentName.toLowerCase() === wc;
     };
+
 
     var specs_ = {
         "SubEnterExec": OP.original_config.content[0].content[0].content[0],
-        "HighligthedItems": OP.original_config.content[0].content[0].content[1],
+        "HighlightedItems": OP.original_config.content[0].content[0].content[1],
         "VarRenamer": OP.original_config.content[0].content[0].content[2],
         "FnLoops": OP.original_config.content[0].content[1],
         "SourceCode": OP.original_config.content[0].content[2],
