@@ -191,3 +191,8 @@
 .each_mess {
 	padding: 5px 0 5px 0;
 }
+
+/* Allow FnLoop to side scroll far enough to the right to see everything. */
+#fnInlineView {
+	width: 5000px;
+}

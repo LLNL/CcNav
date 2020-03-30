@@ -5,9 +5,8 @@ DONE 4. checkboxed -> extract name of content item and call addChild with with h
 DONE 5. open and close render menu.
 DONE 6. every time a tab is closed, need to update the checkbox so it reflects that closure.
 DONE 6.5 get rid of redundant x button on the right.
-- SubEnterExec
-    8. Rebind SubEnterExec when it comes back.
-- try to return to original position.
+DONE - SubEnterExec    8. Rebind SubEnterExec when it comes back.
+- ??? try to return to original position.
 TEST - Reinitializing.  When a program has already been loaded, will the removed panels that have been re-added still work?
 
 
