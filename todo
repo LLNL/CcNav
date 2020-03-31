@@ -16,7 +16,7 @@ More FE things to debug.  Here’s a binary from the intel compiler (previous on
 
 After clicking on ltimes.cpp line 144:
 
-- The FE goes unresponsive for a minute or so after opening this.  Can you look for some optimization opportunities?
+DONE - The FE goes unresponsive for a minute or so after opening this.  Can you look for some optimization opportunities?
     * dissasemblyView: Line 192.
     * something is replacing the var names.
     0x401180: call 0xfffffe30(%rip) 1, 0

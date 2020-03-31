@@ -192,6 +192,7 @@ var makeDisassemblyView = function(model, viewId, divId){
     lines.each(function(d){
 
       var codeStr = d.code;
+      var replacement = "";
 
       // Iterate through the variables
       // Replace the location with varialble name
@@ -202,8 +203,6 @@ var makeDisassemblyView = function(model, viewId, divId){
           
           // If the code falls under a valid range          
           if( d.id >= parseInt(currLoc.start, 16) && d.id <= parseInt(currLoc.end, 16)){
-            
-            
 
             // If you want to skip matching the register string when its part of a register offset string
             // capture the substring before and after the register name
@@ -216,14 +215,11 @@ var makeDisassemblyView = function(model, viewId, divId){
               currVar.name + "</span>");
           }
 
-          var replacement = "0x" + d.id.toString(16) + ": " + codeStr;
-          var x = this;
-          var z = 7;
-
-          //console.log(replacement);
-          //d3.select(this).html(replacement);
+          replacement = "0x" + d.id.toString(16) + ": " + codeStr;
         }
       }
+
+      d3.select(this).html(replacement);
     });
 
     prevFnName = currFn.name;
