@@ -6,7 +6,7 @@
 	position:absolute;
 	left: 0;
 	top: 0;
-	z-index: 15;
+	z-index: 315;
 }
 
 .modal {
@@ -18,7 +18,7 @@
 	transform: translate(-50%, -60%);
 	border: 1px solid #000000;
 	-webkit-box-shadow: 3px 3px 3px #333333;
-	z-index: 16;
+	z-index: 316;
 }
 
 .modal .body {
@@ -194,5 +194,5 @@
 
 /* Allow FnLoop to side scroll far enough to the right to see everything. */
 #fnInlineView {
-	width: 5000px;
+	width: 9000px;
 }

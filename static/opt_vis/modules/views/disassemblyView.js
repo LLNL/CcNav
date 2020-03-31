@@ -215,14 +215,20 @@ var makeDisassemblyView = function(model, viewId, divId){
             codeStr = codeStr.replace(pattern, "<span class='highlight'>" +
               currVar.name + "</span>");
           }
-          d3.select(this).html("0x" + d.id.toString(16) + ": " + codeStr);
+
+          var replacement = "0x" + d.id.toString(16) + ": " + codeStr;
+          var x = this;
+          var z = 7;
+
+          //console.log(replacement);
+          //d3.select(this).html(replacement);
         }
       }
     });
 
     prevFnName = currFn.name;
 
-  }
+  };
 
   var _highlight = function(args){
 
