@@ -8,7 +8,7 @@ DONE 6.5 get rid of redundant x button on the right.
 DONE - SubEnterExec    8. Rebind SubEnterExec when it comes back.
 - ??? try to return to original position.
 TEST - Reinitializing.  When a program has already been loaded, will the removed panels that have been re-added still work?
-
+- Disassembly - remove window and re-add it, make it still work.
 
 
 More FE things to debug.  Here’s a binary from the intel compiler (previous one was gcc):

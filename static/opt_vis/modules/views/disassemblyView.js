@@ -219,7 +219,10 @@ var makeDisassemblyView = function(model, viewId, divId){
         }
       }
 
-      d3.select(this).html(replacement);
+      if( replacement !== "" ) {
+          d3.select(this).html(replacement);
+      }
+
     });
 
     prevFnName = currFn.name;
