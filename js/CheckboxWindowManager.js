@@ -8,10 +8,15 @@ OV.CheckboxWindowManager = function() {
         $('[type="checkbox"]').unbind('click').bind('click', checked_ );
         $('.checkbox_open_close').unbind('click').bind('click', open_close_ );
 
-        $('.lm_close_tab').unbind('click').bind('click', closed_clicked_ );
+        bind_lm_handlers_();
+    };
 
+    var bind_lm_handlers_ = function() {
+
+        $('.lm_close_tab').unbind('click').bind('click', closed_clicked_ );
         $('.lm_header .lm_controls>li').css({"display": "none"});
     };
+
 
     var closed_clicked_ = function() {
 
@@ -20,6 +25,7 @@ OV.CheckboxWindowManager = function() {
 
         $('[check_type="' + title + '"] input').prop('checked', '');
     };
+
 
     var open_close_ = function() {
 
@@ -82,10 +88,8 @@ OV.CheckboxWindowManager = function() {
 
             parent0.removeChild(child, true);
         }
-    };
 
-    var destroy_handler_ = function() {
-        console.log('was destroyed.');
+        bind_lm_handlers_();
     };
 
 
