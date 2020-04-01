@@ -7,6 +7,10 @@ OV.AutoTester = function() {
         localStorage.setItem(AUTOTEST_DIR, dir);
     };
 
+    var remove_ = function() {
+        set_("");
+    };
+
     var input_ = function( dir ) {
         $('.exe_filename').val( dir );
         $('#enter_exec .get').trigger('click');
@@ -16,7 +20,7 @@ OV.AutoTester = function() {
 
         var dir = localStorage.getItem( AUTOTEST_DIR );
 
-        if( dir ) {
+        if( dir && dir !== "" ) {
             input_(dir);
         }
     };
@@ -24,6 +28,9 @@ OV.AutoTester = function() {
     $(document).ready( init_ );
 
     return {
-        set: set_
+        set: set_,
+        remove: remove_,
+        LTIMES: "/g/g0/pascal/ltimes",
+        THREE: "/g/g0/pascal/inputs/3/a.out"
     }
 }();
