@@ -1,6 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="en">
-	<head>
+<head>
     <meta charset="utf-8">
     <title>Compiler Optimization Explorer</title>
     <!--script src="static/opt_vis/lib/split.js"></script -->
@@ -22,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="static/opt_vis/goldenlayout-light-theme.css">
     <!-- <link rel="stylesheet" type="text/css" href="static/opt_vis/lib/autocomplete.css"> -->
     <link rel="stylesheet" type="text/css" href="static/opt_vis/lib/awesomplete.css">
-        <link rel="stylesheet" type="text/css" href="css/CheckboxWindowManager.css">
+    <link rel="stylesheet" type="text/css" href="css/CheckboxWindowManager.css">
 
 
     <link rel="stylesheet" type="text/css" href="static/opt_vis/style.css">
@@ -30,206 +30,206 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
-        <style>
-            #file_chooser {
-                position: absolute;
-                left: 260px;
-                width: 100px;
-            }
-        </style>
+    <style>
+        #file_chooser {
+            position: absolute;
+            left: 260px;
+            width: 100px;
+        }
+    </style>
 
 
 </head>
-  <body>
+<body>
 
-      <button class="dropbtn invisible" id= "mydropbtn">Menu</button>
+<button class="dropbtn invisible" id= "mydropbtn">Menu</button>
 
-        <div id="myHoverTopNav" class="dropdown">
+<div id="myHoverTopNav" class="dropdown">
 
-            <div id="topPanel" class="dropdown-content">
+    <div id="topPanel" class="dropdown-content">
 
-            <label style=" padding: 3px;" for="fi_src">Input source file</label>
-            <input style=" padding: 3px;" type="file" id="fi_src"/>
-            <br/>
-            <label style=" padding: 3px;" for="fi_dot">Input dot file</label>
-            <input style=" padding: 3px;" type="file" id="fi_dot"/>
-            <br/>
-            <label style=" padding: 3px;" for="fi_json">Input json analysis file</label>
-            <input style=" padding: 3px;" type="file" id="fi_json"/>
+        <label style=" padding: 3px;" for="fi_src">Input source file</label>
+        <input style=" padding: 3px;" type="file" id="fi_src"/>
+        <br/>
+        <label style=" padding: 3px;" for="fi_dot">Input dot file</label>
+        <input style=" padding: 3px;" type="file" id="fi_dot"/>
+        <br/>
+        <label style=" padding: 3px;" for="fi_json">Input json analysis file</label>
+        <input style=" padding: 3px;" type="file" id="fi_json"/>
 
-            <br/>
-            <input style=" margin: 3px;" type="button" id="loadFile" value="LoadFiles"/>
-            <br/>
+        <br/>
+        <input style=" margin: 3px;" type="button" id="loadFile" value="LoadFiles"/>
+        <br/>
 
-            <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="checkbox" id="enableTooltip" value="enableTooltip" checked>Enable Tooltip</label>
+        <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="checkbox" id="enableTooltip" value="enableTooltip" checked>Enable Tooltip</label>
 
-            <br/>
+        <br/>
 
-            <label style=" margin:3px; font-weight: bold; padding:1px"><input style=" margin: 3px;" type="checkbox" id="countEncoding" value="countEncoding" checked>Show Node Visit</label>
+        <label style=" margin:3px; font-weight: bold; padding:1px"><input style=" margin: 3px;" type="checkbox" id="countEncoding" value="countEncoding" checked>Show Node Visit</label>
 
-            <label style=" margin:3px; background-color:#fdd0a2; padding:1px"><input style=" margin: 3px;" type="checkbox" id="loopBgFill" value="loopBgFill" checked>Show Loop Boundaries</label>
-
-
-            <br/>
-
-            <input style=" margin: 3px;"  type="button" id="save" value="Save File"/>
-            <input style=" margin: 3px;" type="button" id="closeMenu" value="Close Menu">
-
-          </div>
-        </div>
+        <label style=" margin:3px; background-color:#fdd0a2; padding:1px"><input style=" margin: 3px;" type="checkbox" id="loopBgFill" value="loopBgFill" checked>Show Loop Boundaries</label>
 
 
-      <div id="sub_enter_exec" class="invisible">
+        <br/>
 
-          <div class="enter_exe">Enter executable input dir / name: <br>(for example /g/g0/pascal/inputs/1/a.out)</div>
-          <input type="text" class="exe_filename"/>
+        <input style=" margin: 3px;"  type="button" id="save" value="Save File"/>
+        <input style=" margin: 3px;" type="button" id="closeMenu" value="Close Menu">
 
-          <div class="button_outer get black_button">
-              <div class="inner_button">GET</div>
-          </div>
+    </div>
+</div>
 
-          <div class="main_message"></div>
 
-          <div class="sel_gen"></div>
-      </div>
+<div id="sub_enter_exec" class="invisible">
 
-      <div id="sub_fn_loopView" class="invisible panel">
-            <div class="search-container">
-              <input type="text" placeholder="Search function.." id="sub_searchFnText">
+    <div class="enter_exe">Enter executable input dir / name: <br>(for example /g/g0/pascal/inputs/1/a.out)</div>
+    <input type="text" class="exe_filename"/>
 
-              <!-- <div id="sub_searchFnText" placeholder="Search function.." style="width:100%; height:100%;"></div> -->
-              <!-- <button><i class="fa fa-search" id = "sub_searchFnBtn"></i></button> -->
-            </div>
+    <div class="button_outer get black_button">
+        <div class="inner_button">GET</div>
+    </div>
 
-            <h3 id = "sub_fnHeader">Function Inlining Tree</h3>
-              <svg id="sub_fnInlineView">
-                <g/>
-              </svg>
+    <div class="main_message"></div>
 
-            <h3 id="sub_loopHeader">Loop Hierarchy</h3>
-              <svg id="sub_loopsView">
-                <g/>
-              </svg>
-      </div>
+    <div class="sel_gen"></div>
+</div>
 
-      <div id="sub_highlightList" class="invisible">
+<div id="sub_fn_loopView" class="invisible panel">
+    <div class="search-container">
+        <input type="text" placeholder="Search function.." id="sub_searchFnText">
 
-         <h2> Selected Source Code: </h2>
-         <pre class="text_code">
+        <!-- <div id="sub_searchFnText" placeholder="Search function.." style="width:100%; height:100%;"></div> -->
+        <!-- <button><i class="fa fa-search" id = "sub_searchFnBtn"></i></button> -->
+    </div>
+
+    <h3 id = "sub_fnHeader">Function Inlining Tree</h3>
+    <svg id="sub_fnInlineView">
+        <g/>
+    </svg>
+
+    <h3 id="sub_loopHeader">Loop Hierarchy</h3>
+    <svg id="sub_loopsView">
+        <g/>
+    </svg>
+</div>
+
+<div id="sub_highlightList" class="invisible">
+
+    <h2> Selected Source Code: </h2>
+    <pre class="text_code">
           <code id="sub_text_highlight_src" class="js"> </code>
          </pre>
 
-         <h2> Selected Assembly: </h2>
-         <pre class="text_code">
+    <h2> Selected Assembly: </h2>
+    <pre class="text_code">
           <div id="sub_text_highlight_assembly"> </div>
          </pre>
 
-         <h2> Selected Graph Nodes: </h2>
-         <div id="sub_text_highlight_graph_nodes"> </div>
-      </div>
+    <h2> Selected Graph Nodes: </h2>
+    <div id="sub_text_highlight_graph_nodes"> </div>
+</div>
 
-      <!--
-      <div id="sub_reg_rename_window" class="invisible">
-        <h2> Register renamer: </h2>
-        <div id="sub_reg_rename"> </div>
-      </div>
-      -->
+<!--
+<div id="sub_reg_rename_window" class="invisible">
+  <h2> Register renamer: </h2>
+  <div id="sub_reg_rename"> </div>
+</div>
+-->
 
-      <div class = "template_var invisible">
-          Name: <input class="varName" type="text" style="font-weight: bold" />
-          <!-- <span class="varName" style="font-weight: bold"></span> -->
-          <div class = "locationsHolder"></div>
-          <button class = "btnAddLoc" style="margin-top:3px; margin-bottom:5px; margin-left:5px;">Add Location</button>
-          <br/>
-      </div>
-      <div class = "template_locHolder invisible">
-          Location: <input class="location" type="text"/>   Start: <input class = "start" type="text"/> End: <input class="end" type="text"/>
-      </div>
+<div class = "template_var invisible">
+    Name: <input class="varName" type="text" style="font-weight: bold" />
+    <!-- <span class="varName" style="font-weight: bold"></span> -->
+    <div class = "locationsHolder"></div>
+    <button class = "btnAddLoc" style="margin-top:3px; margin-bottom:5px; margin-left:5px;">Add Location</button>
+    <br/>
+</div>
+<div class = "template_locHolder invisible">
+    Location: <input class="location" type="text"/>   Start: <input class = "start" type="text"/> End: <input class="end" type="text"/>
+</div>
 
-      <div id="sub_var_rename_window" class="invisible" style="padding:5px;">
-        <h2>Variable renamer: </h2>
+<div id="sub_var_rename_window" class="invisible" style="padding:5px;">
+    <h2>Variable renamer: </h2>
 
-        <h4> Function: <span id="sub_fnName"> </span></h4>
-        Variables:
-        <div class="varsHolder"></div>
-        <button id = "sub_btnAddVar" style="margin-top:3px; margin-bottom:5px; margin-left:5px;
+    <h4> Function: <span id="sub_fnName"> </span></h4>
+    Variables:
+    <div class="varsHolder"></div>
+    <button id = "sub_btnAddVar" style="margin-top:3px; margin-bottom:5px; margin-left:5px;
         font-weight: bold">Add Variable</button>
-        <br/>
+    <br/>
 
-      </div>
+</div>
 
-      <div id="sub_left" class="invisible">
+<div id="sub_left" class="invisible">
       	<pre class="text_code">
          <code id="sub_text_src" class="js"> </code> 
         </pre>
 
-      </div>
+</div>
 
-      <div id="sub_middle" class="invisible">
-          <pre id="sub_text_assembly" class="text_code"></pre >
+<div id="sub_middle" class="invisible">
+    <pre id="sub_text_assembly" class="text_code"></pre >
 
-          <!--
-          <svg id = "sub_assemblyContainer">
-            <g/>
-          </svg>
-          -->
-      </div>
+    <!--
+    <svg id = "sub_assemblyContainer">
+      <g/>
+    </svg>
+    -->
+</div>
 
-      <div id="sub_right" class="invisible">
-      	<div id="sub_tooltip" class="hidden">
-           <p><span id="sub_tp_value"></span></p>
-        </div>
+<div id="sub_right" class="invisible">
+    <div id="sub_tooltip" class="hidden">
+        <p><span id="sub_tp_value"></span></p>
+    </div>
 
-        <!-- <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="checkbox" id="sub_enableBrush_cfg" value="enableBrush">Enable Brush</label> -->
-        <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="radio" checked="checked" name="cfgBrush" id="sub_enableNav_cfg" value="enableNav">Navigation Mode</label>
-        <br/>
-        <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="radio" name="cfgBrush" id="sub_enableBrush_cfg" value="enableBrush">Selection Mode</label>
-
-
-        <svg id="sub_graphContainer">
-
-          <g/>
-        </svg>
-
-      </div>
-
-       <div id="sub_call_graph" class="invisible panel">
-       <!-- <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="checkbox" id="sub_enableBrush_callgraph" value="enableBrush">Enable Brush</label> -->
-
-        <svg id="sub_callGraphContainer">
-          <g/>
-        </svg>
-      </div>
+    <!-- <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="checkbox" id="sub_enableBrush_cfg" value="enableBrush">Enable Brush</label> -->
+    <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="radio" checked="checked" name="cfgBrush" id="sub_enableNav_cfg" value="enableNav">Navigation Mode</label>
+    <br/>
+    <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="radio" name="cfgBrush" id="sub_enableBrush_cfg" value="enableBrush">Selection Mode</label>
 
 
-    <script src="js/StateManager.js"></script>
+    <svg id="sub_graphContainer">
 
-    <script src="static/opt_vis/modules/model.js"></script>
-    <script src="static/opt_vis/modules/controller.js"></script>
-    <script src="static/opt_vis/modules/views/sourceCodeView.js"></script>
-    <script src="static/opt_vis/modules/views/disassemblyView.js"></script>
-    <script src="static/opt_vis/modules/views/cfgView.js"></script>
-    <script src="static/opt_vis/modules/views/loopFnTreeView.js?a"></script>
-    <script src="static/opt_vis/modules/call_graph/callGraph.js"></script>
-    <script src="static/opt_vis/modules/var_rename/varRenamer.js"></script>
-    <script src="static/opt_vis/modules/modelUtils.js"></script>
-    <script src="static/opt_vis/modules/utils.js"></script>
-    <script src="static/opt_vis/modules/views/highlightedItemsView.js"></script>
-    <script src="static/opt_vis/main_with_mvc_goldenlayout.js"></script>
-    <script src="static/opt_vis/loopify_dagre.js"></script>
+        <g/>
+    </svg>
 
-    <script src="static/opt_vis/lib/highlight.pack.js"></script>
+</div>
 
-    <link rel="stylesheet" href="css/modal.css"/>
+<div id="sub_call_graph" class="invisible panel">
+    <!-- <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="checkbox" id="sub_enableBrush_callgraph" value="enableBrush">Enable Brush</label> -->
 
-    <script src="js/jquery.js"></script>
-    <script src="js/Ajax.js"></script>
-    <script src="js/GetFileChoices.js"></script>
-        <script src="js/ReusableView.js"></script>
-        <script src="js/ReturnStubs.js"></script>
-    <script src="js/CheckboxWindowManager.js"></script>
-    <script src="js/Common.js"></script>
-      <script src="js/AutoTester.js"></script>
+    <svg id="sub_callGraphContainer">
+        <g/>
+    </svg>
+</div>
 
-  </body>
+
+<script src="js/StateManager.js"></script>
+
+<script src="static/opt_vis/modules/model.js"></script>
+<script src="static/opt_vis/modules/controller.js"></script>
+<script src="static/opt_vis/modules/views/sourceCodeView.js"></script>
+<script src="static/opt_vis/modules/views/disassemblyView.js"></script>
+<script src="static/opt_vis/modules/views/cfgView.js"></script>
+<script src="static/opt_vis/modules/views/loopFnTreeView.js?a"></script>
+<script src="static/opt_vis/modules/call_graph/callGraph.js"></script>
+<script src="static/opt_vis/modules/var_rename/varRenamer.js"></script>
+<script src="static/opt_vis/modules/modelUtils.js"></script>
+<script src="static/opt_vis/modules/utils.js"></script>
+<script src="static/opt_vis/modules/views/highlightedItemsView.js"></script>
+<script src="static/opt_vis/main_with_mvc_goldenlayout.js"></script>
+<script src="static/opt_vis/loopify_dagre.js"></script>
+
+<script src="static/opt_vis/lib/highlight.pack.js"></script>
+
+<link rel="stylesheet" href="css/modal.css"/>
+
+<script src="js/jquery.js"></script>
+<script src="js/Ajax.js"></script>
+<script src="js/GetFileChoices.js"></script>
+<script src="js/ReusableView.js"></script>
+<script src="js/ReturnStubs.js"></script>
+<script src="js/CheckboxWindowManager.js"></script>
+<script src="js/Common.js"></script>
+<script src="js/AutoTester.js"></script>
+
+</body>
 </html>
