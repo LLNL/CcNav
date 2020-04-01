@@ -10,10 +10,10 @@
     <script src="static/opt_vis/lib/graphlib-dot.min.js"></script>
     <script src="static/opt_vis/lib/dagre-d3.min.js"></script>
     <script src="static/opt_vis/lib/convexhull.js"></script>
-    
+
     <!-- script src="static/opt_vis/lib/jquery-3.3.1.min.js"></script -->
     <script src="static/opt_vis/lib/jquery-1.11.1.min.js"></script>
-    
+
     <script src="static/opt_vis/lib/goldenlayout.min.js"></script>
     <!-- <script src="static/opt_vis/lib/autocomplete.js"></script> -->
     <script src="static/opt_vis/lib/awesomplete.js"></script>
@@ -28,7 +28,7 @@
     <link rel="stylesheet" type="text/css" href="static/opt_vis/style.css">
     <link rel="stylesheet" href="static/opt_vis/lib/atom-one-light.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
 
         <style>
             #file_chooser {
@@ -37,26 +37,26 @@
                 width: 100px;
             }
         </style>
-    
-  
+
+
 </head>
   <body>
 
       <button class="dropbtn invisible" id= "mydropbtn">Menu</button>
 
         <div id="myHoverTopNav" class="dropdown">
-          
+
             <div id="topPanel" class="dropdown-content">
-            
+
             <label style=" padding: 3px;" for="fi_src">Input source file</label>
             <input style=" padding: 3px;" type="file" id="fi_src"/>
-            <br/>  
+            <br/>
             <label style=" padding: 3px;" for="fi_dot">Input dot file</label>
             <input style=" padding: 3px;" type="file" id="fi_dot"/>
             <br/>
             <label style=" padding: 3px;" for="fi_json">Input json analysis file</label>
             <input style=" padding: 3px;" type="file" id="fi_json"/>
-            
+
             <br/>
             <input style=" margin: 3px;" type="button" id="loadFile" value="LoadFiles"/>
             <br/>
@@ -68,7 +68,7 @@
             <label style=" margin:3px; font-weight: bold; padding:1px"><input style=" margin: 3px;" type="checkbox" id="countEncoding" value="countEncoding" checked>Show Node Visit</label>
 
             <label style=" margin:3px; background-color:#fdd0a2; padding:1px"><input style=" margin: 3px;" type="checkbox" id="loopBgFill" value="loopBgFill" checked>Show Loop Boundaries</label>
-           
+
 
             <br/>
 
@@ -96,7 +96,7 @@
       <div id="sub_fn_loopView" class="invisible panel">
             <div class="search-container">
               <input type="text" placeholder="Search function.." id="sub_searchFnText">
-              
+
               <!-- <div id="sub_searchFnText" placeholder="Search function.." style="width:100%; height:100%;"></div> -->
               <!-- <button><i class="fa fa-search" id = "sub_searchFnBtn"></i></button> -->
             </div>
@@ -109,13 +109,13 @@
             <h3 id="sub_loopHeader">Loop Hierarchy</h3>
               <svg id="sub_loopsView">
                 <g/>
-              </svg>  
+              </svg>
       </div>
 
       <div id="sub_highlightList" class="invisible">
-        
+
          <h2> Selected Source Code: </h2>
-         <pre class="text_code"> 
+         <pre class="text_code">
           <code id="sub_text_highlight_src" class="js"> </code>
          </pre>
 
@@ -123,7 +123,7 @@
          <pre class="text_code">
           <div id="sub_text_highlight_assembly"> </div>
          </pre>
-         
+
          <h2> Selected Graph Nodes: </h2>
          <div id="sub_text_highlight_graph_nodes"> </div>
       </div>
@@ -143,31 +143,31 @@
           <br/>
       </div>
       <div class = "template_locHolder invisible">
-          Location: <input class="location" type="text"/>   Start: <input class = "start" type="text"/> End: <input class="end" type="text"/> 
+          Location: <input class="location" type="text"/>   Start: <input class = "start" type="text"/> End: <input class="end" type="text"/>
       </div>
 
       <div id="sub_var_rename_window" class="invisible" style="padding:5px;">
         <h2>Variable renamer: </h2>
-        
+
         <h4> Function: <span id="sub_fnName"> </span></h4>
         Variables:
         <div class="varsHolder"></div>
-        <button id = "sub_btnAddVar" style="margin-top:3px; margin-bottom:5px; margin-left:5px; 
+        <button id = "sub_btnAddVar" style="margin-top:3px; margin-bottom:5px; margin-left:5px;
         font-weight: bold">Add Variable</button>
         <br/>
 
       </div>
-     
+
       <div id="sub_left" class="invisible">
       	<pre class="text_code">
          <code id="sub_text_src" class="js"> </code> 
         </pre>
-            
+
       </div>
 
       <div id="sub_middle" class="invisible">
           <pre id="sub_text_assembly" class="text_code"></pre >
-          
+
           <!--
           <svg id = "sub_assemblyContainer">
             <g/>
@@ -187,10 +187,10 @@
 
 
         <svg id="sub_graphContainer">
-            
+
           <g/>
         </svg>
-            
+
       </div>
 
        <div id="sub_call_graph" class="invisible panel">
@@ -217,10 +217,11 @@
     <script src="static/opt_vis/modules/views/highlightedItemsView.js"></script>
     <script src="static/opt_vis/main_with_mvc_goldenlayout.js"></script>
     <script src="static/opt_vis/loopify_dagre.js"></script>
-        
+
     <script src="static/opt_vis/lib/highlight.pack.js"></script>
 
     <link rel="stylesheet" href="css/modal.css"/>
+
     <script src="js/jquery.js"></script>
     <script src="js/Ajax.js"></script>
     <script src="js/GetFileChoices.js"></script>
@@ -228,6 +229,7 @@
         <script src="js/ReturnStubs.js"></script>
     <script src="js/CheckboxWindowManager.js"></script>
     <script src="js/Common.js"></script>
+      <script src="js/AutoTester.js"></script>
 
   </body>
 </html>
