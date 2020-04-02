@@ -38,6 +38,7 @@ OV.CheckboxWindowManager = function() {
     var checked_ = function() {
 
         win_name_ = $(this).parent().find('.txt').html();
+        win_name_ = win_name_.toLowerCase();
 
         var becoming_checked = $(this).is(':checked');
         var varRe = myLayout.root.getItemsByFilter( find_ );
@@ -49,17 +50,20 @@ OV.CheckboxWindowManager = function() {
 
         console.log('check: ' + win_name_ + "   ch=" + becoming_checked );
 
+        var spec_child = specs_[win_name_];
+
         if( becoming_checked ) {
 
-            var child = specs_[win_name_];
+            var save_context = parents_[win_name_];
+            console.dir(save_context);
 
-            //var save_context = parents_[win_name_];
             //var ind = +save_context.index;
             //save_context.parent.addChild( save_context.child, ind );
             //  save_context.child
 
             //save_context.child.show();
-            myLayout.root.contentItems[0].contentItems[0].addChild( child );
+
+            myLayout.root.contentItems[0].addChild( spec_child, 1 );
 
             OV.GetFileChoices.init();
 
@@ -72,6 +76,7 @@ OV.CheckboxWindowManager = function() {
             //  remove the tab, becoming unchecked.
             var child = varRe[0];
             var parent0 = child.parent;
+            var grandpa = child.parent.parent;
             var index = get_index_( parent0, child );
 
             parents_[win_name_] = {
@@ -80,13 +85,18 @@ OV.CheckboxWindowManager = function() {
                 index: index
             };
 
-            console.dir(child);
+            console.dir(parents_[win_name_]);
 
             //  keep child and don't destroy it.
             //child.close(); //  close seems to work, but I can't find the command: open (WTH?)
             //parent0.hide();
 
+            //child.element.hide();  //  this one seems to leave a gap, it doesn't resize the elements
             parent0.removeChild(child, true);
+
+            setTimeout(function() {
+                //grandpa.addChild( spec_child );
+            }, 2000);
         }
 
         bind_lm_handlers_();
@@ -117,14 +127,14 @@ OV.CheckboxWindowManager = function() {
 
 
     var specs_ = {
-        "SubEnterExec": OP.original_config.content[0].content[0].content[0],
-        "HighlightedItems": OP.original_config.content[0].content[0].content[1],
-        "VarRenamer": OP.original_config.content[0].content[0].content[2],
-        "FnLoops": OP.original_config.content[0].content[1],
-        "SourceCode": OP.original_config.content[0].content[2],
-        "Disassembly": OP.original_config.content[0].content[3],
-        "CallGraph": OP.original_config.content[0].content[4].content[0],
-        "CFG": OP.original_config.content[0].content[4].content[1]
+        "subenterexec": OP.original_config.content[0].content[0].content[0],
+        "highlighteditems": OP.original_config.content[0].content[0].content[1],
+        "varrenamer": OP.original_config.content[0].content[0].content[2],
+        "fnloops": OP.original_config.content[0].content[1],
+        "sourcecode": OP.original_config.content[0].content[2],
+        "disassembly": OP.original_config.content[0].content[3],
+        "callgraph": OP.original_config.content[0].content[4].content[0],
+        "cfg": OP.original_config.content[0].content[4].content[1]
     };
 
 
