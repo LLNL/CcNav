@@ -102,4 +102,70 @@ var is_lc = function() {
   return location.origin.indexOf("lc.llnl.gov") > -1;
 };
 
+// This function takes an array of intervals and finds the max and min of the endpoints
+// Params: 
+//		arrIntervals: array of intervals
+//		highAccessor: the field for accessing the high value 
+//		lowAccessor: the field for accessing the low value 
+// Returns [min, max] array
+function getBoundingRange(arrIntervals, highAccessor, lowAccessor){
+
+	var minVal = Infinity;
+	var maxVal = -Infinity;
+
+	for(var i=0; i<arrIntervals.length; i++){
+		minVal = Math.min(minVal, arrIntervals[i][lowAccessor]);
+		maxVal = Math.max(maxVal, arrIntervals[i][highAccessor]);
+	}
+	return [minVal, maxVal];
+}
+
+// This function takes two intervals and returns true if they intersect 
+function isIntersectIntervals(interval1, interval2, highAccessor, lowAccessor){
+	// x2 >= y1 and y2 >= x1
+	return (interval1[highAccessor] >= interval2[lowAccessor] 
+		&& interval2[highAccessor] >= interval1[lowAccessor]);
+}
+
+// This function takes an interval and a point and returns true if they intersect
+function isPtIntersectInteval(interval, highAccessor, lowAccessor, pt){
+	return (pt >= interval[lowAccessor] && pt <= interval[highAccessor]);
+}
+
+// This function asserts whether a condition is true
+// Throws an error when the condition is false
+function assert(condition, message) {
+    if (!condition) {
+        message = message || "Assertion failed";
+        if (typeof Error !== "undefined") {
+            throw new Error(message);
+        }
+        throw message; // Fallback
+    }
+}
+
+// This utility returns the leaves from a tree
+function getLeaves(tree){
+
+  var leafList = [];
+  addLeaf(tree, leafList);
+  return leafList;
+
+}
+
+// This function adds the leaves recursively to an array
+function addLeaf(node, leafList){
+  if(node == null){
+    return;
+  }
+  if(!(node.children)){
+    leafList.push(node);
+  }
+  else {
+    for(var i = 0; i<node.children.length; i++){
+      addLeaf(node.children[i], leafList);
+    }
+  }
+}
+
 

@@ -1,18 +1,40 @@
 
 var OP = OP || {};
-var SRC_FILENAME = 'lulesh.cc';
-var JSON_FILENAME = 'lulesh2.0.json';
+var DATASET = "lulesh";
+// var DATASET = "testsinglefile"; 
 
-var DOT_FILENAME_FULL = 'lulesh2.0.dot';
+if(DATASET === "lulesh"){
+  var SRC_FILENAME = 'lulesh.cc';
+  var JSON_FILENAME = 'lulesh2.0.json';
+  var DOT_FILENAME_FULL = 'lulesh2.0.dot';
+} else if(DATASET === "testsinglefile") {
+  var SRC_FILENAME = 'singlefile.cpp';
+  var JSON_FILENAME = 'singlefile.out.json';
+  var DOT_FILENAME_FULL = 'singlefile.out.dot';
+}
 
 if(isHostLLNL()){
   var pre2 = "/lorenz_base/dev/pascal/optvis";
-  var prefix = pre2 + "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
+  if(DATASET === "lulesh"){
+    var prefix = pre2 + "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
+  } else if(DATASET === "testsinglefile") {
+    var prefix = pre2 + "/static/opt_vis/sample_inputs/test_singlefile/";
+  }
+
 } else if(isXAMPP()){
   var pre2 = "/sd_xampp_dev/opt_vis";
-  var prefix = pre2 + "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
+  if(DATASET === "lulesh"){
+    var prefix = pre2 + "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
+  } else if(DATASET === "testsinglefile") {
+    var prefix = pre2 + "/static/opt_vis/sample_inputs/test_singlefile/";
+  }
+
 } else {
-  var prefix = "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
+  if(DATASET === "lulesh"){
+    var prefix = "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
+  } else if(DATASET === "testsinglefile") {
+    var prefix = "/static/opt_vis/sample_inputs/test_singlefile/";
+  }
 }
 
 var tree_data = {};
@@ -469,6 +491,7 @@ function loadFile(){
 	        model.register(view_highlighted_items.render);
 	        model.register(view_var_renamer.render);
           model.register(view_callgraph.highlight);
+          model.register(view_navBar_Loops.render);
           
           model.registerWithTag(view_disassembly.highlight, viewTypes.viewDisassembly);
           model.registerWithTag(view_var_renamer.render, viewTypes.viewVarRenamer);
@@ -481,6 +504,7 @@ function loadFile(){
           view_graph.register(controller.dispatch);
         	view_var_renamer.register(controller.dispatch);
           view_callgraph.register(controller.dispatch);
+          view_navBar_Loops.register(controller.dispatch);
 
 	      }
 	      /***** Edit Comment for load menu ********/	

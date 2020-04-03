@@ -134,15 +134,88 @@ var makeModel = function() {
     // loopsObj: loopsObj,
     // dotFile: dotFile,
 
-    list_registers: list_registers 
+    list_registers: list_registers,
+   
+    // bblocks are keyed by the bblock ids 
+    bblocks: {},
+    
+    // This is the list of selected address ranges. Selections in any view can be
+  	// converted to a list of address intervals.
+  	selectedAddrRanges: [],
+
+    // This is the filename of the currently active source file
+    sourceFileName: "",
+
+    // This is the tree representation of the loop fn tree. This is the full tree
+    loopFnTree: {},
+    // This is the tree representation of the fn inline tree. This is the full tree
+    fnInlineTree: {},
+    
+    // These trees are filtered versions of the trees above. They are based on the 
+    // selections in terms of address ranges
+    filteredloopFnTree : null,
+    filteredfnInlineTree : null,
+
+    // Interval trees for the loops and inlines
+    loopFnIntervalTree: {},
+    fnInlineIntervalTree: {},
+    // Interval tree for source code and address range mapping
+    srcIntervalTree: {},
+    // Interval tree for basic blocks and address range mapping
+    bbIntervalTree: {},
+
+    // Array of functions and inlines. The object is computed using d3 tree layout. 
+    // Contains the original object in the "ref" field. Also conatins the "depth" field. 
+    fnInlineList: [],  
+    // Similarly with loop and function nodes
+    loopFnList: [],
+
+    // This variable stores the current selected function when 
+    // the function is selected using the function tree or loop tree
+    // or in the variable renaming view
+    selectedFn: null, 
+    selectedLoop: null,
+
+    // current scroll locations for the three views
+    // source, disassembly, and cfg views
+    // scrollLocs: {viewTypes.viewSrc: null, viewTypes.viewDisassembly: null, 
+      // viewTypes.viewCFG: null}
+
+    scrollLocs: {}
+
   };
+
+
 
   // List of views that will listen for changes
   var _observers = makeSignaller();
 
+  _init();
+
+  // This function initializes the model and populates remaining data
+  function _init(){
+
+    _dataStore.scrollLocs[viewTypes.viewSrc] = null;
+    _dataStore.scrollLocs[viewTypes.viewDisassembly] = null;
+    _dataStore.scrollLocs[viewTypes.viewCFG] = null;
+
+    _dataStore.bblocks = getBBsFromFns(_dataStore);
+    console.log(_dataStore.bblocks);
+
+    // Creates the interval tree for source line mappings 
+    _dataStore.srcIntervalTree = createSourceIntervalTree(_dataStore.jsonData.lines);
+    // Creates the interval tree for basicblocks
+    _dataStore.bbIntervalTree = createBBIntervalTree(_dataStore.bblocks);
+  }
+
   return {
     highlight: function(args){
 
+      // handleHighlightandRange(args, isRange, _dataStore, _observers);
+      handleHighlightandRange(args, false, _dataStore, _observers);
+
+      /** Old highlight code without the address range abstraction **/
+      /*
       // This is the object that the event is executed on
     	var d = args.d;
       // This is the datatype of the object that the event is executed on
@@ -192,6 +265,7 @@ var makeModel = function() {
       		}
 
       		_updateCGHighlight();
+          _observers.notify();
 
       	break;
 
@@ -240,6 +314,7 @@ var makeModel = function() {
       		}
 
           _updateCGHighlight();
+          _observers.notify();
 
       	break;
 
@@ -281,6 +356,7 @@ var makeModel = function() {
       		}
 
           _updateCGHighlight();
+          _observers.notify();
 
       	break;
 
@@ -297,20 +373,34 @@ var makeModel = function() {
 
           // Only update the callGraph view
           _observers.notifyWithTag(viewTypes.viewCallGraph);
-          return;
           break;
 
+        case dataTypes.loopTreeNode:
+
+          // For any view, get the items that are selected
+          var bblockIds = d.ref.blocks;
+          // convert the items into address ranges
+          _dataStore.selectedAddrRanges = getAddrRangesFromBBs(_dataStore, bblockIds);
+          // update all the data based on selected address ranges
+          _updateAllData(_dataStore, _dataStore.selectedAddrRanges);
+          
+          // render all the views
+          // _observers.notify();
+
       	default:
-      		return;
       		break;
       }
+    */
 
-      _observers.notify();
     },
 
     rangeSelect: function(args){
 
-      
+      // handleHighlightandRange(args, isRange, _dataStore, _observers);
+      handleHighlightandRange(args, true, _dataStore, _observers);
+
+      /** Old range select code without the address range abstraction **/
+      /*
       switch(args.dataType){
 
         case dataTypes.sourceCodeLine:
@@ -465,27 +555,21 @@ var makeModel = function() {
           break;
 
       }
+      */
 
-    }
-
-    ,
+    },
 
     focus: function(args){
-
     	// TODO: Implement the focus logic here
-
       // _observers.notify();
     },
 
     focusOut: function(args){
-
-
       // TODO: Implement the focus out logic here	
       // _observers.notify();
     }, 
 
     click: function(args){
-
     	// TODO: Implement the click logic here
     	// _observers.notify();
     },

@@ -2,8 +2,13 @@
 var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
 	
 	// var graph;
-	var loopTree = {};
-	var fnInlineTree = {};
+	
+	// These trees are stored in the model now
+	// var loopTree = model.get("loopFnTree");
+	// var fnInlineTree = model.get("fnInlineTree");
+	// var filteredloopFnTree = model.get("filteredloopFnTree");
+ 	// var filteredfnInlineTree = model.get("filteredfnInlineTree");
+	
 	// var loopDataLoaded = false;
 	var _observers = makeSignaller();
 	
@@ -13,37 +18,63 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
 	// variables for inline tree
 	var margin2, barHeight2, i2, duration2, root2, tree2, diagonal2, svg2;
 
-	// Array holding the list of functions and inlines. The object is computed using d3 tree layout. 
+	// Array of functions and inlines. The object is computed using d3 tree layout. 
 	// Contains the original object in the "ref" field. Also conatins the "depth" field. 
-	var fnInlineList;
+	// var fnInlineList;
+	// Similarly with loop and function nodes
+	// var loopFnList;
 	
 	var server_dir;
 
-	var _highlightEvent = function(d,i){
-	// 	_observers.notify({
-	// 		type: signalType.highlight,
-	// 		dataType: dataTypes.loopTreeObject,
-	// 		d: d,
-	// 		i: i
-	// 	});
+	var _highlightEvent = function(d,i,dataType){
+		_observers.notify({
+			type: signalType.highlight,
+			dataType: dataType,
+			d: d,
+			i: i
+		});
 	};
 
 	var _reset = function(){
+
 		// loopDataLoaded = false;
-		loopTree = {};
-		fnInlineTree = {};
+		model.set("loopFnTree", {});
+		model.set("fnInlineTree", {});
+		model.set("filteredloopFnTree", null);
+		model.set("filteredfnInlineTree", null);
+
 		_setupViewToggles();
 		_init(loopId, "loop");
 		_init(inlineId, "inline");
+		_setupResetButton();
+
 	}
 
 	_reset();
+
+	// This function sets up the reset button. Different from the reset function used 
+	// to initialize the view during creation.
+	function _setupResetButton(){	
+		d3.select("#" + divId + " .btnReset").on("click", function(){
+			// console.log("Reset button clicked");
+			// set the filtered trees to the full trees
+			model.set("filteredfnInlineTree", model.get("fnInlineTree"));
+			model.set("filteredloopFnTree", model.get("loopFnTree"));
+
+			_dataChanged();
+	  		_render(loopId, "loop");
+	  		_render(inlineId, "inline");
+
+		});
+	}
 
 	function _setupViewToggles(){
 		d3.selectAll("#" + divId + " h3")
 	    .on("dblclick", function(){
 	      
-	    	var id = d3.select(this).attr('id');
+	      	var thisView = d3.select(this);
+	    	var id = thisView.attr('id');
+	    	thisView.classed("collapsed", !thisView.classed("collapsed"));
 	    	if(id == "fnHeader"){
 	    		var treeHolder = d3.select("#" + inlineId);
 	    		treeHolder.classed("hidden", !treeHolder.classed("hidden"));
@@ -51,9 +82,6 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
 	    		var treeHolder = d3.select("#" + loopId);
 	    		treeHolder.classed("hidden", !treeHolder.classed("hidden"));
 	    	}
-
-	      
-
 	    });
 	}
 
@@ -69,6 +97,7 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
 		var roots = [];
 		populateChildrenandRoots(loopsObj, roots);
 		loopTree = makeTree(loopsObj, roots);
+		model.set("loopFnTree", loopTree);
 		loopTree.x0 = 0;
 		loopTree.y0 = 0;
 
@@ -78,19 +107,30 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
 
 	function _render(viewId, type){
 		if(type=="loop"){
-			root = loopTree;
+			root = model.get("filteredloopFnTree");
+			root.x0 = 0;
+  			root.y0 = 0;
 			update(root, viewId, type, root, margin, barHeight, i, duration, tree, diagonal, svg);
 
 		}	else if(type=="inline") {
-			root2 = fnInlineTree;
+			root2 = model.get("filteredfnInlineTree");
+			root2.x0 = 0;
+  			root2.y0 = 0;
 			update(root2, viewId, type, root2, margin2, barHeight2, i2, duration2, tree2, diagonal2, svg2);
 		}
+	}
+
+	function _dataChanged(){
+		i = 0;
+		i2 = 0;
+		svg.selectAll(".treeNode").remove();
+		svg2.selectAll(".treeNode").remove();
 	}
 
     function _init(viewId, type){
 
     	if(type == "loop"){
-	    	margin = {top: 10, right: 10, bottom: 10, left: 5};
+	    	margin = {top: 0, right: 10, bottom: 10, left: 5};
 		  	barHeight = 20;
 
 		  	i = 0, duration = 400, root;
@@ -119,12 +159,24 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
 		    // 	loadLoopAnalysis();
 		    // }
 
-		    loopTree = createFnLoopTree(model);
+		    var loopTree = createFnLoopTree(model);
+		    model.set("loopFnTree", loopTree);
+		    model.set("filteredloopFnTree", loopTree);
+
+		    var loopFnList = tree.nodes(loopTree);
+		    for(var k=0; k<loopFnList.length; k++){
+		    	loopFnList[k].id = k;	
+		    }
+		    model.set("loopFnList", loopFnList);
+
+		    var loopFnIntTree = createLoopFnIntervalTree(model, loopFnList);
+		    model.set("loopFnIntervalTree", loopFnIntTree);
+
 		    _render(viewId, type);
 
 		}	else if(type=="inline") {
 
-			margin2 = {top: 10, right: 10, bottom: 10, left: 5};
+			margin2 = {top: 0, right: 10, bottom: 10, left: 5};
 		  	barHeight2 = 20;
 
 		  	i2 = 0, duration2 = 400, root2;
@@ -138,9 +190,19 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
 		    svg2 = d3.select("#" + viewId + " g")
 		    	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-		    fnInlineTree = createFnInlineTree(model);
-		    fnInlineList = tree2.nodes(fnInlineTree);
+		    var fnInlineTree = createFnInlineTree(model);
+		    model.set("fnInlineTree", fnInlineTree);
+		    model.set("filteredfnInlineTree", fnInlineTree);
+
+		    var fnInlineList = tree2.nodes(fnInlineTree);
+		    for(var k=0; k<fnInlineList.length; k++){
+		    	fnInlineList[k].id = k;	
+		    }
+		    model.set("fnInlineList", fnInlineList);
 		    _setupAutocomplete(fnInlineList);
+
+		    var fnInlineIntTree = createFnInlineIntervalTree(model, fnInlineList);
+		    model.set("fnInlineIntervalTree", fnInlineIntTree);
 
 		    _render(viewId, type);
 
@@ -149,22 +211,30 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
     }
 
 	function _setupAutocomplete(list){
-    
 	     var input = document.getElementById("searchFnText");
 	     new Awesomplete(input, 
 	     	{
 	     		list:list, 
 		     	data: function(item, input){
 		     		return {label: item.name, value:item.name};
-		     	},
-		     	selectcomplete: function(text, originalEvent){
-		     		console.log(text);
-		     		console.log(originalEvent);
 		     	}
 
 	     	});
-
-
+	    
+	    input.addEventListener("awesomplete-selectcomplete", function(e){
+	    	// console.log(e);
+	    	var d;
+	    	var fnInlineList = model.get("fnInlineList");
+	    	for(var i = 0; i<fnInlineList.length; i++){
+	    		if(fnInlineList[i].name === e.text.label){
+	    			d = fnInlineList[i];
+	    			console.log(d);
+	    			_highlightEvent(d, null, dataTypes.fnTreeNode);
+	    			return;
+	    		} 
+	    		
+	    	}
+	    });
     }
 
     /*
@@ -220,12 +290,14 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
 	        .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
 	        .style("opacity", 0);
 
-	    var dblclickHndlr;
+	    var dblclickHndlr, clickHndlr;
 
 	    if(type=="loop"){    
 	        dblclickHndlr = dblclickLoop;
+	        clickHndlr = clickLoop;
 	    }   else if (type=="inline"){
 	    	dblclickHndlr = dblclickInline;
+	    	clickHndlr = clickInline;
 	    }
 
 	    // Enter any new nodes at the parent's previous position.
@@ -234,7 +306,7 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
 	        .attr("height", barHeight)
 	        .attr("width", barWidth)
 	        .style("fill", color)
-	        .on("click", click)
+	        .on("click", clickHndlr)
 	        .on("dblclick", dblclickHndlr);
 
 	    nodeEnter.append("text")
@@ -255,7 +327,7 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
 	        // .duration(duration)
 	        .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
 	        .style("opacity", 1)
-	        .classed("invisible", function(d){return d.name == "root";})
+	        .classed("invisible", function(d){return d.type == "root";})
 	      .select("rect")
 	        .style("fill", color);
 
@@ -345,9 +417,21 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
     update(d, inlineId, "inline", root2, margin2, barHeight2, i2, duration2, tree2, diagonal2, svg2);	
   }
 
+  function clickInline(d, i) {
+  	console.log(i);
+  	console.log(d);
+  	_highlightEvent(d,i,dataTypes.fnTreeNode);
+  }
+
   // highlight and navigate to the loop in the CFG
-  function click(d, i) {
-  	_highlightEvent(d,i);
+  function clickLoop(d, i) {
+  	console.log(i);
+  	console.log(d);
+  	if(d.type == "loop"){
+  		_highlightEvent(d,i, dataTypes.loopTreeNode);	
+  	}	else {
+  		_highlightEvent(d,i, dataTypes.fnTreeNode);
+  	}
   }
 
   function color(d) {
@@ -366,6 +450,7 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
 
   return {
   	render: function(){
+  		_dataChanged();
   		_render(loopId, "loop");
   		_render(inlineId, "inline");
   		// _highlight();
@@ -421,7 +506,7 @@ function populateChildrenandRoots(loopsObj, roots){
 
 function makeTree(loopsObj, roots){
 	
-	var loopTree = {name: "root", ref: null, children: []};
+	var loopTree = {name: "root", ref: null, children: [], type: "root"};
 	var counter = {count:0};
 
 	for(var i=0; i<roots.length; i++){
@@ -459,10 +544,10 @@ function addNode(currObj, counter, loopsObj){
 function createFnInlineTree(model){
 
 	var functions = model.get("jsonData").functions;
-	var fnInlineTree = {name: "root", ref: null, children: []};
+	var fnInlineTree = {name: "root", ref: null, children: [], type:"root"};
 	
 	for(var i=0; i<functions.length; i++){
-		fnInlineTree.children.push(addFnInlineNode(functions[i]));
+		fnInlineTree.children.push(addFnInlineNode(functions[i], "function"));
 	}
 
 	return fnInlineTree;
@@ -472,8 +557,8 @@ function createFnInlineTree(model){
 // This function recursively adds children nodes to the curr node of the tree
 // params:
 //  currObj: the curr obj
-function addFnInlineNode(currObj){
-	var thisNode = {name: currObj["name"], ref:currObj, children:[]};
+function addFnInlineNode(currObj, type="inline"){
+	var thisNode = {name: currObj["name"], ref:currObj, children:[], type:type};
 	if(currObj["inlines"] && currObj["inlines"].length > 0){
 		for(var i=0; i<currObj["inlines"].length; i++){
 			thisNode.children.push(addFnInlineNode(currObj["inlines"][i]));
@@ -486,10 +571,10 @@ function addFnInlineNode(currObj){
 function createFnLoopTree(model){
 
 	var functions = model.get("jsonData").functions;
-	var fnLoopTree = {name: "root", ref: null, children: []};
+	var fnLoopTree = {name: "root", ref: null, children: [], type: "root"};
 	
 	for(var i=0; i<functions.length; i++){
-		fnLoopTree.children.push(addLoopNode(functions[i]));
+		fnLoopTree.children.push(addLoopNode(functions[i], "function"));
 	}
 
 	return fnLoopTree;
@@ -499,8 +584,8 @@ function createFnLoopTree(model){
 // This function recursively adds children nodes to the curr node of the tree
 // params:
 //  currObj: the curr obj
-function addLoopNode(currObj){
-	var thisNode = {name: currObj["name"], ref:currObj, children:[]};
+function addLoopNode(currObj, type="loop"){
+	var thisNode = {name: currObj["name"], ref:currObj, children:[], type: type};
 	if(currObj["loops"] && currObj["loops"].length > 0){
 		for(var i=0; i<currObj["loops"].length; i++){
 			thisNode.children.push(addLoopNode(currObj["loops"][i]));

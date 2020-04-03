@@ -15,14 +15,31 @@ var dataTypes = {
  graphNode: 'GRAPH_NODE',
  registerName: 'REGISTER_NAME',
  varName: 'VAR_NAME',
- callGraphNode: 'CALLGRAPH_NODE'
+ callGraphNode: 'CALLGRAPH_NODE',
+ loopTreeNode: 'LOOPTREE_NODE',
+ fnTreeNode: 'FNTREE_NODE'
 };
 
 var viewTypes = {
   viewVarRenamer: 'VAR_RENAMER_VIEW',
   viewDisassembly: 'DISASSEMBLY_VIEW',
-  viewCallGraph: 'CALLGRAPH_VIEW' 
+  viewCallGraph: 'CALLGRAPH_VIEW',
+  viewSrc: 'SRC_VIEW',
+  viewCFG: 'CFG_VIEW' 
 };
+
+var strTypes = {
+	function: "function",
+	loop: "loop",
+	inline: "inline"
+};
+
+const IntervalTree = window["@flatten-js/interval-tree"].default;
+
+// function AddrRange(start, end){
+//   this.start = start;
+//   this.end = end;
+// }
 
 var makeSignaller = function(){
   var _subscribers = [];
@@ -630,6 +647,37 @@ function getKHopGraphDirected(full_graph, setOfNodes, numHops, maxNodes, directi
 
 }
 
+// This function gets the basicblocks from the functions in the json file
+// The basicblocks contain the id and the start and end address along with a set of flags
+// The flags are one of these ['vector', 'memread', 'memwrite', 'call', 'syscall', 'fp']
+// Returns a bblocks object where keys are the ids of the blocks
+function getBBsFromFns(dataSource){
+
+  // get bblocks from functions
+  // var bblocks = [];
+  var bblocks = {};
+
+  var functions = dataSource.jsonData.functions;
+
+  for(var i=0; i<functions.length; i++){
+    var thisBBlocks = functions[i]["basicblocks"];
+    for(var j=0; j<thisBBlocks.length; j++){
+      thisBBlocks[j]["function"] = functions[i]["name"];
+      // bblocks.push(thisBBlocks[j]);
+      bblocks[thisBBlocks[j].id] = thisBBlocks[j];
+    }
+  }
+  
+  // sort the bblocks on the id
+
+  // bblocks.sort(function(a, b) {
+  //     return a.id - b.id;
+  //   });
+
+  return bblocks;
+
+}
+
 
 
 // Binary search on an array of objects
@@ -646,14 +694,14 @@ function binarySearch(arr, key, l, r, val){
   var m;
 
   while (l <= r) {
-    m = l + Math.floor((r-1)/2);
+    m = Math.floor((l+r)/2);
 
     // check if val is present at mid 
-    if(arr[m].key == val)
+    if(arr[m][key] === val)
       return m;
 
     // if val is greater, ignore left half
-    if (arr[m].key < val) {l = m + 1; }
+    if (arr[m][key] < val) {l = m + 1; }
     // else ignore right half
     else { r = m - 1; }
 
@@ -662,4 +710,415 @@ function binarySearch(arr, key, l, r, val){
   // val not found in the array
   return -1;
 
+}
+
+// NOTE: The address ranges are in the form of [start, end) where
+// The range is closed on the start and open on the end address
+// The interval tree uses closed intervals. Store the range as [start, end-1]
+
+// This function creates an interval tree for loops and functions
+// Params:
+		// model: the model object
+		// loopFnList: Array of loops and function nodes. The object is computed using 
+			// d3 tree layout. Contains the original object in the "ref" field. 
+			// Also conatins the "depth", "parent", "children", "id", and "type" field
+// Returns an interval tree for loops and functions
+function createLoopFnIntervalTree(model, loopFnList){
+
+
+
+	var intervalTree = new IntervalTree();
+
+	// From the node list, we extract the intervals for each node
+	// Every interval will have the reference to the node as well
+	// Add it to the interval tree
+	
+	for(var i = 0; i<loopFnList.length; i++){
+		var thisNode = loopFnList[i];
+		if(thisNode.type == "root"){
+			continue;
+		}
+		if(thisNode.type == strTypes.function){
+
+			// get the intervals from the function
+			var thisObj = thisNode.ref;
+			var bbs = thisObj.basicblocks;
+
+			for(var j=0; j<bbs.length; j++){
+				var thisBB = bbs[j];
+				var thisIntvl = {"interval": [thisBB.start, thisBB.end - 1], "val": 
+					{"parentNode": thisNode, "obj": thisBB}};
+				intervalTree.insert(thisIntvl.interval, thisIntvl.val);
+			}
+
+		}	else if (thisNode.type==strTypes.loop){
+
+      
+
+			// get the intervals from the loop
+			var thisObj = thisNode.ref;
+			var bbs = thisObj.blocks;
+
+			var allBblocks = model.get("bblocks");
+			for(var j=0; j<bbs.length; j++){
+				var thisBB = allBblocks[bbs[j]];
+				var thisIntvl = {"interval": [thisBB.start, thisBB.end - 1], 
+					"val": {"parentNode": thisNode, "obj": thisBB}};
+				intervalTree.insert(thisIntvl.interval, thisIntvl.val);
+			}
+			
+		}
+	}
+	return intervalTree;
+}
+
+// NOTE: The address ranges are in the form of [start, end) where
+// The range is closed on the start and open on the end address
+// The interval tree uses closed intervals. Store the range as [start, end-1]
+
+// This function creates an interval tree for functions and inlines
+// Params:
+	// model: the model object
+	// fnInlineList: Array of functions and inline nodes. The object is computed using 
+		// d3 tree layout. Contains the original object in the "ref" field.
+		// Also conatins the "depth", "parent", "children", "id" and "type" field 
+// Returns an interval tree for the functions and inlines 
+function createFnInlineIntervalTree(model, fnInlineList){
+
+	var intervalTree = new IntervalTree();
+
+	// From the node list, we extract the intervals for each node
+	// Every interval will have the reference to the node as well
+	// Add it to the interval tree
+	for(var i = 0; i<fnInlineList.length; i++){
+		var thisNode = fnInlineList[i];
+		if(thisNode.type == "root"){
+			continue;
+		}
+		var thisObj = thisNode.ref;
+		var ranges;
+		if(thisNode.type == strTypes.function){
+			ranges = thisObj.basicblocks;
+		}	else if (thisNode.type==strTypes.inline){
+			ranges = thisObj.ranges;
+		}		
+
+		for(var j=0; j<ranges.length; j++){
+			var thisRng = ranges[j];
+			var thisIntvl = {"interval": [thisRng.start, thisRng.end - 1], "val": 
+				{"parentNode": thisNode, "obj": thisRng}};
+			intervalTree.insert(thisIntvl.interval, thisIntvl.val);
+		}
+	}
+	return intervalTree;
+}
+
+// NOTE: The address ranges are in the form of [start, end) where
+// The range is closed on the start and open on the end address
+// The interval tree uses closed intervals. Store the range as [start, end-1]
+
+// This function creates an interval tree for source code lines
+// Params:
+//    lines: Array of mapping from lines to address ranges
+//            (single line can have multiple mappings)
+// Returns an interval tree for source to binary mapping
+function createSourceIntervalTree(lines){
+
+  var intervalTree = new IntervalTree();
+  for(var i=0; i<lines.length; i++){
+    intervalTree.insert([lines[i].from, lines[i].to - 1], lines[i]);
+  }
+  return intervalTree;
+
+}
+
+// NOTE: The address ranges are in the form of [start, end) where
+// The range is closed on the start and open on the end address
+// The interval tree uses closed intervals. Store the range as [start, end-1]
+
+// This function creates an interval tree for basic blocks
+// Params:
+//    lines: Array of basic blocks
+// Returns an interval tree for basic blocks
+function createBBIntervalTree(bblocks){
+
+  var intervalTree = new IntervalTree();
+  Object.values(bblocks).forEach(value => {
+    intervalTree.insert([value.start, value.end - 1], value);
+  });
+  return intervalTree;
+}
+
+
+// This function updates data associated with all the data structures in the model
+//  based on the selected address ranges
+function updateAllData(dataSource, selectedAddrRanges){
+    updateSourceLines(dataSource, selectedAddrRanges);
+    updateDisassemblyLines(dataSource, selectedAddrRanges);
+    updateCFG(dataSource, selectedAddrRanges);
+    updateFnsandCallGraph(dataSource, selectedAddrRanges);
+    updateLoops(dataSource, selectedAddrRanges);
+}
+
+// This function updates the data Structure for the source code
+function updateSourceLines(dataSource, selectedAddrRanges){
+  var lineNums = getSourceLinesFromAddrRanges(dataSource, selectedAddrRanges);
+ 
+  for(var i = 0; i<dataSource.sourceArray.length; i++){
+    dataSource.sourceArray[i].highlight = false;
+  }
+
+  for(var i=0; i<lineNums.length; i++){
+    dataSource.sourceArray[lineNums[i]].highlight = true; 
+  }
+
+}
+
+// This function updates the data Structure for the disassembly code
+function updateDisassemblyLines(dataSource, selectedAddrRanges){
+
+  for(var i=0; i<dataSource.assemblyArray.length; i++){
+    dataSource.assemblyArray[i].highlight = false; 
+  }
+
+  // For all the address ranges, get the index of the starting address
+  // Loop till we encounter the ending address
+  for(var i=0; i<selectedAddrRanges.length; i++){
+    var thisRng = selectedAddrRanges[i];
+    var index = binarySearch(dataSource.assemblyArray, "id",  0, dataSource.assemblyArray.length-1, thisRng[0]);
+    assert(index != -1, "Starting address for this range does not match any instruction address");
+
+    // for(var j=thisRng[0]; j<=thisRng[1]; j++){
+    //   dataSource.assemblyArray[j].highlight = true;
+    // }
+
+    while(index<dataSource.assemblyArray.length && dataSource.assemblyArray[index].id <= thisRng[1]){
+      dataSource.assemblyArray[index].highlight = true;
+      index++;
+    }
+ 
+  }
+
+}
+
+// This function updates the data Structure for the CFG
+function updateCFG(dataSource, selectedAddrRanges){
+
+  var bblocks = getBBlocksFromAddrRanges(dataSource, selectedAddrRanges);
+
+  var bbIds = dataSource.graphNoLabel.nodes();
+  for(var i=0; i<bbIds.length; i++){
+    dataSource.graphNoLabel.node(bbIds[i]).highlight = false;   
+  }
+
+  for(var i=0; i<bblocks.length; i++){
+    dataSource.graphNoLabel.node( "B" + bblocks[i].id).highlight = true;
+  }
+
+}
+
+// This function updates the data Structure for the call graph and function/inlines
+function updateFnsandCallGraph(dataSource, selectedAddrRanges){
+
+  var result = getFnsFromAddrRanges(dataSource, selectedAddrRanges);
+  var fnNames = result["names"];
+
+  console.log(result);
+
+  dataSource.filteredfnInlineTree = result["root"];
+
+  var cgNodes = dataSource.callGraph.nodes();
+  for(var i=0; i<cgNodes.length; i++){
+    dataSource.callGraph.node(cgNodes[i]).highlight = false;
+  }
+
+  for(var i=0; i<fnNames.length; i++){
+    if(dataSource.callGraph.hasNode(fnNames[i])){
+      dataSource.callGraph.node(fnNames[i]).highlight = true;
+    }
+  }
+
+}
+
+// This function updates the data Structure for the loops
+function updateLoops(dataSource, selectedAddrRanges){
+
+  dataSource.filteredloopFnTree = getLoopsFromAddrRanges(dataSource, selectedAddrRanges);
+
+}
+
+// This function returns the matched functions as an array of tree nodes
+// Get the leaves from the tree
+function getCurrFunctions(dataSource, returnLeaves){
+  var fnList;
+  var fnTree = dataSource.filteredfnInlineTree;
+  if(returnLeaves){
+    fnList = getLeaves(fnTree);
+  } else {
+    fnList = d3.layout.tree().nodeSize([0, 20]).nodes(fnTree);
+  }
+  return fnList;
+}
+
+// This function handles the highlight function and range selection
+function handleHighlightandRange(args, isRange, _dataStore, _observers){
+
+    switch(args.dataType){
+      case dataTypes.sourceCodeLine:
+
+      	var start, end;
+        var arr = [];
+        if(isRange){
+          var selectionObj = args.selectionObj;
+          start = selectionObj.currStart;
+          end = selectionObj.currEnd;
+
+          var hasMatchingAssembly = false;
+          for(var i=start; i<=end; i++){
+            // check if any of the lines have a matching assembly 
+            // If none of them have, then perform no action
+            if(_dataStore.sourceArray[i].hasMatchingAssembly){  
+              arr.push(i);
+            }
+          }
+          // empty array; no lines have matching assembly
+          if(arr.length == 0){
+            return;
+          }
+
+        } else {
+
+          // Check if there is a matching assembly to the source code
+          // If not perform no action
+          if(!(_dataStore.sourceArray[args.i].hasMatchingAssembly)){
+            return;
+          }
+          arr.push(args.i);
+        }
+
+        var selectedAddrRanges = getAddrRangesFromSrcLines(_dataStore, arr);
+        _dataStore.selectedAddrRanges = selectedAddrRanges;
+
+        clearAllSelected(_dataStore);
+        if(isRange){
+          setSelectedSrc(_dataStore, [start, end]);
+        }
+        updateAllData(_dataStore, selectedAddrRanges);
+        _observers.notify();
+
+        break;
+      case dataTypes.assemblyInstr:
+        var start, end;
+        if(isRange){
+          var selectionObj = args.selectionObj;
+          start = selectionObj.currStart;
+          end = selectionObj.currEnd;
+          _dataStore.selectedAddrRanges = [[_dataStore.assemblyArray[start].id, _dataStore.assemblyArray[end].id]];
+        } else {
+          _dataStore.selectedAddrRanges = [[args.d.id, args.d.id]];
+        }
+
+        clearAllSelected(_dataStore);
+        if(isRange){
+          setSelectedAssembly(_dataStore, [start, end]);
+        }
+        updateAllData(_dataStore, _dataStore.selectedAddrRanges);
+        _observers.notify();
+
+        break;
+        
+      case dataTypes.graphNode:
+        var bbIds;
+        if(isRange){
+          bbIds = args.nodeList.slice();
+        } else {
+          bbIds = [args.d];
+        }
+
+        // remove the prefix "B" from the nodeIds and convert the ids into integers
+        for(var i = 0; i<bbIds.length; i++){
+          bbIds[i] = parseInt(bbIds[i].substr(1), 10);
+        }
+        _dataStore.selectedAddrRanges = getAddrRangesFromBBs(_dataStore, bbIds);
+        clearAllSelected(_dataStore);
+        if(isRange){
+          setSelectedBBs(_dataStore, args.nodeList);
+        }
+        updateAllData(_dataStore, _dataStore.selectedAddrRanges);
+        _observers.notify();
+
+        break;
+      case dataTypes.callGraphNode:
+        var fnName = args.d;
+        var fns = [];
+        // get the function object using the name
+        for(var i=0; i<_dataStore.fnInlineList.length;i++){
+          if(fnName === _dataStore.fnInlineList[i].name){
+            fns.push(_dataStore.fnInlineList[i]);
+          }
+        }
+        _dataStore.selectedAddrRanges = getAddrRangesFromFns(_dataStore, fns);
+        clearAllSelected(_dataStore);
+        updateAllData(_dataStore, _dataStore.selectedAddrRanges);
+        _observers.notify();
+        break;
+
+      case dataTypes.loopTreeNode:
+        var loops = [args.d];
+        _dataStore.selectedAddrRanges = getAddrRangesFromLoops(_dataStore, loops);
+        clearAllSelected(_dataStore);
+        updateAllData(_dataStore, _dataStore.selectedAddrRanges);
+        _observers.notify();
+        break;
+
+      case dataTypes.fnTreeNode:
+        var fns = [args.d];
+        _dataStore.selectedAddrRanges = getAddrRangesFromFns(_dataStore, fns);
+        clearAllSelected(_dataStore);
+        updateAllData(_dataStore, _dataStore.selectedAddrRanges);
+        _observers.notify();
+        break;
+    }
+}
+
+// Clears the selected items for source code, disassembly, and CFG
+function clearAllSelected(dataSource){
+
+  // clear selected from source code
+  for(var i = 0; i<dataSource.sourceArray.length; i++){
+    dataSource.sourceArray[i].selected =false;
+  }
+  // clear selected from disassembly code
+  for(var i=0; i<dataSource.assemblyArray.length; i++){
+    dataSource.assemblyArray[i].selected = false;
+  }
+  // clear selected from graph nodes
+  var nodes = dataSource.graphNoLabel.nodes();
+  for(var i=0; i<nodes.length; i++){
+    dataSource.graphNoLabel.node(nodes[i]).selected = false;
+  }
+}
+
+// This function sets selected to all src lines within range selection
+// setSelectedSrc(_dataStore, [start, end])
+function setSelectedSrc(dataSource, range){
+	for(var i=range[0]; i<=range[1]; i++){
+		dataSource.sourceArray[i].selected = true;
+	}
+}
+
+// This function sets selected to all assembly lines within range selection
+// setSelectedAssembly(_dataStore, [start, end])
+function setSelectedAssembly(dataSource, range){
+	for(var i =range[0]; i<=range[1]; i++){
+		dataSource.assemblyArray[i].selected = true;
+	}
+}
+
+// This function sets selected to all basic blocks within group selection
+// setSelectedBBs(_dataStore, nodeList);
+function setSelectedBBs(dataSource, list){
+  for(var i=0; i<list.length; i++){
+		dataSource.graphNoLabel.node(list[i]).selected = true;
+	}
 }

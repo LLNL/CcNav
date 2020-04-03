@@ -15,7 +15,8 @@
     <script src="../static/opt_vis/lib/jquery-1.11.1.min.js"></script>
     
     <script src="../static/opt_vis/lib/goldenlayout.min.js"></script>
-    <script src="../static/opt_vis/lib/autocomplete.js"></script>
+    <script src="../static/opt_vis/lib/awesomplete.js"></script>
+    <script src='../static/opt_vis/lib/intervaltree.js'></script>
 
     <link rel="stylesheet" type="text/css" href="../static/opt_vis/goldenlayout-base.css">
     <link rel="stylesheet" type="text/css" href="../static/opt_vis/goldenlayout-light-theme.css">
@@ -98,6 +99,9 @@
       </div>
 
       <div id="sub_fn_loopView" class="invisible panel">
+            
+            <button class = "btnReset" style="margin-top:5px; margin-left:5px;">Reset</button>
+
             <div class="search-container">
               <input type="text" placeholder="Search function.." id="sub_searchFnText">
               <button><i class="fa fa-search" id = "sub_searchFnBtn"></i></button>
@@ -213,6 +217,7 @@
     <script src="../static/opt_vis/modules/var_rename/varRenamer.js"></script>
     <script src="../static/opt_vis/modules/modelUtils.js"></script>
     <script src="../static/opt_vis/modules/utils.js"></script>
+    <script src="../static/opt_vis/modules/mapAddressRanges.js"></script>
     <script src="../static/opt_vis/modules/views/highlightedItemsView.js"></script>
     <script src="../static/opt_vis/main_with_mvc_goldenlayout.js"></script>
     <script src="../static/opt_vis/loopify_dagre.js"></script>

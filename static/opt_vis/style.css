@@ -517,7 +517,7 @@ p.selected{
 /* Style start for search box */
 
 .search-container{
-  padding: 6px;
+  padding: 3px;
   font-size: 17px;
   border:none;
 }
@@ -539,3 +539,21 @@ p.selected{
 }
 
 /* Style end for search box */
+
+#fn_loopView h3{
+  margin: 2px;
+  padding: 0 0 0 18px;
+  background-color: #d4eaf7;
+  background-image: url("imgs/minus.png");
+  background-repeat: no-repeat;
+  background-position: left center;
+}
+
+#fn_loopView h3.collapsed{
+  background-image: url("imgs/plus.png");
+  background-repeat: no-repeat;
+}
+
+.strikethrough{
+  text-decoration: line-through;
+}
