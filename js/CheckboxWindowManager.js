@@ -3,7 +3,7 @@ OV.CheckboxWindowManager = function() {
     var init_ = function() {
 
         $('body').append('<div class="CheckboxWindowManager">' + boxes_() + "</div>" +
-            "<div class='checkbox_open_close'> > </div>");
+            "<div class='checkbox_open_close'>views</div>");
 
         $('[type="checkbox"]').unbind('click').bind('click', checked_ );
         $('.checkbox_open_close').unbind('click').bind('click', open_close_ );
