@@ -13,6 +13,12 @@ TEST - Disassembly - remove window and re-add it, make it still work.
 - make easy links to for loading short cuts.
 - ??? try to return to original position.
 
+Next:
+- Update code on cz and rz and notify adam + team and ask if they can load fine.
+- Box Width in FnLoops: the orange/blue boxes - make them the width of the text.
+- pull in sabin's fixes (including his fix for the loading).
+- Zoom bug from callgraph
+- better icon for top right, ( get window back icon better ) "Views"
 
 More FE things to debug.  Here’s a binary from the intel compiler (previous one was gcc):
 /usr/gapps/spot/optvis/tests/raja/build_intel_toss_3_x86_64_ib/bin/ltimes.
