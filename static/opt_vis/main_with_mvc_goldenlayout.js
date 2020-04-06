@@ -312,8 +312,9 @@ d3.select("#closeMenu").on("click", function(){
 */
 /* Top menu code ends */
 
-
-//loadFile();
+if(!isHostLLNL()){
+  loadFile();
+}
 
 // Loads the files selected from the menu
 function loadFile(){
