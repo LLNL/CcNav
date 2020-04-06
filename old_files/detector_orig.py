@@ -233,10 +233,7 @@ def main(inp_args):
   if args.time:
     print( "elapsed {}s".format( timeit.default_timer() - start ) )
 
-  # assert len(roots) == 1, "Must have exactly one root to perform analysis: {}".format( str(roots) )
-  if(len(roots)==0):
-    return []
-
+  assert len(roots) == 1, "Must have exactly one root to perform analysis: {}".format( str(roots) )
   root = roots[0]
 
   if args.verbose:

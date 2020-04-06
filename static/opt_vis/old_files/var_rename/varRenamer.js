@@ -66,7 +66,7 @@ var makeVarRenamingView = function(model, viewId){
 	    */
 
 	    var currFn = model.getCurrFn();
-	    // console.log(currFn);
+	    console.log(currFn);
 
 	    // If no extra args passed
 	    // This function was not called because of a change in the variable names or locations

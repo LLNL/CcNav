@@ -187,22 +187,25 @@ var makeDisassemblyView = function(model, viewId, divId){
       return;
     } 
 
-    lines.text(function(d){return "0x" + d.id.toString(16) + ": " + d.code;});
+    // Disable the reset of variable annotations
+    // lines.text(function(d){return "0x" + d.id.toString(16) + ": " + d.code;});
 
     lines.each(function(d){
 
       var codeStr = d.code;
-      var replacement = "";
 
       // Iterate through the variables
-      // Replace the location with varialble name
+      // Replace the location with variable name
       for(var i=0; i<currFnVars.length; i++){
         var currVar = currFnVars[i];
         for(var j=0; j<currVar.locations.length; j++){
           var currLoc = currVar.locations[j];
           
-          // If the code falls under a valid range          
-          if( d.id >= parseInt(currLoc.start, 16) && d.id <= parseInt(currLoc.end, 16)){
+          // If the code falls under a valid range  
+          // NOTE: The range is [closed, open)        
+          if( d.id >= parseInt(currLoc.start, 16) && d.id < parseInt(currLoc.end, 16)){
+            
+            
 
             // If you want to skip matching the register string when its part of a register offset string
             // capture the substring before and after the register name
@@ -211,23 +214,20 @@ var makeDisassemblyView = function(model, viewId, divId){
             // var patternStr = "([ ,]?\(?)" + currLoc.location + "(\)?)";
             
             var pattern = new RegExp(currLoc.location, 'gi');
-            codeStr = codeStr.replace(pattern, "<span class='highlight'>" +
+            codeStr = codeStr.replace(pattern, "<span class='strikethrough'>" + currLoc.location + "</span> <span class='highlight'>" +
               currVar.name + "</span>");
           }
-
-          replacement = "0x" + d.id.toString(16) + ": " + codeStr;
         }
       }
-
-      if( replacement !== "" ) {
-          d3.select(this).html(replacement);
-      }
-
+      d.code = codeStr;
     });
+
+    // Perform the rendering at once
+    lines.html(function(d){return "0x" + d.id.toString(16) + ": " + d.code;});
 
     prevFnName = currFn.name;
 
-  };
+  }
 
   var _highlight = function(args){
 
