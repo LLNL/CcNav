@@ -321,6 +321,8 @@ OV.GetFileChoices = function() {
         //var command = '/bin/bash -c "' + command_prev + '"';
 
         var host = Common.on_rz() ? "rzslic9" : "oslic8";
+        host = "oslic8";
+        
         var comm = "command=" + command + "&route=/command/" + host + "&via=post";
 
         return "https://lc.llnl.gov/lorenz/lora/lora.cgi/jsonp?" + comm + "&callback=?";
