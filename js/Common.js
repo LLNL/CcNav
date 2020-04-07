@@ -30,7 +30,13 @@ var Common = function() {
         $('.main_message').html("");
     };
 
+    var on_rz_ = function() {
+        return window.location.hostname === "rzlc.llnl.gov";
+    };
+
+
     return {
+        on_rz: on_rz_,
         clear: clear_,
         spinner: spinner_,
         error: error_

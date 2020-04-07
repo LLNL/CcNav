@@ -319,7 +319,9 @@ OV.GetFileChoices = function() {
         var command = '/usr/gapps/spot/optvis/optparser.py ' + type + ' ' + executable;
         //command = 'optparser.py open /g/g0/pascal/a.out';
         //var command = '/bin/bash -c "' + command_prev + '"';
-        var comm = "command=" + command + "&route=/command/oslic8&via=post";
+
+        var host = Common.on_rz() ? "rzslic9" : "oslic8";
+        var comm = "command=" + command + "&route=/command/" + host + "&via=post";
 
         return "https://lc.llnl.gov/lorenz/lora/lora.cgi/jsonp?" + comm + "&callback=?";
     };

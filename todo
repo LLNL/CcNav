@@ -1,4 +1,5 @@
 Next:
+- On RZ
 - Update code on cz and rz and notify adam + team and ask if they can load fine.
     * first merge in what sabin has. - pull in sabin's fixes (including his fix for the loading).
 - Box Width in FnLoops: the orange/blue boxes - make them the width of the text.
