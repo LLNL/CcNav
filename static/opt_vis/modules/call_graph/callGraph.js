@@ -129,6 +129,21 @@ var makeCallGraphView = function(model, svgId, divId){
 
 	var _render = function(isShowFilter){
 
+		var graph_nodes = callGraph.nodes();
+		// clear the width and height of the nodes for a fresh layout
+		for(var i=0; i<graph_nodes.length; i++){
+			delete callGraph.node(graph_nodes[i]).width;
+			delete callGraph.node(graph_nodes[i]).height;
+		}
+
+		// clear the width and height of the edges for a fresh layout
+		var graph_edges = callGraph.edges();
+		// console.log(callGraph.edges());
+		for(var i=0; i<graph_edges.length; i++){
+			delete callGraph.edge(graph_edges[i]).width;
+			delete callGraph.edge(graph_edges[i]).height;
+		}
+
 		var graph_to_display = callGraph;
 		if(isShowFilter){
 		
@@ -152,9 +167,9 @@ var makeCallGraphView = function(model, svgId, divId){
 
 		var renderer = new dagreD3.Renderer();
 		// renderer.run(callGraph, d3.select('#' + svgId + ' g'));
-		if( graph_to_display._nodes._init ) {
-			console.dir(graph_to_display._nodes._init.value.width);
-		}
+		// if( graph_to_display._nodes._init ) {
+		// 	console.dir(graph_to_display._nodes._init.value.width);
+		// }
 
 		renderer.run(graph_to_display, d3.select('#' + svgId + ' g'));
 
@@ -169,16 +184,18 @@ var makeCallGraphView = function(model, svgId, divId){
 		var graph_svg_height = bbox.height;
 		var initialScale = parseInt(svg.style("height"), 10) / graph_svg_height;
 
-		initialScale = 1;
-		console.log( "initialScale=" + initialScale );
+		// initialScale = 1;
+		// console.log( "initialScale=" + initialScale );
 
 		 zoom = d3.behavior.zoom().on("zoom", function() {
 
-		 	console.log( "d3.event.scale=" + d3.event.scale );
-		 	console.dir(d3.event.translate);
+		 	// console.log( "d3.event.scale=" + d3.event.scale );
+		 	// console.dir(d3.event.translate);
 
+		 	// inner.attr("transform", "translate(" + d3.event.translate + ")" +
+	                                  // "scale(" + 1 + ")");
 		 	inner.attr("transform", "translate(" + d3.event.translate + ")" +
-	                                  "scale(" + 1 + ")");
+	                                  "scale(" + d3.event.scale + ")");
 	    });
 	    
 	    svg.call(zoom).on("dblclick.zoom", null);
@@ -217,13 +234,13 @@ var makeCallGraphView = function(model, svgId, divId){
 	    d3.selectAll("#" + svgId + " g.node.enter")
 	    	// .data(graph_nodes, function(d){return d;})
 	    	.classed("highlight", function(d){
-	        if (callGraph.node(d).highlight){
+	        // if (callGraph.node(d).highlight){
 
-	          if(!found_highlight) {
-	            found_highlight = true;
-	            //_centerToNode(d3.select(this));
-	          }
-	        }
+	        //   if(!found_highlight) {
+	        //     found_highlight = true;
+	        //    // _centerToNode(d3.select(this));
+	        //   }
+	        // }
 	    		return callGraph.node(d).highlight;
 	    	});
     };

@@ -1,7 +1,8 @@
 
 var OP = OP || {};
-var DATASET = "lulesh";
-// var DATASET = "testsinglefile"; 
+// var DATASET = "lulesh";
+// var DATASET = "testsinglefile";
+var DATASET = "ltimes-rajaperf";
 
 if(DATASET === "lulesh"){
   var SRC_FILENAME = 'lulesh.cc';
@@ -11,6 +12,10 @@ if(DATASET === "lulesh"){
   var SRC_FILENAME = 'singlefile.cpp';
   var JSON_FILENAME = 'singlefile.out.json';
   var DOT_FILENAME_FULL = 'singlefile.out.dot';
+} else if(DATASET === "ltimes-rajaperf"){
+  var SRC_FILENAME = 'LTIMES-Seq.cpp';
+  var JSON_FILENAME = 'raja-perf.exe.json';
+  var DOT_FILENAME_FULL = 'raja-perf.exe.dot';
 }
 
 if(isHostLLNL()){
@@ -19,6 +24,8 @@ if(isHostLLNL()){
     var prefix = pre2 + "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
   } else if(DATASET === "testsinglefile") {
     var prefix = pre2 + "/static/opt_vis/sample_inputs/test_singlefile/";
+  } else if(DATASET === "ltimes-rajaperf"){
+    var prefix = pre2 + "/static/opt_vis/sample_inputs/rajaperf_out_serial/";
   }
 
 } else if(isXAMPP()){
@@ -27,6 +34,8 @@ if(isHostLLNL()){
     var prefix = pre2 + "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
   } else if(DATASET === "testsinglefile") {
     var prefix = pre2 + "/static/opt_vis/sample_inputs/test_singlefile/";
+  } else if(DATASET === "ltimes-rajaperf"){
+    var prefix = pre2 + "/static/opt_vis/sample_inputs/rajaperf_out_serial/";
   }
 
 } else {
@@ -34,6 +43,8 @@ if(isHostLLNL()){
     var prefix = "/static/opt_vis/sample_inputs/lulesh_out_serial/optparser_v3/out_serial_O3/";
   } else if(DATASET === "testsinglefile") {
     var prefix = "/static/opt_vis/sample_inputs/test_singlefile/";
+  } else if(DATASET === "ltimes-rajaperf"){
+    var prefix = pre2 + "/static/opt_vis/sample_inputs/rajaperf_out_serial/";
   }
 }
 
@@ -415,9 +426,14 @@ function loadFile(){
 	      SRC_CODE_ARRAY[i] = {code: SRC_CODE_ARRAY[i], lineNum: i};
 	    }
 
+      // console.log(lines);
+      // debugger;
+
 	    // Check if this line number has any mapping to assembly instructions
 	    for(var i = 0; i < lines.length; i++){
-	      SRC_CODE_ARRAY[lines[i].line].hasMatchingAssembly = true;
+        if(SRC_CODE_ARRAY[lines[i].line]){
+	       SRC_CODE_ARRAY[lines[i].line].hasMatchingAssembly = true;
+        }
 	    }
 	    
 	    // console.log(SRC_DATA);
