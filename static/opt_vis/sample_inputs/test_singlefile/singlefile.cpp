@@ -14,9 +14,10 @@ int multiply(int a, int b){
 	return a*b;
 }
 
-void simple(int a, int b){
+int simple(int a, int b){
 	int c = sum(a,b);
 	int d = multiply(a,b);
+	return c+d;
 }
 
 float floatLoop(float d){
@@ -68,9 +69,9 @@ int main(){
 	c = nestedLoops(a,b);
 	printf("%d\n", c);
 
+	int d = simple(2,3);
+	printf("%d\n", d);
 	return 0;
-
-	simple(2,3);
 }
 
 

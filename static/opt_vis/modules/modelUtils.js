@@ -869,7 +869,9 @@ function updateSourceLines(dataSource, selectedAddrRanges){
   }
 
   for(var i=0; i<lineNums.length; i++){
-    dataSource.sourceArray[lineNums[i]].highlight = true; 
+    if(dataSource.sourceArray[lineNums[i]]){
+      dataSource.sourceArray[lineNums[i]].highlight = true; 
+    }
   }
 
 }
@@ -886,11 +888,17 @@ function updateDisassemblyLines(dataSource, selectedAddrRanges){
   for(var i=0; i<selectedAddrRanges.length; i++){
     var thisRng = selectedAddrRanges[i];
     var index = binarySearch(dataSource.assemblyArray, "id",  0, dataSource.assemblyArray.length-1, thisRng[0]);
-    assert(index != -1, "Starting address for this range does not match any instruction address");
 
-    // for(var j=thisRng[0]; j<=thisRng[1]; j++){
-    //   dataSource.assemblyArray[j].highlight = true;
-    // }
+    // TODO: Make this binary search nearest search instead of exact search
+    // assert(index != -1, "Starting address for this range does not match any instruction address");
+    if(index == -1){
+    	for(var j=0; j<dataSource.assemblyArray.length; j++){
+    		if(dataSource.assemblyArray[j].id >= thisRng[0] && dataSource.assemblyArray[j].id <= thisRng[1]){
+    			dataSource.assemblyArray[j].highlight = true;
+    		}
+    	}
+    	continue;
+    }
 
     while(index<dataSource.assemblyArray.length && dataSource.assemblyArray[index].id <= thisRng[1]){
       dataSource.assemblyArray[index].highlight = true;
