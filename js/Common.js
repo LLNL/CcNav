@@ -37,7 +37,7 @@ var Common = function() {
     var get_url_ = function() {
 
         var host = window.location.hostname;
-        // 
+        //
         return "https://" + host;
     };
 
