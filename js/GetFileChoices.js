@@ -325,7 +325,7 @@ OV.GetFileChoices = function() {
 
         var comm = "command=" + command + "&route=/command/" + host + "&via=post";
 
-        return "https://lc.llnl.gov/lorenz/lora/lora.cgi/jsonp?" + comm + "&callback=?";
+        return Common.get_url() + "/lorenz/lora/lora.cgi/jsonp?" + comm + "&callback=?";
     };
 
     //  GET button pressed.

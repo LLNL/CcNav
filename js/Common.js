@@ -34,8 +34,15 @@ var Common = function() {
         return window.location.hostname === "rzlc.llnl.gov";
     };
 
+    var get_url_ = function() {
+
+        var host = window.location.hostname;
+        // 
+        return "https://" + host;
+    };
 
     return {
+        get_url: get_url_,
         on_rz: on_rz_,
         clear: clear_,
         spinner: spinner_,
