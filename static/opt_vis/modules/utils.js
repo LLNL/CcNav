@@ -168,4 +168,6 @@ function addLeaf(node, leafList){
   }
 }
 
-
+function stripHTMLTags(str){
+  return str.replace(/(<([^>]+)>)/ig,"");
+}
