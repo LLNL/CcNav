@@ -1,11 +1,11 @@
 Next:
-- On RZ
-- Update code on cz and rz and notify adam + team and ask if they can load fine.
+DONE - update On RZ
+DONE - Update code on cz and rz and notify adam + team and ask if they can load fine.
     * first merge in what sabin has. - pull in sabin's fixes (including his fix for the loading).
-- Box Width in FnLoops: the orange/blue boxes - make them the width of the text.
-- Zoom bug from callgraph (check to make sure sabin hasn't started before getting too deep)
+DONE - Box Width in FnLoops: the orange/blue boxes - make them the width of the text.
+SABIN finished it - Zoom bug from callgraph (check to make sure sabin hasn't started before getting too deep)
 DONE - better icon for top right, ( get window back icon better ) "Views"
-- CFG window: Matt's bug.
+- try st-parkplace for CFG window: Matt's bug.
 
 
 DONE 1. iterate through all contentItems tree and find thing we're looking for, and remove it.

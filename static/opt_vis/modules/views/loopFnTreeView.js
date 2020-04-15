@@ -249,8 +249,8 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
 
     function update(source, viewId, type, root, margin, barHeight, i, duration, tree, diagonal, svg) {
 
-    	var width = d3.select("#" + divId).node().clientWidth;
-	    var barWidth = (width - margin.left - margin.right) * 0.8;
+    	//var width = d3.select("#" + divId).node().clientWidth;
+	    //var barWidth = (width - margin.left - margin.right) * 0.8;
 
 	    // Compute the flattened node list.
 	    // var nodes = root.descendants();
@@ -304,7 +304,11 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
 	    nodeEnter.append("rect")
 	        .attr("y", -barHeight / 2)
 	        .attr("height", barHeight)
-	        .attr("width", barWidth)
+	        .attr("width", function(data) {
+
+	        	var wid = data.name.length * 9;
+	        	return wid; //barWidth;
+			})
 	        .style("fill", color)
 	        .on("click", clickHndlr)
 	        .on("dblclick", dblclickHndlr);
