@@ -33,7 +33,7 @@ chmod 755 optvis
 # the virtual env must also have the right permissions too!
 cd /usr/global/tools/lorenz/python
 chmod 755 optvis-env2
-chmod -R go+x /usr/global/tools/lorenz/python/optvis-env2/*
+chmod -R go+rx /usr/global/tools/lorenz/python/optvis-env2/*
 
 
 
