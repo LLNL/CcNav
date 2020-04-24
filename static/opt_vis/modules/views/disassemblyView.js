@@ -75,7 +75,11 @@ var makeDisassemblyView = function(model, viewId, divId){
 	    .data(assemblyArray);
   	  
 	   lines.enter().append("p")
-			.text(function(d, i){ return "0x" + d.id.toString(16) + ": " + d.code; })
+			.html(function(d, i){
+
+			  var the_cl = d.id.toString(16);
+			  return "<span class='jump_spanly" + the_cl + "'>0x" + the_cl + ": " + d.code + '</span>';
+			})
       .classed("highlight", function(d) {return d.highlight;})
       .classed("selected", function(d) {return d.selected;})
       .on("mouseover", function(d, i){

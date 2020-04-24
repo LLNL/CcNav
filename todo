@@ -1,11 +1,27 @@
 Next:
-DONE - update On RZ
-DONE - Update code on cz and rz and notify adam + team and ask if they can load fine.
-    * first merge in what sabin has. - pull in sabin's fixes (including his fix for the loading).
+DONE - adam's RZ is now working.
+DONE - CFG screen should laod for everyone now.
 DONE - Box Width in FnLoops: the orange/blue boxes - make them the width of the text.
 SABIN finished it - Zoom bug from callgraph (check to make sure sabin hasn't started before getting too deep)
 DONE - better icon for top right, ( get window back icon better ) "Views"
-- try st-parkplace for CFG window: Matt's bug.
+
+
+NEXT:
+- select assembly - click on the left, to make dissassembly scroll down to that function.
+    * create link on the left side which when clicked executes this: $('.jump_spanly4010e1')[0].scrollIntoView()
+    * need to rerender the disassembly view correctly to include jump_spanly on every rerender of it
+    * test after many different situations to make sure jump_spanly always get rerendered.
+- make spaces: in the dissassembly view.
+    * basic blocks
+    * below jumps and above jump targets.
+- can't open *.h header files.
+    * let's do error checking to see if we can check if the file is present and we have permisisons
+    * return error message if not.
+- 2 input boxes to allow the user to specify a different prefix
+    * Need to figure out directories in common to all source code files to figure out prefix
+    * Generate select drop down from values without that prefix.
+    * when source code change event happens extract from two input boxes and combine.
+- healthequity.
 
 
 DONE 1. iterate through all contentItems tree and find thing we're looking for, and remove it.
