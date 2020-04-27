@@ -51,6 +51,11 @@ var makeDisassemblyView = function(model, viewId, divId){
     });
   };
 
+  var _jump_spanly = function( the_cl ) {
+
+    return "<span class='jump_spanly" + the_cl + "'>0x" + the_cl + ": " + d.code + '</span>';
+  };
+
   var _mouseupEvent = function(d, i, selectionObj){
     _observers.notify({
       type: signalType.mouseup,
@@ -78,7 +83,7 @@ var makeDisassemblyView = function(model, viewId, divId){
 			.html(function(d, i){
 
 			  var the_cl = d.id.toString(16);
-			  return "<span class='jump_spanly" + the_cl + "'>0x" + the_cl + ": " + d.code + '</span>';
+			  return _jump_spanly( the_cl );
 			})
       .classed("highlight", function(d) {return d.highlight;})
       .classed("selected", function(d) {return d.selected;})
