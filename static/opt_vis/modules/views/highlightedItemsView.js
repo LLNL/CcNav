@@ -106,9 +106,10 @@ var makeHighlightedItemsView = function(model, divId){
   var _jump_span_render = function(d){
 
     var id = d.item.id.toString(16);
-    var middle = "0x" + id + ": " + d.item.code;
+    var middle = "0x" + id;
 
-    return "<span target_id='" + id + "' class='click_me_jump_to_spanly'>" + middle + '</span>';
+    return "<span target_id='" + id + "' class='click_me_jump_to_spanly'>" + middle + '</span>' +
+        ": " + d.item.code;
   };
 
   _render();

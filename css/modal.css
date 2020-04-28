@@ -199,4 +199,6 @@
 
 .click_me_jump_to_spanly {
 	cursor: pointer;
+	text-decoration: underline;
+	color: #1D94B0;
 }
