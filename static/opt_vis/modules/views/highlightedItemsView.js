@@ -93,10 +93,22 @@ var makeHighlightedItemsView = function(model, divId){
     graphNode_selection.text(function(d){return d});
     graphNode_selection.exit().remove();
 
+    $('.click_me_jump_to_spanly').unbind('click').bind('click', _jump_to_spanly )
+  };
+
+
+  var _jump_to_spanly = function() {
+
+    var target_id = $(this).attr('target_id');
+    $('.jump_spanly' + target_id )[0].scrollIntoView();
   };
 
   var _jump_span_render = function(d){
-    return "<span class='click_me_jump_to_spanly'>0x" + d.item.id.toString(16) + ": " + d.item.code + '</span>';
+
+    var id = d.item.id.toString(16);
+    var middle = "0x" + id + ": " + d.item.code;
+
+    return "<span target_id='" + id + "' class='click_me_jump_to_spanly'>" + middle + '</span>';
   };
 
   _render();

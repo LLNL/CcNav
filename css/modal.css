@@ -196,3 +196,7 @@
 #fnInlineView {
 	width: 9000px;
 }
+
+.click_me_jump_to_spanly {
+	cursor: pointer;
+}
