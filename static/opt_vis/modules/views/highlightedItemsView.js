@@ -79,14 +79,10 @@ var makeHighlightedItemsView = function(model, divId){
 
     assembly_selection.enter()
       .append("p")
-      .text(function(d){
-        return "0x" + d.item.id.toString(16) + ": " + d.item.code;
-      });
+      .html( _jump_span_render );
 
-    assembly_selection.text(function(d){
-      return "0x" + d.item.id.toString(16) + ": " + d.item.code;
-    });
-    
+    assembly_selection.html( _jump_span_render );
+
     assembly_selection.classed("start", function(d) {return d.start;});
     assembly_selection.exit().remove();
 
@@ -97,7 +93,11 @@ var makeHighlightedItemsView = function(model, divId){
     graphNode_selection.text(function(d){return d});
     graphNode_selection.exit().remove();
 
-  }
+  };
+
+  var _jump_span_render = function(d){
+    return "<span class='click_me_jump_to_spanly'>0x" + d.item.id.toString(16) + ": " + d.item.code + '</span>';
+  };
 
   _render();
 
