@@ -214,8 +214,6 @@ var makeDisassemblyView = function(model, viewId, divId){
           // If the code falls under a valid range  
           // NOTE: The range is [closed, open)        
           if( d.id >= parseInt(currLoc.start, 16) && d.id < parseInt(currLoc.end, 16)){
-            
-            
 
             // If you want to skip matching the register string when its part of a register offset string
             // capture the substring before and after the register name

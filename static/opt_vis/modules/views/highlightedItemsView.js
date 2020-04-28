@@ -79,9 +79,14 @@ var makeHighlightedItemsView = function(model, divId){
 
     assembly_selection.enter()
       .append("p")
-      .text(function(d){return "0x" + d.item.id.toString(16) + ": " + d.item.code});
+      .text(function(d){
+        return "0x" + d.item.id.toString(16) + ": " + d.item.code;
+      });
 
-    assembly_selection.text(function(d){return "0x" + d.item.id.toString(16) + ": " + d.item.code});
+    assembly_selection.text(function(d){
+      return "0x" + d.item.id.toString(16) + ": " + d.item.code;
+    });
+    
     assembly_selection.classed("start", function(d) {return d.start;});
     assembly_selection.exit().remove();
 
