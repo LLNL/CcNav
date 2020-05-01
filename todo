@@ -1,3 +1,18 @@
+1) get Sabin's latest stuff
+
+2) JSON has basic block boundaries
+in Dissassembly View
+
+
+x4013ce: mov %rbx phi phi phi_data,%rdi
+not a deal breaker
+
+just tht there is an extra crossing out.
+of the register name.
+
+
+
+
 Next:
 DONE - adam's RZ is now working.
 DONE - CFG screen should laod for everyone now.

@@ -51,9 +51,10 @@ var makeDisassemblyView = function(model, viewId, divId){
     });
   };
 
-  var _jump_spanly = function( the_cl, dcode ) {
+  var _jump_spanly = function( the_cl, d ) {
 
-    return "<span class='jump_spanly" + the_cl + "'>0x" + the_cl + ": " + dcode + '</span>';
+    var span = "<span class='jump_spanly" + the_cl + "'>0x" + the_cl + ": " + d.code + '</span>';
+    return span;
   };
 
   var _mouseupEvent = function(d, i, selectionObj){
@@ -84,7 +85,7 @@ var makeDisassemblyView = function(model, viewId, divId){
 
 			  var the_cl = d.id.toString(16);
 
-			  return _jump_spanly( the_cl, d.code );
+			  return _jump_spanly( the_cl, d );
 			})
       .classed("highlight", function(d) {return d.highlight;})
       .classed("selected", function(d) {return d.selected;})
@@ -233,7 +234,7 @@ var makeDisassemblyView = function(model, viewId, divId){
     // Perform the rendering at once
     lines.html(function(d){
 
-      return _jump_spanly( d.id.toString(16), d.code );
+      return _jump_spanly( d.id.toString(16), d );
     });
 
     prevFnName = currFn.name;
