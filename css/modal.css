@@ -202,3 +202,17 @@
 	text-decoration: underline;
 	color: #1D94B0;
 }
+
+#text_assembly .starting_block_label {
+	font-weight: bold;
+}
+
+#text_assembly .begin {
+	border-top: 1px dashed #D2D2D2;
+	padding: 4px 0 0 0;
+}
+
+#text_assembly .end {
+	border-top: 1px dashed #D2D2D2;
+	margin: 5px 0 0 0;
+}

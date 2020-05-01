@@ -53,9 +53,22 @@ var makeDisassemblyView = function(model, viewId, divId){
 
   var _jump_spanly = function( the_cl, d ) {
 
+    var start = "";
+    var end = "";
     var span = "<span class='jump_spanly" + the_cl + "'>0x" + the_cl + ": " + d.code + '</span>';
-    return span;
+
+    if( d.startBlock ) {
+      start = "<div class='starting_block_label'>" + d.blockId + '</div>' +
+          '<div class="begin"></div>';
+    }
+
+    if( d.endBlock ) {
+      end = "<div class='end'></div>";
+    }
+
+    return start + span + end;
   };
+
 
   var _mouseupEvent = function(d, i, selectionObj){
     _observers.notify({

@@ -3,6 +3,10 @@
 2) JSON has basic block boundaries
 in Dissassembly View
 
+OV.AutoTester.set(OV.AutoTester.LTIMES);
+var xx = makeModel()
+xx.get("bblocks")
+xx.get("assemblyArray")
 
 x4013ce: mov %rbx phi phi phi_data,%rdi
 not a deal breaker
