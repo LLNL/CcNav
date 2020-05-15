@@ -1,4 +1,4 @@
-1) get Sabin's latest stuff
+1) get Sabin's latest stuff, and redeploy to RZ, CZ.
 
 2) JSON has basic block boundaries
 in Dissassembly View
@@ -8,11 +8,26 @@ var xx = makeModel()
 xx.get("bblocks")
 xx.get("assemblyArray")
 
-x4013ce: mov %rbx phi phi phi_data,%rdi
+Bugs / Clean ups:
+1) The black arrows don't really show up under CFG View.  It looks like a tiny
+part of the black arrow is showing underneath the Label tag, not sure.
+
+2) Be able to click on a CFG tag and jump to source
+
+2.5) The code to lock things, there's a function call to do that, according to sabin.
+
+3) Instead of jump to selection automatically, offer a button that allows user
+to decide when they want to jump to selection.
+
+3) x4013ce: mov %rbx phi phi phi_data,%rdi
 not a deal breaker
 
 just tht there is an extra crossing out.
 of the register name.
+
+
+
+
 
 
 
