@@ -422,15 +422,15 @@ var makeLoopFnTreeView = function(model, loopId, inlineId, divId){
   }
 
   function clickInline(d, i) {
-  	console.log(i);
-  	console.log(d);
+  	// console.log(i);
+  	// console.log(d);
   	_highlightEvent(d,i,dataTypes.fnTreeNode);
   }
 
   // highlight and navigate to the loop in the CFG
   function clickLoop(d, i) {
-  	console.log(i);
-  	console.log(d);
+  	// console.log(i);
+  	// console.log(d);
   	if(d.type == "loop"){
   		_highlightEvent(d,i, dataTypes.loopTreeNode);	
   	}	else {

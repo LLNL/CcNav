@@ -435,12 +435,20 @@ function getKHopGraph(full_graph, setOfNodes, numHops, maxNodes){
   
   // var graphToReturn = new graphlib.Graph();
   var graphToReturn = graphlibDot.parse("digraph {}");
-
+   
   for (var i=0; i<setOfNodes.length; i++){
     visited[setOfNodes[i]] = true;
     queues[0].push(setOfNodes[i]);
     graphToReturn.addNode(setOfNodes[i], full_graph.node(setOfNodes[i]));
     ctNodes++;
+  }
+
+  // add all edges in the subgraph. Level 0 has all the nodes and 
+  // edges in the subgraph
+  addSubgraphEdges(full_graph, graphToReturn);
+
+  if(ctNodes >= maxNodes){
+    return graphToReturn;
   }
 
   for(var thisLevel = 0; thisLevel < numHops; thisLevel++){
@@ -487,9 +495,9 @@ function getKHopGraph(full_graph, setOfNodes, numHops, maxNodes){
           graphToReturn.addEdge(this_edge.id, this_edge.u, this_edge.v, full_graph.edge(this_edge.id));
         }
 
-        if(ctNodes >= maxNodes){
-          return graphToReturn;
-        }
+        // if(ctNodes >= maxNodes){
+        //   return graphToReturn;
+        // }
 
       }
 
@@ -504,14 +512,54 @@ function getKHopGraph(full_graph, setOfNodes, numHops, maxNodes){
         }
       }
 
-
     }
+
+    if(ctNodes >= maxNodes){
+      // add the remaining edges for the current subgraph
+      addSubgraphEdges(full_graph, graphToReturn);
+      return graphToReturn;
+    } 
+
   }
 
   // console.log(queues);
-
+  // add the remaining edges for the current subgraph
+  addSubgraphEdges(full_graph, graphToReturn);
   return graphToReturn;
 
+}
+
+// This function adds the full edges to the subgraph formed by nodes
+// in the input graph
+// Params:
+//  full_graph: the full graph to add from
+//  input_graph: the graph to add the edges to
+
+function addSubgraphEdges(full_graph, input_graph){
+
+	var nodes = input_graph.nodes();
+
+  // go through all nodes in the subgraph
+  for(var i=0; i<nodes.length; i++){
+  	// go through all the edges of the node
+  	var inEdges = full_graph.inEdges(nodes[i]);
+  	var outEdges = full_graph.outEdges(nodes[i]);
+  	var nodeEdges = inEdges.concat(outEdges);
+
+  	for(var j=0; j<nodeEdges.length; j++){
+  		var this_edge = full_graph._strictGetEdge(nodeEdges[j]);
+  		// Does this edge have both incident nodes inside the input graph
+  		if(input_graph.hasNode(this_edge.u) &&
+  			input_graph.hasNode(this_edge.v)){
+  			// add this edge if not already in the input graph
+  			if(!input_graph.hasEdge(this_edge.id)){
+  				input_graph.addEdge(this_edge.id, this_edge.u, this_edge.v,
+  					full_graph.edge(this_edge.id));
+  			}
+  		}
+  	}
+
+  }
 }
 
 // This function returns the filtered graph from the full graph given the set of nodes to filter on.
@@ -553,6 +601,14 @@ function getKHopGraphDirected(full_graph, setOfNodes, numHops, maxNodes, directi
     queues[0].push(setOfNodes[i]);
     graphToReturn.addNode(setOfNodes[i], full_graph.node(setOfNodes[i]));
     ctNodes++;
+  }
+
+  // add all edges in the subgraph. Level 0 has all the nodes and 
+  // edges in the subgraph
+  addSubgraphEdges(full_graph, graphToReturn);
+
+  if(ctNodes >= maxNodes){
+    return graphToReturn;
   }
 
   for(var thisLevel = 0; thisLevel < numHops; thisLevel++){
@@ -620,9 +676,9 @@ function getKHopGraphDirected(full_graph, setOfNodes, numHops, maxNodes, directi
           graphToReturn.addEdge(this_edge.id, this_edge.u, this_edge.v, full_graph.edge(this_edge.id));
         }
 
-        if(ctNodes >= maxNodes){
-          return graphToReturn;
-        }
+        // if(ctNodes >= maxNodes){
+        //   return graphToReturn;
+        // }
 
       }
 
@@ -637,12 +693,19 @@ function getKHopGraphDirected(full_graph, setOfNodes, numHops, maxNodes, directi
         }
       }
 
-
     }
+
+    if(ctNodes >= maxNodes){
+      // add the remaining edges for the current subgraph
+      addSubgraphEdges(full_graph, graphToReturn);
+      return graphToReturn;
+    } 
+
   }
 
   // console.log(queues);
-
+  // add the remaining edges for the current subgraph
+  addSubgraphEdges(full_graph, graphToReturn);
   return graphToReturn;
 
 }
@@ -931,7 +994,7 @@ function updateFnsandCallGraph(dataSource, selectedAddrRanges){
   var result = getFnsFromAddrRanges(dataSource, selectedAddrRanges);
   var fnNames = result["names"];
 
-  console.log(result);
+  // console.log(result);
 
   dataSource.filteredfnInlineTree = result["root"];
 
@@ -1129,4 +1192,114 @@ function setSelectedBBs(dataSource, list){
   for(var i=0; i<list.length; i++){
 		dataSource.graphNoLabel.node(list[i]).selected = true;
 	}
+}
+
+// This function is used for semantic filtering.
+// This function adds nodes from the top level loops to the set of nodes
+// Returns the updated set of nodes
+function addContainingLoops(model, setOfNodes){
+  
+  // the loops containing this set is already computed during the highlight operation
+  // and stored in a filtered tree. 
+
+  var filteredTree = model.get("filteredloopFnTree");
+
+  if((filteredTree == null) || isEmptyObj(filteredTree)){
+    return setOfNodes;
+  }
+
+  assert(filteredTree.type == "root", "The top level node must be root node");
+  
+  setOfNodes = new Set(setOfNodes);
+
+  // iterate through the functions if they exist
+  var fns = filteredTree.children;
+  for(var i=0; i<fns.length; i++){
+    var loops = fns[i].children;
+    // Top level loops
+    for(var j=0; j<loops.length; j++){
+      var blocks = loops[j]["ref"]["blocks"];
+      for(var k=0; k<blocks.length; k++){
+        // Add the prefix "B" since the basic blocks in graph have the prefix
+        setOfNodes.add("B" + blocks[k]);
+      }
+    }
+  }
+
+  setOfNodes = Array.from(setOfNodes);
+  return setOfNodes;
+
+}
+
+// This function creates the loops array used by the loopify_dagre module
+// The format of the array is as follows:
+//    Each entry in the array is a loop object with the format: {
+//      "backedge": [from, to],
+//      "nodes": [nodeIds],
+//      "parent": index_in_the_array or "" (if none)
+//    }
+// Returns the loops array
+function getLoopifyTree(model){
+
+  var loopsObj = [];
+  // convert the tree into a list
+  var tree = d3.layout.tree().nodeSize([0,20]);
+
+  var filteredTree = model.get("filteredloopFnTree");
+
+  if((filteredTree == null) || isEmptyObj(filteredTree)){
+    return loopsObj;
+  }
+  assert(filteredTree.type == "root", "The top level node must be root node");
+
+  var loops = tree.nodes(filteredTree);
+
+  // assign an index for each of the object equal to the loop index
+  var counter = 0;
+  for(var i=0; i<loops.length; i++){
+    var thisNode = loops[i];
+    if(thisNode.type != "loop"){
+      continue;
+    }
+    thisNode._indexLoopify = counter;
+    
+    // construct the loop objects for loopify_dagre 
+    // Add each loop item for each backedge
+    var backedges = thisNode.ref.backedges;
+    for(var j=0; j<backedges.length; j++){
+
+    	var newObj = {};
+	    newObj["backedge"] = ["B" + backedges[j].from, 
+	        "B" + backedges[j].to];
+	    
+	    var blocks = thisNode.ref.blocks.map( function(val){
+	      return "B" + val;
+	    });
+	    newObj["nodes"] = blocks;
+	    
+	    // store the parent element for now
+	    // On the next pass, we convert it into the integer index in the array 
+	    assert("parent" in thisNode, "loop node must have a parent");
+	    newObj["parent"] = thisNode["parent"];
+	    loopsObj[counter] = newObj;
+	    ++counter;
+
+	}
+
+  }
+
+  // Update the parent elements
+  for(var i=0; i<loopsObj.length; i++){
+    
+    var thisObj = loopsObj[i];
+    var parent = thisObj["parent"];
+    if(("_indexLoopify" in parent) && parent.type == "loop"){
+      parent = parent._indexLoopify;
+    } else {
+      parent = "";
+    }
+    thisObj["parent"] = parent;
+  }
+  return loopsObj;
+
 }

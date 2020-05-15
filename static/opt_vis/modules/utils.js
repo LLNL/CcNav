@@ -168,4 +168,15 @@ function addLeaf(node, leafList){
   }
 }
 
+function stripHTMLTags(str){
+  return str.replace(/(<([^>]+)>)/ig,"");
+}
 
+// Checks if an object is empty
+function isEmptyObj(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
