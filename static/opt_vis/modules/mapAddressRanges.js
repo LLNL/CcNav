@@ -32,13 +32,15 @@ function getSourceLinesFromAddrRanges(dataSource, addrRanges){
 // Returns an array of basicblocks
 function getBBlocksFromAddrRanges(dataSource, addrRanges){
 	var intervalTree = dataSource["bbIntervalTree"];
-	var bblocks = [];
+	var bblocks = new Set();
 
 	addrRanges.forEach(range => {
 		intervalTree.search(range).forEach(val => {
-			bblocks.push(val);
+			bblocks.add(val);
 		});
 	});
+
+	bblocks = Array.from(bblocks);
 	return bblocks;
 }
 
@@ -78,7 +80,7 @@ function getTreeFromAddrRanges(dataSource, addrRanges, type){
 	// Given the set of nodes, we convert it into an array
 	// result = Array.from(result);
 
-	console.log(result);
+	// console.log(result);
 
 	var nameList;
 	if (type == strTypes.function){
@@ -259,7 +261,7 @@ function getAddrRangesFromLoops(dataSource, loops){
 	bblockIds = Array.from(bblockIds);
 
 	// get the list of address ranges from basic block ids
-	console.log(getAddrRangesFromBBs(dataSource, bblockIds));
+	// console.log(getAddrRangesFromBBs(dataSource, bblockIds));
 
 	return getAddrRangesFromBBs(dataSource, bblockIds);
 

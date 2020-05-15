@@ -456,10 +456,11 @@ function loadFile(){
 
 	      
 	        g_full = graphlibDot.parse(DOT_FULL_DATA);
-	        console.log(g_full);
+	        // console.log(g_full);
 
           // Create a copy of the graph
           g = graphlibDot.parse(DOT_FULL_DATA);
+          console.log(g);
 
           // To copy the graph directly from another graph
           // var g3 = graphlib.json.read(graphlib.json.write(g));

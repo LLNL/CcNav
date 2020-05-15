@@ -274,14 +274,14 @@ var makeCFGGraphView = function(model, svgId, divId) {
 
   	// Get the highlighted nodes in the graph
   	var setOfNodes = model.getHighlightedNodes(g);
-
-  	// If the highlighted set is empty, set the first node of the graph as the filtering set
+    // If the highlighted set is empty, set the first node of the graph as the filtering set
   	if(setOfNodes.length == 0){
   		setOfNodes = [g.nodes()[0]];
-  	}
-
-  	// console.log("setOfNodes");
-  	// console.log(setOfNodes);
+  	}  else {
+      // This will be a loop preserving filtering which will pull the
+      // top level loops that include the set of nodes
+      setOfNodes = addContainingLoops(model, setOfNodes);
+    }
 
   	var filtered_graph = getKHopGraph(g, setOfNodes, numHops, maxNodes);
   	// console.log(filtered_graph);
@@ -312,22 +312,28 @@ var makeCFGGraphView = function(model, svgId, divId) {
       server_dir = "../findLoops/";
     }
 
+    /**** Edit: substitute the server call to findLoops function with a JS function ****/
+    loopsObj = getLoopifyTree(model);
+    model.set("loopsObj", loopsObj);
+    /********** Edit end *********/ 
+
     /*** loopify dagre ***/
+    /*
     d3.xhr( server_dir )
         .header("Content-Type", "text/plain")
         // .post(dotFile,
         // .post(graphlibDot.write(g),
         .post(graphlibDot.write(filtered_graph),
-          
           function(err, result){
           	loopsObj = JSON.parse(result.responseText);
+            console.log(result.responseText);
+            console.log("LoopsObj")
+            console.log(loopsObj);
             // model.set("loopsObj",loopsObj);
-            // console.log(loopsObj);
-            
+    */
+
             // dotFile = graphlibDot.write(g);
             dotFile = graphlibDot.write(filtered_graph);
-            // model.set("dotFile", dotFile);
-            // console.log(dotFile);
             
             // loopify_dagre.init(dotFile, loopsObj, model.get("nodesAll"), 
             // 	model.get("edgesAll"), model.get("edgeLabelsAll"));
@@ -335,10 +341,14 @@ var makeCFGGraphView = function(model, svgId, divId) {
             var modifiedDotFile = loopify_dagre.modifiedDotFile;
             // console.log(modifiedDotFile);
             graph_to_display = graphlibDot.parse(modifiedDotFile);
+            model.set("graph_to_display", graph_to_display);
+            if(graph_to_display.hasNode("undefined")){
+              graph_to_display.delNode("undefined");
+            }
 
             // renderer.run(filtered_graph, d3.select('#' + svgId + ' g'));
             renderer.run(graph_to_display, d3.select('#' + svgId + ' g'));
-
+            
             // fillNodesandEdges(filtered_graph, svgId);
             fillNodesandEdges(graph_to_display, svgId);
 
@@ -395,8 +405,9 @@ var makeCFGGraphView = function(model, svgId, divId) {
 
               _configureBrush(svg, inner, zoom);
 
+    /*  
             });
-
+    */
     /******/
 
   };
@@ -409,8 +420,9 @@ var makeCFGGraphView = function(model, svgId, divId) {
     // Note: Does caching this d3 selection and storing it in the view
     // make it faster?
     d3.selectAll('#' + svgId + " g.node.enter")
-    	// .data(graph_nodes, function(d){return d;})
-    	.classed("highlight", function(d){
+      // .data(graph_nodes, function(d){return d;})
+    	// .filter(function(d) {return d !== "undefined";})
+      .classed("highlight", function(d){
         if (g.node(d).highlight){
 
           if(!found_highlight) {
@@ -425,7 +437,7 @@ var makeCFGGraphView = function(model, svgId, divId) {
     	})
     	;
 
-    // _highlightBackEdges();
+    _highlightBackEdges();
 
   };
 
@@ -433,16 +445,14 @@ var makeCFGGraphView = function(model, svgId, divId) {
 
     var loopsObj = model.get("loopsObj");
     var edgesAll = model.get("edgesAll");
+    var graph_to_display = model.get("graph_to_display")
 
-    console.log(loopsObj);
-    console.log(edgesAll);
-    
     d3.selectAll('#' + svgId + " g.edgePath.enter")
       .classed("backedge", false);
 
     for(var i=0; i<loopsObj.length; i++){
       backedge = loopsObj[i].backedge;
-      edgeId = g.outEdges(backedge[0], backedge[1])[0];
+      edgeId = graph_to_display.outEdges(backedge[0], backedge[1])[0];
       edgesAll[edgeId].classed("backedge", true);
     }
 
@@ -560,6 +570,10 @@ function fillNodesandEdges(g, svgId) {
   nodesAll = {};
   edgesAll = {};
   edgeLabelsAll = {};
+
+  model.set("nodesAll", nodesAll);
+  model.set("edgesAll", edgesAll);
+  model.set("edgeLabelsAll", edgeLabelsAll);
 
   // model.set("nodesAll", {});
   // model.set("edgesAll", {});

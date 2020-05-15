@@ -265,14 +265,12 @@ label {
 .edgePath.backedge {
   /* stroke: darkorange; */
   stroke: #dd1c77;
-  
-  stroke-width:15px;
+  stroke-width:4px;
 }
 
 .edgePath.active {
    stroke:teal; 
   /*stroke:#009999;*/
-
   stroke-width:5px;
 }
 
