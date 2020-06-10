@@ -197,6 +197,7 @@
 	width: 9000px;
 }
 
+#text_highlight_graph_nodes,
 .click_me_jump_to_spanly {
 	cursor: pointer;
 	text-decoration: underline;

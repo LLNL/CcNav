@@ -58,7 +58,7 @@ var makeDisassemblyView = function(model, viewId, divId){
     var span = "<span class='jump_spanly" + the_cl + "'>0x" + the_cl + ": " + d.code + '</span>';
 
     if( d.startBlock ) {
-      
+
       start = "<div class='starting_block_label' " +
           "starting_block_label='" + d.blockId + "'>" + d.blockId + '</div>' +
           '<div class="begin"></div>';
