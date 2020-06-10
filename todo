@@ -1,6 +1,6 @@
-1) get Sabin's latest stuff, and redeploy to RZ, CZ.
+DONE -  get Sabin's latest stuff, and redeploy to RZ, CZ.
 
-2) JSON has basic block boundaries
+DONE -  JSON has basic block boundaries
 in Dissassembly View
 
 OV.AutoTester.set(OV.AutoTester.LTIMES);
@@ -9,8 +9,16 @@ xx.get("bblocks")
 xx.get("assemblyArray")
 
 Bugs / Clean ups:
+
+Suggestion:
+Link from Selected Source Code line on the left to the Source Code Panel.
+
 1) The black arrows don't really show up under CFG View.  It looks like a tiny
 part of the black arrow is showing underneath the Label tag, not sure.
+    * Can't reliably reproduce.
+
+1.5) My suggestion: what about zoom buttons on the CFG View?
+    * I feel like without a mouse i can't zoom directly: in/out.
 
 2) Be able to click on a CFG tag and jump to source
 

@@ -93,9 +93,17 @@ var makeHighlightedItemsView = function(model, divId){
     graphNode_selection.text(function(d){return d});
     graphNode_selection.exit().remove();
 
-    $('.click_me_jump_to_spanly').unbind('click').bind('click', _jump_to_spanly )
+    $('.click_me_jump_to_spanly').unbind('click').bind('click', _jump_to_spanly );
+    $('#text_highlight_graph_nodes').unbind('click').bind('click', _jump_to_b_group );
   };
 
+
+  var _jump_to_b_group = function() {
+
+    var b_group = $(this).find('p').html();
+    var group = $('[starting_block_label="' + b_group + '"]');
+    group[0].scrollIntoView();
+  };
 
   var _jump_to_spanly = function() {
 

@@ -98,9 +98,8 @@ var makeCFGGraphView = function(model, svgId, divId) {
     
     svg.call(zoom).on("dblclick.zoom", null);
 
-    zoom
-        // .translate([0 , 20])
-        .scale(initialScale)
+    // .translate([0 , 20])
+    zoom.scale(initialScale)
         .event(svg);
 
     // Setup event listeners    
