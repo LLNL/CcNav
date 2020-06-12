@@ -34,3 +34,26 @@
 	z-index: 101;
 	color: #888888;
 }
+
+div.zoom_button {
+	position: absolute;
+	right: 30px;
+	padding: 3px;
+	width: 14px;
+	top: 1px;
+}
+
+.zoom_button div.inner_button {
+	width: 12px;
+	padding: 4px;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+
+.zoom_button.plus {
+}
+
+.zoom_button.minus {
+	right: 58px;
+}
