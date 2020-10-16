@@ -1,12 +1,23 @@
-DONE -  get Sabin's latest stuff, and redeploy to RZ, CZ.
-DONE - Selected graph nodes, created a link from there to the disassemblyview.
+10/9/2020
+- Optviz: make sure "phi" or "phidata" each only appear once.
+    * also make sure only the first %rbx will be crossed out, not the ones following.
 
-Next:
+Goals:
+- Big Binaries
+- UI improvements.
+
+
+DONE - get Sabin's latest stuff, and redeploy to RZ, CZ.
+DONE - Selected graph nodes, created a link from there to the disassemblyview.
+- Added zoom buttons to CFG view, but still need to bind them and make actual zoom action work.
+
+
 - Zoom:
     * place link (index.html 188) for plus and minus
     * zoom out - make zoom.
 
 
+"mov <span class='strikethrough'>%rbx</span> <span class='highlight'>phi_data</span>,%rdi"
 
 DONE -  JSON has basic block boundaries
 in Dissassembly View

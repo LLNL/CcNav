@@ -219,12 +219,16 @@ var makeDisassemblyView = function(model, viewId, divId){
     lines.each(function(d){
 
       var codeStr = d.code;
+      var seen = {};
 
       // Iterate through the variables
       // Replace the location with variable name
       for(var i=0; i<currFnVars.length; i++){
+
         var currVar = currFnVars[i];
+
         for(var j=0; j<currVar.locations.length; j++){
+
           var currLoc = currVar.locations[j];
           
           // If the code falls under a valid range  
@@ -236,13 +240,20 @@ var makeDisassemblyView = function(model, viewId, divId){
             // detect if it is part of a register offset
             // perform no substitution for register offsets
             // var patternStr = "([ ,]?\(?)" + currLoc.location + "(\)?)";
-            
-            var pattern = new RegExp(currLoc.location, 'gi');
-            codeStr = codeStr.replace(pattern, "<span class='strikethrough'>" + currLoc.location + "</span> <span class='highlight'>" +
-              currVar.name + "</span>");
+
+            //  only show each highlight "phi" or "phidata", at most once.
+            if( !seen[currVar.name] ) {
+
+              var pattern = new RegExp(currLoc.location, 'gi');
+              codeStr = codeStr.replace(pattern, "<span class='strikethrough'>" + currLoc.location + "</span> " +
+                  "<span class='highlight'>" + currVar.name + "</span>");
+
+              seen[currVar.name] = true;
+            }
           }
         }
       }
+
       d.code = codeStr;
     });
 
