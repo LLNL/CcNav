@@ -1,6 +1,7 @@
 10/9/2020
 - Optviz: make sure "phi" or "phidata" each only appear once.
     * also make sure only the first %rbx will be crossed out, not the ones following.
+Left off: Finish up making the new_html strike appear only once.
 
 Goals:
 - Big Binaries

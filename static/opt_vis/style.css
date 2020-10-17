@@ -205,6 +205,8 @@ label {
 
 }
 
+
+
 .text_code p.active {
   background-color:antiquewhite;
   border-color: teal;
@@ -552,6 +554,6 @@ p.selected{
   background-repeat: no-repeat;
 }
 
-.strikethrough{
+.strikethrough .strikethrough {
   text-decoration: line-through;
 }

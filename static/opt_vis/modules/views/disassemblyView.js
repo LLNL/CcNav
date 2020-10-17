@@ -220,17 +220,20 @@ var makeDisassemblyView = function(model, viewId, divId){
 
       var codeStr = d.code;
       var seen = {};
+      var first_loc = false;
 
       // Iterate through the variables
       // Replace the location with variable name
       for(var i=0; i<currFnVars.length; i++){
 
         var currVar = currFnVars[i];
+        var new_html = "";
+        var pattern;
 
         for(var j=0; j<currVar.locations.length; j++){
 
           var currLoc = currVar.locations[j];
-          
+
           // If the code falls under a valid range  
           // NOTE: The range is [closed, open)        
           if( d.id >= parseInt(currLoc.start, 16) && d.id < parseInt(currLoc.end, 16)){
@@ -244,7 +247,14 @@ var makeDisassemblyView = function(model, viewId, divId){
             //  only show each highlight "phi" or "phidata", at most once.
             if( !seen[currVar.name] ) {
 
-              var pattern = new RegExp(currLoc.location, 'gi');
+              pattern = new RegExp(currLoc.location, 'gi');
+
+              if( codeStr.indexOf(currLoc.location) > -1 ) {
+
+                //var strike = new_html === "" ? strike_str : "";
+                new_html += "<span class='highlight'>" + currVar.name + "</span>";
+
+              }
               codeStr = codeStr.replace(pattern, "<span class='strikethrough'>" + currLoc.location + "</span> " +
                   "<span class='highlight'>" + currVar.name + "</span>");
 
@@ -252,6 +262,18 @@ var makeDisassemblyView = function(model, viewId, divId){
             }
           }
         }
+
+        //codeStr += new_html;
+        var reg = new RegExp(currLoc.location);
+        var strike_str = reg.test(currLoc.location) ? "<span class='strikethrough'>" + currLoc.location + "</span> " : "";
+
+        if( strike_str !== "" && !first_loc ) {
+
+            //codeStr = strike_str + codeStr;
+            first_loc = true;
+        }
+
+        //codeStr = codeStr.replace( pattern, new_html );
       }
 
       d.code = codeStr;
