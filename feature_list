@@ -1,0 +1,27 @@
+Feature List
+
+- Disassembly: Filter instructions (code folding). Implement slider for disassembly k=2,3,4,.. i.e. how many lines to show below/above the selection. Rest should be invisible or folded.
+
+- Instruction mix i.e. flags for basic blocks e.g. mem, vectorization, fp instructions etc.: Color loops and basic blocks based on the presence of vectorization or other criteria. Make a checkbox for what property you want to color by.
+
+- Disassembly: Compute the jumping address, and draw arrows on them. On clicking them draw arrows to the resulting address. Clear all arrows button. Sticky arrows
+
+- Duplicate nodes for inlined functions in the call graph.
+
+- Variable renaming: Provide context on which variable name came from which function and which line of code in the disassembly view (Popup on hover)
+
+- Implement slider for CFG, call graph. The slider will start from (selected only, and goes to k=2,3,4,.., and full graph [Caution: full graph crashes the algorithm]) Give the option for max nodes to cap it off.
+
+- Implement options/slider for the function and loop tree (Show only top or only bottom nodes or control the search depth on the bottom). For e.g. finding foo in the call graph and then seeing the call graph under it. Or filter everything above foo but show the things under it using the function inline tree.
+
+- Summary panel to show the state of all filters: Each panel allows you to select different parts of the code. We might need a summary panel to show the state of all the filters across all the interfaces. Another window/pane with selection by parts and you can disable those as necessary. (Similar to back button/history feature mentioned by the evaluation participants)
+
+- Variable Renaming: remove multiple strikethrough on the same variable
+
+================================================
+Feature suggestions from evaluation participants:
+
+- Perform autocentering in the source view only when the selected source code is out of view
+- keyboard shortcuts for selection of a line or a range of lines
+- pop-out windows for space management
+

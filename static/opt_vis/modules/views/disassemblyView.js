@@ -273,6 +273,7 @@ var makeDisassemblyView = function(model, viewId, divId){
             first_loc = true;
         }
 
+
         //codeStr = codeStr.replace( pattern, new_html );
       }
 

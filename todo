@@ -1,5 +1,14 @@
+10/23/2020:
+- Function inlining tree:
+    * make sure it doesn't get cut off.
+- After changing source files
+    * can not select source code and select assembly.
+
+- Combine Function inline tree and Loop Hierarchy.
+
+
 10/9/2020
-- Optviz: make sure "phi" or "phidata" each only appear once.
+DONE - Optviz: make sure "phi" or "phidata" each only appear once.
     * also make sure only the first %rbx will be crossed out, not the ones following.
 Left off: Finish up making the new_html strike appear only once.
 
