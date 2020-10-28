@@ -554,6 +554,6 @@ p.selected{
   background-repeat: no-repeat;
 }
 
-.strikethrough .strikethrough {
+.strikethrough {
   text-decoration: line-through;
 }

@@ -221,13 +221,13 @@ var makeDisassemblyView = function(model, viewId, divId){
       var codeStr = d.code;
       var seen = {};
       var first_loc = false;
+      var new_html = "";
 
       // Iterate through the variables
       // Replace the location with variable name
       for(var i=0; i<currFnVars.length; i++){
 
         var currVar = currFnVars[i];
-        var new_html = "";
         var pattern;
 
         for(var j=0; j<currVar.locations.length; j++){
@@ -252,11 +252,10 @@ var makeDisassemblyView = function(model, viewId, divId){
               if( codeStr.indexOf(currLoc.location) > -1 ) {
 
                 //var strike = new_html === "" ? strike_str : "";
-                new_html += "<span class='highlight'>" + currVar.name + "</span>";
-
+                new_html += "<span class='highlight'>" + currVar.name + "</span> ";
               }
-              codeStr = codeStr.replace(pattern, "<span class='strikethrough'>" + currLoc.location + "</span> " +
-                  "<span class='highlight'>" + currVar.name + "</span>");
+              //codeStr = codeStr.replace(pattern, "<span class='strikethrough'>" + currLoc.location + "</span> " +
+              //    "<span class='highlight'>" + currVar.name + "</span>");
 
               seen[currVar.name] = true;
             }
@@ -264,17 +263,14 @@ var makeDisassemblyView = function(model, viewId, divId){
         }
 
         //codeStr += new_html;
-        var reg = new RegExp(currLoc.location);
-        var strike_str = reg.test(currLoc.location) ? "<span class='strikethrough'>" + currLoc.location + "</span> " : "";
+      }
 
-        if( strike_str !== "" && !first_loc ) {
+      var strike_span = "<span class='strikethrough'>" + currLoc.location + "</span> ";
+      var repl = strike_span + new_html;
 
-            //codeStr = strike_str + codeStr;
-            first_loc = true;
-        }
-
-
-        //codeStr = codeStr.replace( pattern, new_html );
+      if( codeStr.indexOf(currLoc.location) > -1) {
+        console.log('found it');
+        codeStr = codeStr.replace( currLoc.location, repl );
       }
 
       d.code = codeStr;
