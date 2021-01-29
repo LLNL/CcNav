@@ -195,6 +195,11 @@
 /* Allow FnLoop to side scroll far enough to the right to see everything. */
 #fnInlineView {
 	width: 9000px;
+    height: 18000px;
+}
+ 
+#loopsView {
+    height: 42000px;
 }
 
 #text_highlight_graph_nodes,
