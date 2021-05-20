@@ -1,0 +1,42 @@
+{
+	"data": {
+		"graphFile":"ltimes.dot",
+		"graphFormat": "dot",
+		"analysisFile":"ltimes.json"
+	},
+
+	"layout": {
+		"node": {
+			"shape": "box",
+			"style": "solid",
+			"label": "id"
+		},
+		"edge": {
+			"style": "solid",
+			"color": "black"
+		},
+		"loop": {
+			"background": true
+		},
+		"function": {
+			"boundary": true
+		}
+	},
+
+	"filtering": {
+		"selectedNodes": ["B1973", "B1974", "B1978", "B1986", "B1993", "B4052", "B4183", "B4205", "B4206", "B4430"],
+		"isKhop":true, 
+		"K":3, 
+		"minNodes":20, 
+		"isLoopFilter": true
+	},
+
+	"auxRules": {
+		"isSplittingEnabled": true,
+		"inDegThresh": 3,
+		"auxList": [],
+		"nonAuxList": [],
+		"maxSubgraphSize": "25p"
+	}
+
+}

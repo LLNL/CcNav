@@ -1,0 +1,414 @@
+{
+
+	"$schema": "http://json-schema.org/draft/2019-09/schema",
+	"title": "CFGConf",
+	"type": "object",
+	"required": ["nodes", "edges"],
+	"properties": {
+		"nodes": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": ["id"],
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "The id of the node. Also acts as the label if label not specified"
+					},
+					"label": {
+						"type": "string",
+						"description": "the label of the node"
+					},
+					"shape": {
+						"type": "string",
+						"description": "One of the shape types supported by dot"
+					},
+					"style": {
+						"type": "string",
+						"description": "One of the style supported by dot"
+					},
+					"color": {
+						"type": "string",
+						"description": "Drawing color except for text as in dot"
+					}, 
+					"fillcolor": {
+						"type": "string",
+						"description": "Node/Cluster background color for style=filled"
+					},
+					"fontcolor": {
+						"type": "string",
+						"description": "Text color as in dot"
+					},
+					"isAux": {
+						"type": "boolean",
+						"description": "Is the node auxiliary"
+					},
+					"data": {
+						"type": "object",
+						"description":"Extensible object which contains data for the node (similar to graphML). The property 'text' is used for tooltip on hover."
+					}
+
+				} 
+			}
+		},
+
+		"edges": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": ["source", "target"],
+				"properties": {
+					"source": {
+						"type": "string",
+						"description": "The id of the source node in the edge"
+					},
+					"target": {
+						"type": "string",
+						"description": "The id of the target node in the edge"
+					},
+					"weight": {
+						"type": "number",
+						"minimum": 0,
+						"description": "The weight of the edge"
+					},
+					"label": {
+						"type": "string",
+						"description": "The label of the edge"
+					},
+					"srcPort": {
+						"type": "string",
+						"description": "The port of the source node when routing the edge"
+					},
+					"tgtPort": {
+						"type": "string",
+						"description": "The port of the target node when routing the edge"
+					},
+					"style": {
+						"type": "string",
+						"description": "The style of the edge defined in dot"
+					},
+					"color": {
+						"type": "string",
+						"description": "The color of the edge excluding the text"
+					},
+					"arrowhead": {
+						"type": "string",
+						"description": "arrowhead as defined in dot"
+					},
+					"arrowsize": {
+						"type":"number",
+						"description": "arrowsize as defined in dot"
+					},
+					"data": {
+						"type": "object",
+						"description": "Extensible object which contains data for the node (similar to graphML). The property 'text' is used for tooltip on hover."
+					}
+				}
+			}
+		},
+
+		"loops": {
+			"type": "object",
+			"required": ["id", "nodes", "backedges"],
+			"properties": {
+				"id": {
+					"type": "string",
+					"description": "The id of the loop"
+				},
+				"name": {
+					"type": "string",
+					"description": "The name of the loop"
+				},
+				"nodes": {
+					"type": "array",
+					"description": "The array of node Ids",
+					"items": {
+						"type": "string"
+					}
+				},
+				"backedges": {
+					"type": "array",
+					"description": "The array of backedges for the loop",
+					"items": {
+						"type": "array",
+						"description": "The backedge in the form of an array. The first element is the Id of the source (tail) node of the backedge and the second element is the Id of the target (head) node of the backedge",
+						"items": {
+							"type": "string"
+						}
+					}
+				},
+				
+				"layout": {
+					"type": "object",
+					"description": "contains the layout properties for the loop nodes and edges - see the global 'layout' property for details"
+				},
+
+				"data": {
+					"type": "object",
+					"description": "Extensible object which contains data for the loop."
+				},
+				"loops": {
+					"type": "object",
+					"description": "This contains the loops inside the current loop"
+				}
+			}
+		},
+
+		"functions": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": ["id", "nodes"],
+				"properties": {
+					"id": {
+						"type": "string",
+						"description": "the id of the cluster (e.g. function for CFG) "
+					},
+					"name": {
+						"type": "string",
+						"description": "the name of the cluster (e.g. function for CFG)"
+					},
+					"nodes": {
+						"type": "array",
+						"description": "the array of node Ids in the cluster",
+						"items": {
+							"type": "string"
+						}
+					},
+					"layout": {
+						"type": "object",
+						"description": "contains the layout properties for the function nodes and edges - see the global 'layout' property for details"
+					},
+					"data": {
+						"type": "object",
+						"description": "Extensible object which contains data for the cluster."
+					}
+				}
+			}
+			
+
+		},
+
+		"layout": {
+			"type": "object",
+			"description": "Contains the global properties for the graph layout",
+			"required": [],
+			"properties": {
+				"type": {
+					"type": "string",
+					"description": "Currently supports dot (default value)"
+				},
+				"node": {
+					"type": "object",
+					"description": "Global properties for nodes as defined in dot e.g. shape, style, label (id or full label), tooltip (true/false)"
+				}, 
+				"edge": {
+					"type": "object",
+					"description": "Global properties for edges as defined in dot e.g. style, color"
+				},
+				"rankdir": {
+					"type": "string",
+					"description": "Direction of layout. Default value is TB (Top Bottom). One of TB, BT, LR, RL"
+				},
+				"nodesep": {
+					"type": "number",
+					"minimum": 0,
+					"description": "minimum separation between nodes in the same rank"
+				},
+				"ranksep": {
+					"type": "number",
+					"minimum": 0,
+					"description": "minimum separation between nodes in adjacent rank"
+				},
+				"isIncremental": {
+					"type": "boolean",
+					"description": "Is the layout incremental or not? Experimental feature for incremental drawing using dynadag from graphviz which aims to make the previous node positions relatively stable"
+				},
+				"loopBoundary": {
+					"type": "boolean",
+					"description": "Is loop boundary with depth encoding drawn?"
+				}
+
+			}
+			
+		},
+
+		"filtering": {
+			"type": "object",
+			"properties": {
+
+				"selectedNodes": {
+					"type": "array",
+					"description": "node Ids of the currently selected nodes used for filtering the graph. If empty, use the first node if the graph is too big to layout! How big is too big ~ 2K?",
+					"items": {
+						"type": "string"
+					}
+				},
+
+				"isKhop": {
+					"type": "boolean",
+					"description": "Is K-hop filtering used for filtering"
+				},
+				"K" : {
+					"type": "number",
+					"minimum": 0,
+					"description": "The value of K used for K-hop filtering. 0 returns only the selected nodes."
+				},
+				"minNodes": {
+					"type": "number",
+					"minimum":0,
+					"description": "The minimum number of nodes to retrieve when performing K-hop filtering. When this minimum is reached, we stop the K hop filtering for next hop."
+				},
+				"isLoopFilter": {
+					"type": "boolean",
+					"description": "Is loop based filtering used? Loops intersecting the selected nodes are included in the resulting graph."
+				},
+				"loopDepth": {
+					"type": "number",
+					"minimum": 0,
+					"description": "The number of levels of loops to include when performing loop based filtering starting from the inner most loop with loopDepth 1"
+				},
+				"isFnFilter": {
+					"type": "boolean",
+					"description": "Is function based filtering used? Functions intersecting the selected nodes are included in the resulting graph."
+				}
+			}
+		},
+
+		"auxRules" : {
+			"type": "object",
+			"description": "The rules describing how to compute auxiliary nodes. Note: functions with loops can never be auxiliary nodes.",
+			"properties": {
+				"inDegThresh": {
+					"type": "number",
+					"description": "the in-degree threshold for auxiliary nodes i.e. minimum number of incoming edges to the subgraph to consider it an auxiliary node"
+				},
+				"isFunctionOnly": {
+					"type": "boolean",
+					"description": "Can only nodes in a function be auxiliary nodes?"
+				},
+				"minSubgraphSize": {
+					"type": "number",
+					"minimum": 1,
+					"description": "Default value is 1. The minimum size of subgraph to be considered as an auxiliary node"
+				},
+				"maxSubgraphSize": {
+					"type": "number",
+					"description": "The maximum size of subgraph to be considered an auxiliary node. Can be specified as a number or percentage (append p at the end to specify percentage of nodes in the working graph)."
+				},
+				"auxList": {
+					"type": "array",
+					"description": "The list of function names that should be made auxiliary nodes"	
+				},
+				"nonAuxList": {
+					"type": "array",
+					"description": "The list of function names that should not be made auxiliary nodes"
+				}
+			}
+			
+		},
+
+		"encodings": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"for": {
+						"type": "string",
+						"description": "one of node | edge | loop | cluster"
+					},
+					"field": {
+						"type": "string",
+						"description": "This field references one of the property inside the data field for the element chosen in the 'for' field"
+					},
+					"type": {
+						"type": "string",
+						"description": "The type of the data field above. Can be one of boolean|nominal|ordinal|quantitative"
+					},
+					"encoding": {
+						"type": "string",
+						"description": "One of the encodings for nodes/edges/loops/functions defined in types.txt"
+					},
+					"scale": {
+						"type": "object",
+						"description": "the object that sets the scales for data. Consistent to d3-scales and vega-lite scales",
+						"properties": {
+							"type": {
+								"type": "string",
+								"description": "type of scale consistent with d3-scales and vega-lite scales except time scales",
+							},
+							"domain": {
+								"type": "array",
+								"description": "items can contain either of string or number or boolean value"
+							},
+							"range": {
+								"type": "array",
+								"description": "items can contain either of string or number or boolean value"
+							},
+							"clamp": {
+								"type": "boolean",
+								"description": "clamp the scale output"
+							},
+							"interpolation": {
+								"type": "string",
+								"description": "currently supports hcl interpolation for color values"
+							}
+						}
+					}
+				}
+			}
+
+		},
+
+		"constraints": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"description": "This is the placeholder for all constraints. Currently designed for constraints in dot. 
+				Constraints can be of the form a.x + gap <= b.x in the same level. And
+				a.y + gap <= b.y between levels. The gap is integer value and determines the relative ordering in x or y axis
+				instead of actual pixel values.",
+				"properties": {
+					"type": {
+						"type": "string",
+						"description": "one of separation|alignment"
+					},
+					"axis": {
+						"type": "string",
+						"description": "one of x|y"
+					},
+					"left": {
+						"type": "string",
+						"description": "node Id for the left or top node in the constraint"
+					},
+					"right": {
+						"type": "string",
+						"description": "node Id for the right or bottom node in the constraint"
+					},
+					"gap": {
+						"type": "number",
+						"minimum": 0,
+						"description": "The gap value for constraints"
+					},
+					"equality" : {
+						"type": "boolean",
+						"description": "Are the separation constraints gap strictly equal?"
+					}, 
+					"nodes": {
+						"type": "array",
+						"description": "the node Ids for the alignment constraints (same x/y)"
+					}
+				}
+			}
+		}
+
+	}
+
+	
+
+
+
+
+
+
+

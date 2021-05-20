@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>CFG Graph Visualization</title>
+
+    <script src="static/CFGConf/lib/d3.v6.js"></script>
+    <!-- <script src="static/CFGConf/lib/d3.min.js"></script> -->
+    <script src="static/CFGConf/lib/graphlib.js"></script>
+    <script src="static/CFGConf/lib/graphlib-dot.js"></script>
+    <script src="static/CFGConf/lib/viz.js"></script>
+    <script src="static/CFGConf/lib/full.render.js"></script>
+    <script src="static/CFGConf/lib/convexhull.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="static/CFGConf/style.css">
+    
+</head>
+<body>
+
+<button class="dropbtn invisible" id= "mydropbtn">Menu</button>
+
+<div id="myHoverTopNav" class="dropdown">
+
+    <div id="topPanel" class="dropdown-content">
+
+        <label style=" padding: 3px;" for="fi_src">Input CFG JSON file</label>
+        <input style=" padding: 3px;" type="file" id="fi_json"/>
+        <br/>
+        <input style=" margin: 3px;" type="button" id="loadFile" value="LoadFiles"/>
+        <br/>
+
+        <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="checkbox" id="enableTooltip" value="enableTooltip" checked>Enable Tooltip</label>
+        <br/>
+
+        <label style=" margin:3px; background-color:#fdd0a2; padding:1px"><input style=" margin: 3px;" type="checkbox" id="loopBgFill" value="loopBgFill" checked>Show Loop Boundaries</label>
+        <br/>
+
+        <input style=" margin: 3px;"  type="button" id="save" value="Save File"/>
+        <input style=" margin: 3px;" type="button" id="closeMenu" value="Close Menu">
+
+    </div>
+</div>
+
+
+<div>
+    <div id="sub_tooltip" class="hidden">
+        <p><span id="tp_value"></span></p>
+    </div>
+
+    <!-- <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="checkbox" id="enableBrush_cfg" value="enableBrush">Enable Brush</label> -->
+    <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="radio" checked="checked" name="cfgBrush" id="sub_enableNav_cfg" value="enableNav">Navigation Mode</label>
+    <br/>
+    <label style=" margin:3px; padding: 3px;"><input style=" margin: 3px;" type="radio" name="cfgBrush" id="sub_enableBrush_cfg" value="enableBrush">Selection Mode</label>
+
+    <svg id="graphContainer">
+        <g/>
+    </svg>
+
+</div>
+
+<!-- <script src="static/CFGConf/modules/model.js"></script> -->
+<!-- <script src="static/CFGConf/modules/controller.js"></script> -->
+<!-- <script src="static/CFGConf/modules/main.js"></script> -->
+<!-- <script src="static/CFGConf/loopify_dot.js"></script> -->
+
+<script src="static/CFGConf/lib/highlight.pack.js"></script>
+
+<script>
+  var viz = new Viz();
+
+  // var dotGraph = 'digraph g {B0 [shape=box, style=solid, label="B0"]; B1 [shape=box, style=solid, label="B1"]; B2 [shape=box, style=solid, label="B2"]; B3 [shape=box, style=solid, label="B3"]; B0 -> B1 [style=solid, color="black"]; B0 -> B2 [style=solid, color="black"]; B1 -> B2 [style=solid, color="black"]; B1 -> B4 [style=solid, color="black"];}';
+
+  var dotGraph = 'digraph g { node[shape=box, style=solid]; B67 -> B0 [style=solid, color="black"]; B0 -> B1 [style=solid, color="black"]; B0 -> B2 [style=solid, color="black"]; B1 -> B2 [style=solid, color="black"]; B66 -> B3 [style=solid, color="black"]; B11 -> B3 [style=solid, color="black"]; B12 -> B3 [style=solid, color="black"]; B15 -> B3 [style=solid, color="black"]; B1 -> B4 [style=solid, color="black"]; B37 -> B5 [style=solid, color="black"]; B34 -> B5 [style=solid, color="black"]; B64 -> B5 [style=solid, color="black"]; B39 -> B5 [style=solid, color="black"]; B35 -> B5 [style=solid, color="black"]; B9 -> B5 [style=solid, color="black"]; B65 -> B5 [style=solid, color="black"]; B40 -> B5 [style=solid, color="black"]; B13 -> B5 [style=solid, color="black"]; B14 -> B5 [style=solid, color="black"]; B17 -> B6 [style=solid, color="black"]; B19 -> B7 [style=solid, color="black"]; B18 -> B8 [style=solid, color="black"]; B9 -> B10 [style=solid, color="black"];} ';
+
+  // viz.renderSVGElement('digraph { a -> b }')
+  viz.renderSVGElement(dotGraph)
+  .then(function(element) {
+    document.body.appendChild(element);
+  })
+  .catch(error => {
+    // Create a new Viz instance (@see Caveats page for more info)
+    viz = new Viz();
+
+    // Possibly display the error
+    console.error(error);
+  });
+</script>
+
+</body>
+</html>
