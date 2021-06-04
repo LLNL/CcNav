@@ -1,17 +1,46 @@
+Step 1: Include js files
+cfconf -> static -> CFGConf -> *.js , lib/*.js
+
+Step 2: For all the js files that have the same name -
+cfgconf_main
+cfgconf_utils
+
+
+cfgconf_cfgView.js
+
+
+fileUtils.js, defs.js
+Step 3: cfgView.js
+2 different version of graphlib.js, graphlib-dot.js
+
+find a way to make both libraries run concurrently:
+1) hack the graphlib-dot.js to have a different global object (risky)
+2) port graphlib to graphlib-dot.js (lots of work).
+
+
+- function inlining tree and loop hierarchy
+    * separate into a new panel.
+    * it's own golden layout.
+
+- Left off: Fixed the function inlining tree and loop heirarchy by setting a large enough height.  It's checked into dev.
+
 10/23/2020:
-- fix PHI
+DONE - Optviz: make sure "phi" or "phidata" each only appear once.
+DONE - make sure only the first %rbx will be crossed out, not the ones following.
 - Function inlining tree:
     * make sure it doesn't get cut off.
-- After changing source files
+    * firefox only.
+    * For Loop Hierarchy, instead of Tabs, consider making a new Panel (like FnLoops)
+    * found a fix by hard coding height
+        * can improve that by hard coding at runtime based on the number of rect boxes so it's closer to what we want.
+
+BUG - After changing source files
     * can not select source code and select assembly.
 
-- Combine Function inline tree and Loop Hierarchy.
+LATER - Combine Function inline tree and Loop Hierarchy.
 
 
 10/9/2020
-DONE - Optviz: make sure "phi" or "phidata" each only appear once.
-    * also make sure only the first %rbx will be crossed out, not the ones following.
-Left off: Finish up making the new_html strike appear only once.
 
 Goals:
 - Big Binaries
