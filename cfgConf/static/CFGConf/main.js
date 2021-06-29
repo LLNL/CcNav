@@ -11,7 +11,7 @@ class Model {
 var cfgConfModel = new Model();
 var cfgView = new CFGView(cfgConfModel, "graphContainer", "gDiv");
 
-var cfgConfPrefix = "static/CFGConf/files/";
+var cfgConfPrefix = "cfgConf/static/CFGConf/files/";
 // var cfgConfFile = "ltimes_cfg_conf_no_graph.json";
 // var cfgConfFile = "ltimes_cfg_conf_no_graph_lines171-181.json";
 // var cfgConfFile = "ltimes_cfg_conf_no_graph_lines226-235.json";
@@ -109,7 +109,7 @@ function runCFGConf(){
 	});
 }
 
-// runCFGConf();
+runCFGConf();
 
 function initGraph(json, graph, model){
 	addNodes(graph, json["nodes"], json["rendering"]);
