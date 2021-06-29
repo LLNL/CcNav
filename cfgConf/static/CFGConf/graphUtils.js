@@ -78,7 +78,7 @@ class GraphUtils {
 		}
 		
 		// create a copy of the graph
-		let graph_with_aux_nodes = graphlibDot.read(graphlibDot.write(g));
+		let graph_with_aux_nodes = graphlibDotNew.read(graphlibDotNew.write(g));
 
 		// get the function nodes  
 		// Among the function nodes make sure that it doesnt contain any loop

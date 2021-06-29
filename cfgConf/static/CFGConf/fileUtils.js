@@ -13,7 +13,7 @@ class FileUtils {
 			confJSON["edges"] = [];
 		}
 		// create a graph from dot string so we can work with the graph
-		var thisGraph = graphlibDot.read(dotString);
+		var thisGraph = graphlibDotNew.read(dotString);
 
 		// create a map from nodeId to obj in the JSON for quick lookup
 		var nodeMap = {};

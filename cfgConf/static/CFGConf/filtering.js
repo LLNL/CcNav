@@ -39,8 +39,8 @@ class Filtering {
 
     var ctNodes=0;
 
-    // var graphToReturn = graphlibDot.parse("digraph {}");
-    var graphToReturn = new graphlib.Graph({ directed: true, compound: true});
+    // var graphToReturn = graphlibDotNew.parse("digraph {}");
+    var graphToReturn = new graphlibNew.Graph({ directed: true, compound: true});
 
     for (var i=0; i<setOfNodes.length; i++){
       visited[setOfNodes[i]] = true;

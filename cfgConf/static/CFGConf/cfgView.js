@@ -32,8 +32,8 @@ class CFGView {
   _render(model, svgId, divId, thisObj){
     
     loopify_dagre.init(model.filteredDotString, model.filteredGraph);
-    // // loopify_dagre.init(graphlibDot.write(graph_hg_edges), graph_hg_edges);
-    // // loopify_dagre.init(graphlibDot.write(model.graphWithAuxNodes), 
+    // // loopify_dagre.init(graphlibDotNew.write(graph_hg_edges), graph_hg_edges);
+    // // loopify_dagre.init(graphlibDotNew.write(model.graphWithAuxNodes), 
     // // model.graphWithAuxNodes);
     
     // var modifiedDotFile = loopify_dagre.modifiedDotFile;
@@ -56,7 +56,7 @@ class CFGView {
 	//   	model.filteredGraph._hangingNodes, model.filteredGraph._hangingEdges);
 	let graph_hg_edges = thisObj.renderHangingEdges(graphWithAuxNodes, 
 	  	model.filteredGraph._hangingNodes, model.filteredGraph._hangingEdges);  	    
-    let modifiedDotFile = graphlibDot.write(graph_hg_edges);
+    let modifiedDotFile = graphlibDotNew.write(graph_hg_edges);
     console.log(modifiedDotFile);
 
     var viz = new Viz();
@@ -106,7 +106,7 @@ class CFGView {
   	}
 
   	// create a copy of the graph and modify it  
-  	let graphToReturn = graphlibDot.read(graphlibDot.write(graph));
+  	let graphToReturn = graphlibDotNew.read(graphlibDotNew.write(graph));
   	// NOTE: Graph writing will lose the information about hanging nodes
   	// and edges. So, we pass these parameters as well
   	

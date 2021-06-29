@@ -3,6 +3,7 @@ var OP = OP || {};
 // var DATASET = "lulesh";
 // var DATASET = "testsinglefile";
 var DATASET = "ltimes-rajaperf";
+var prefix;
 
 if(DATASET === "lulesh"){
   var SRC_FILENAME = 'lulesh.cc';

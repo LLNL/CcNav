@@ -8,10 +8,10 @@ class Model {
 	graphWithAuxNodes;
 }
 
-var model = new Model();
-var cfgView = new CFGView(model, "graphContainer", "gDiv");
+var cfgConfModel = new Model();
+var cfgView = new CFGView(cfgConfModel, "graphContainer", "gDiv");
 
-var prefix = "cfgConf/static/CFGConf/files/";
+var cfgConfPrefix = "static/CFGConf/files/";
 // var cfgConfFile = "ltimes_cfg_conf_no_graph.json";
 // var cfgConfFile = "ltimes_cfg_conf_no_graph_lines171-181.json";
 // var cfgConfFile = "ltimes_cfg_conf_no_graph_lines226-235.json";
@@ -22,28 +22,28 @@ var prefix = "cfgConf/static/CFGConf/files/";
 // var cfgConfFile = "singlefile_cfg_gd_no_graph_w_structure.json";
 
 function runCFGConf(){
-	d3.json(prefix + "init.json", function(initFileJSON) {
-		var prefix = initFileJSON["PathPrefix"];
-		var jsonPath = prefix + initFileJSON["JSONFileName"];
-		// d3.json(prefix + cfgConfFile, function(cfgConfJSON) {
+	d3.json(cfgConfPrefix + "init.json", function(initFileJSON) {
+		var cfgConfPrefix = initFileJSON["PathPrefix"];
+		var jsonPath = cfgConfPrefix + initFileJSON["JSONFileName"];
+		// d3.json(cfgConfPrefix + cfgConfFile, function(cfgConfJSON) {
 		d3.json(jsonPath, function(cfgConfJSON) {	
-			model.CFGConfJSON = cfgConfJSON;
+			cfgConfModel.CFGConfJSON = cfgConfJSON;
 			// make a copy of the json spec
-			model.origCFGConfJSON = JSON.parse(JSON.stringify(model.CFGConfJSON));
-			model.graph = new graphlib.Graph({ directed: true, compound: true});
-			console.log(model.CFGConfJSON);
-			console.log(model.graph);
+			cfgConfModel.origCFGConfJSON = JSON.parse(JSON.stringify(cfgConfModel.CFGConfJSON));
+			cfgConfModel.graph = new graphlibNew.Graph({ directed: true, compound: true});
+			console.log(cfgConfModel.CFGConfJSON);
+			console.log(cfgConfModel.graph);
 
-			if("data" in model.CFGConfJSON){
+			if("data" in cfgConfModel.CFGConfJSON){
 
-				if(!("graphFile" in model.CFGConfJSON["data"])){
+				if(!("graphFile" in cfgConfModel.CFGConfJSON["data"])){
 					alert("No graph file provided");
 					throw "No graph file provided";
 				}
-				var graphFile = model.CFGConfJSON["data"]["graphFile"];
+				var graphFile = cfgConfModel.CFGConfJSON["data"]["graphFile"];
 
 				var graphFormat;
-				if(!("graphFormat" in model.CFGConfJSON["data"])){
+				if(!("graphFormat" in cfgConfModel.CFGConfJSON["data"])){
 					if(graphFile.endsWith(".dot")){
 						graphFormat = "dot";
 					}	else if (graphFile.endsWith(".json")){
@@ -54,55 +54,55 @@ function runCFGConf(){
 					}
 
 				}	else {
-					graphFormat = model.CFGConfJSON["data"]["graphFormat"];
+					graphFormat = cfgConfModel.CFGConfJSON["data"]["graphFormat"];
 				}
 				
 				var structureFileType = null;
-				if("structureFile" in model.CFGConfJSON["data"]){
+				if("structureFile" in cfgConfModel.CFGConfJSON["data"]){
 					structureFileType = "structure";
-				}	else if ("analysisFile" in model.CFGConfJSON["data"]){
+				}	else if ("analysisFile" in cfgConfModel.CFGConfJSON["data"]){
 					structureFileType = "dyninstAnalysis";
 				}
 				
 				if(graphFormat === "dot"){
-					d3.text(prefix + model.CFGConfJSON["data"]["graphFile"], function(dotString){
-						FileUtils.addFromDotFile(dotString, model.CFGConfJSON);
+					d3.text(cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["graphFile"], function(dotString){
+						FileUtils.addFromDotFile(dotString, cfgConfModel.CFGConfJSON);
 						if(structureFileType === "dyninstAnalysis"){
-							d3.json(prefix + model.CFGConfJSON["data"]["analysisFile"], function(anlsJSON) {
-								FileUtils.addFromJSONAnlsFile(anlsJSON, model.CFGConfJSON);
-								initGraph(model.CFGConfJSON, model.graph, model);
+							d3.json(cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["analysisFile"], function(anlsJSON) {
+								FileUtils.addFromJSONAnlsFile(anlsJSON, cfgConfModel.CFGConfJSON);
+								initGraph(cfgConfModel.CFGConfJSON, cfgConfModel.graph, cfgConfModel);
 							})	
 						}	else if (structureFileType === "structure"){
-							d3.json(prefix + model.CFGConfJSON["data"]["structureFile"], function(strucJSON) {
-								FileUtils.addFromStructuresFile(strucJSON, model.CFGConfJSON);
-								initGraph(model.CFGConfJSON, model.graph, model);
+							d3.json(cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["structureFile"], function(strucJSON) {
+								FileUtils.addFromStructuresFile(strucJSON, cfgConfModel.CFGConfJSON);
+								initGraph(cfgConfModel.CFGConfJSON, cfgConfModel.graph, cfgConfModel);
 							})
 						} else {
-							initGraph(model.CFGConfJSON, model.graph, model);
+							initGraph(cfgConfModel.CFGConfJSON, cfgConfModel.graph, cfgConfModel);
 						}
 					})
 				}
 				else if (graphFormat === "json") {
-					d3.json(prefix + model.CFGConfJSON["data"]["graphFile"], function(graphJSON){
-						FileUtils.addFromGraphJSON(graphJSON, model.CFGConfJSON);
+					d3.json(cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["graphFile"], function(graphJSON){
+						FileUtils.addFromGraphJSON(graphJSON, cfgConfModel.CFGConfJSON);
 						if(structureFileType === "dyninstAnalysis"){
-							d3.json(prefix + model.CFGConfJSON["data"]["analysisFile"], function(anlsJSON) {
-								FileUtils.addFromJSONAnlsFile(anlsJSON, model.CFGConfJSON);
-								initGraph(model.CFGConfJSON, model.graph, model);
+							d3.json(cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["analysisFile"], function(anlsJSON) {
+								FileUtils.addFromJSONAnlsFile(anlsJSON, cfgConfModel.CFGConfJSON);
+								initGraph(cfgConfModel.CFGConfJSON, cfgConfModel.graph, cfgConfModel);
 							})	
 						}	else if (structureFileType === "structure"){
-							d3.json(prefix + model.CFGConfJSON["data"]["structureFile"], function(strucJSON) {
-								FileUtils.addFromStructuresFile(strucJSON, model.CFGConfJSON);
-								initGraph(model.CFGConfJSON, model.graph, model);
+							d3.json(cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["structureFile"], function(strucJSON) {
+								FileUtils.addFromStructuresFile(strucJSON, cfgConfModel.CFGConfJSON);
+								initGraph(cfgConfModel.CFGConfJSON, cfgConfModel.graph, cfgConfModel);
 							})
 						} else {
-							initGraph(model.CFGConfJSON, model.graph, model);
+							initGraph(cfgConfModel.CFGConfJSON, cfgConfModel.graph, cfgConfModel);
 						}
 					}) 
 				}
 			}
 				else {
-				initGraph(model.CFGConfJSON, model.graph, model);
+				initGraph(cfgConfModel.CFGConfJSON, cfgConfModel.graph, cfgConfModel);
 			}
 
 		});
@@ -415,7 +415,7 @@ function convertToDot(g){
 	// Add the backedge from and to as separate values
 	// For loops and functions
 	//  handle the data and layout.node and layout.edge properties
-	var dotString = graphlibDot.write(g);
+	var dotString = graphlibDotNew.write(g);
 	const regex = /cluster_main /ig;
 	// const regex = /cluster_/ig;
 	return dotString;

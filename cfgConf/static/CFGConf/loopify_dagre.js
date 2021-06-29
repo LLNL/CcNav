@@ -68,8 +68,8 @@ var loopify_dagre = (function(myExport){
     modifiedDotFile = dotFile; 
     
     //Read the dotfile into the graph
-    // modified_graph = graphlibDot.parse(modifiedDotFile);
-    modified_graph = graphlibDot.read(modifiedDotFile);
+    // modified_graph = graphlibDotNew.parse(modifiedDotFile);
+    modified_graph = graphlibDotNew.read(modifiedDotFile);
     
 
 		//When working with new loop, toggle flipDir, and set updateCurrentRootLoop to true
@@ -267,7 +267,7 @@ var loopify_dagre = (function(myExport){
     }
 
     myExport.modified_graph = modified_graph;
-    myExport.modifiedDotFile = graphlibDot.write(modified_graph);
+    myExport.modifiedDotFile = graphlibDotNew.write(modified_graph);
 
 
   }
