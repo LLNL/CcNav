@@ -220,7 +220,10 @@ OV.GetFileChoices = function() {
         // view_inline_tree = makeTreeListView(model, 'assemblyContainer', 'middle');
         view_disassembly = makeDisassemblyView(model, 'text_assembly', 'middle');
 
-        view_graph = makeCFGGraphView(model, 'graphContainer', 'right');
+        var cfgView = new CFGView( model, 'graphContainer', 'right');
+        cfgView.renderGraph();
+
+        //view_graph = makeCFGGraphView(model, 'graphContainer', 'right');
         view_highlighted_items = makeHighlightedItemsView(model, 'highlightList');
 
         // view_register_renamer = makeRegRenamingView(model, 'reg_rename');
