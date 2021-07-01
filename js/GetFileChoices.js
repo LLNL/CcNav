@@ -220,8 +220,11 @@ OV.GetFileChoices = function() {
         // view_inline_tree = makeTreeListView(model, 'assemblyContainer', 'middle');
         view_disassembly = makeDisassemblyView(model, 'text_assembly', 'middle');
 
-        var cfgView = new CFGView( model, 'graphContainer', 'right');
-        cfgView.renderGraph();
+        //  this won't load parts of the "model.filteredGraph".  runCFGConf sets up the model first.
+        //var cfgView = new CFGView( model, 'graphContainer', 'right');
+        //cfgView.renderGraph();
+
+        runCFGConf();
 
         //view_graph = makeCFGGraphView(model, 'graphContainer', 'right');
         view_highlighted_items = makeHighlightedItemsView(model, 'highlightList');

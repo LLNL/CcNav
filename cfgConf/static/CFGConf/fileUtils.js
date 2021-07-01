@@ -1,13 +1,13 @@
 class FileUtils {
 
-	// This function adds the nodes and edges from the dot file to
+	// This function adds the nodes and edges from the dot file
 	// the nodes and edges in the JSON
 	// NOTE: If there is any node/edge already present in the JSON 
 	// with the same id, we keep the object and add missing attributes 
 	// from the node in the dot file
 	static addFromDotFile(dotString, confJSON){
 		if(!("nodes" in confJSON)){
-			confJSON["nodes"] = [];
+			confJSON["nodes"] = []
 		}
 		if(!("edges" in confJSON)){
 			confJSON["edges"] = [];
