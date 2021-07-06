@@ -3,6 +3,18 @@
 - #gDiv is not in the body.
 - so cfgView.js line 71 fails because nothing to append it too.
 
+
+I can see the code goes to CFGView class's _render function:
+    * but it can't find #gDiv.
+
+
+
+
+next meeting with Matt:
+Release and Review
+Walk through code base
+
+
 10/23/2020:
 - fix PHI
 - Function inlining tree:

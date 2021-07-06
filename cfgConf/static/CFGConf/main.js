@@ -9,7 +9,7 @@ class Model {
 }
 
 var cfgConfModel = new Model();
-var cfgView = new CFGView(cfgConfModel, "graphContainer", "gDiv");
+var cfgView = new CFGView(cfgConfModel, "graphContainer", "right");
 
 var cfgConfPrefix = "cfgConf/static/CFGConf/files/";
 // var cfgConfFile = "ltimes_cfg_conf_no_graph.json";
