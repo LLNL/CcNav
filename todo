@@ -3,6 +3,12 @@ I need to construct these somehow:
  json, callGraph, model
 Probably from new functions in the new code.
 
+Need to make dynamic: be able to enter any dir on input
+main.js line 68 -> currently this will return the hard coded
+dot file in the files directory: the graphFile mentioned in the ltimes_init.js
+
+but we need it to actually use the DOT file we already retrieved.
+
 6/1/21
 - currently working on integration
 - #gDiv is not in the body.

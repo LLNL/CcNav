@@ -1,5 +1,6 @@
 class CFGView {
 
+  _observers = makeSignaller();
   svgElem;
   // map from the graph nodes and edges to DOM nodes 
   nodeSVGMap = {};

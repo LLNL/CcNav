@@ -65,9 +65,12 @@ function runCFGConf(){
 				}
 				
 				if(graphFormat === "dot"){
-					d3.text(cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["graphFile"], function(dotString){
+					//d3.text(cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["graphFile"], function(dotString){
 
+						var dotString = DOT_FULL_DATA;
+						//  here is the dotFile we need to replace dynamically.
 						FileUtils.addFromDotFile(dotString, cfgConfModel.CFGConfJSON);
+
 						if(structureFileType === "dyninstAnalysis"){
 							d3.json(cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["analysisFile"], function(anlsJSON) {
 								FileUtils.addFromJSONAnlsFile(anlsJSON, cfgConfModel.CFGConfJSON);
@@ -81,7 +84,7 @@ function runCFGConf(){
 						} else {
 							initGraph(cfgConfModel.CFGConfJSON, cfgConfModel.graph, cfgConfModel);
 						}
-					})
+					//})
 				}
 				else if (graphFormat === "json") {
 
