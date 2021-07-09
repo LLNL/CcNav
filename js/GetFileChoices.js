@@ -224,7 +224,18 @@ OV.GetFileChoices = function() {
         //var cfgView = new CFGView( model, 'graphContainer', 'right');
         //cfgView.renderGraph();
 
+        /*var cfgConfModel = {};
+
+        cfgConfModel.CFGConfJSON = cfgConfJSON;
+        // make a copy of the json spec
+        cfgConfModel.CFGConfJSON["data"]["graphFile"] = DOT_FULL_DATA;
+        cfgConfModel.origCFGConfJSON = JSON.parse(JSON.stringify(cfgConfModel.CFGConfJSON));
+        cfgConfModel.graph = new graphlibNew.Graph({ directed: true, compound: true});
+        console.log(cfgConfModel.CFGConfJSON);
+        console.log(cfgConfModel.graph);*/
+
         runCFGConf();
+        //initGraph( json, callGraph, model);
 
         //view_graph = makeCFGGraphView(model, 'graphContainer', 'right');
         view_highlighted_items = makeHighlightedItemsView(model, 'highlightList');

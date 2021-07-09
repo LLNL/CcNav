@@ -1,3 +1,8 @@
+GetFileChoices.js 227:
+I need to construct these somehow:
+ json, callGraph, model
+Probably from new functions in the new code.
+
 6/1/21
 - currently working on integration
 - #gDiv is not in the body.
@@ -6,9 +11,11 @@
 
 I can see the code goes to CFGView class's _render function:
     * but it can't find #gDiv.
+    * graph correct,
+    * filtered graph not correct: 9
 
 
-
+July 30th -> Sabin defense.
 
 next meeting with Matt:
 Release and Review
@@ -43,6 +50,64 @@ DONE - Selected graph nodes, created a link from there to the disassemblyview.
 - Zoom:
     * place link (index.html 188) for plus and minus
     * zoom out - make zoom.
+
+
+
+Key things to get events working:
+  var _observers = makeSignaller();
+
+
+    d3.selectAll("#" + svgId + " g.node.enter")
+        .on("mouseover", function(d, i){
+          _showTooltip(d, i, divId, this);
+          _fireFocusEvent(d,i);
+
+
+        })
+        .on("mouseout", function(d, i){
+          _hideTooltip();
+          _fireFocusOutEvent(d,i);
+
+        })
+        .on("click", function(d, i){
+          // _clickEvent(d,i);
+          _highlightEvent(d,i);
+        })
+
+  var _highlightEvent = function(d,i){
+    _observers.notify({
+      type: signalType.highlight,
+      dataType: dataTypes.graphNode,
+      d: d,
+      i: i
+    });
+  }
+
+  var _clickEvent = function(d,i) {
+    _observers.notify({
+      type: signalType.click,
+      dataType: dataTypes.graphNode,
+      d: d,
+      i: i
+    });
+  }
+
+  var _fireFocusEvent = function(d, i) {
+    _observers.notify({
+      type: signalType.focus,
+      dataType: dataTypes.graphNode,
+      d: d,
+      i: i
+    });
+
+  };
+
+
+
+
+
+
+
 
 
 "mov <span class='strikethrough'>%rbx</span> <span class='highlight'>phi_data</span>,%rdi"

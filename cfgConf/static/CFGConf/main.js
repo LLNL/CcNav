@@ -22,7 +22,7 @@ var cfgConfPrefix = "cfgConf/static/CFGConf/files/";
 // var cfgConfFile = "singlefile_cfg_gd_no_graph_w_structure.json";
 
 function runCFGConf(){
-	d3.json(cfgConfPrefix + "init.json", function(initFileJSON) {
+	d3.json(cfgConfPrefix + "init_ltimes.json", function(initFileJSON) {
 		var cfgConfPrefix = initFileJSON["PathPrefix"];
 		var jsonPath = cfgConfPrefix + initFileJSON["JSONFileName"];
 		// d3.json(cfgConfPrefix + cfgConfFile, function(cfgConfJSON) {
@@ -66,6 +66,7 @@ function runCFGConf(){
 				
 				if(graphFormat === "dot"){
 					d3.text(cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["graphFile"], function(dotString){
+
 						FileUtils.addFromDotFile(dotString, cfgConfModel.CFGConfJSON);
 						if(structureFileType === "dyninstAnalysis"){
 							d3.json(cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["analysisFile"], function(anlsJSON) {
@@ -83,8 +84,14 @@ function runCFGConf(){
 					})
 				}
 				else if (graphFormat === "json") {
-					d3.json(cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["graphFile"], function(graphJSON){
+
+				    var path = cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["graphFile"];
+
+					d3.json(path, function(graphJSON){
+
+					    console.log( graphJSON );
 						FileUtils.addFromGraphJSON(graphJSON, cfgConfModel.CFGConfJSON);
+
 						if(structureFileType === "dyninstAnalysis"){
 							d3.json(cfgConfPrefix + cfgConfModel.CFGConfJSON["data"]["analysisFile"], function(anlsJSON) {
 								FileUtils.addFromJSONAnlsFile(anlsJSON, cfgConfModel.CFGConfJSON);
@@ -109,7 +116,7 @@ function runCFGConf(){
 	});
 }
 
-runCFGConf();
+//runCFGConf();
 
 function initGraph(json, graph, model){
 	addNodes(graph, json["nodes"], json["rendering"]);
