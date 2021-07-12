@@ -82,7 +82,7 @@ class CFGView {
       }
       
       thisObj.updateHgNodeIcon(graph_hg_edges, thisObj.nodeSVGMap, thisObj.edgeSVGMap, thisObj);
-      
+      thisObj.bindCFGView( thisObj );
     })
     .catch(error => {
       // Create a new Viz instance (@see Caveats page for more info)
@@ -93,6 +93,48 @@ class CFGView {
     });
   
   }
+
+  bindCFGView( thisObj ) {
+
+      d3.selectAll("#" + thisObj.svgId + " g.node")
+        .on("click", function(d, i){
+            //thisObj.clickEvent(d,i, thisObj);
+
+            var id = $(this).attr('id');
+
+            thisObj.highlightEvent( id, i, thisObj);
+        });
+  };
+
+  highlightEvent = function(d,i, thisObj){
+
+      console.log('Highlight Event');
+      console.dir(d);
+      console.dir( i );
+
+    thisObj._observers.notify({
+      type: signalType.highlight,
+      dataType: dataTypes.graphNode,
+      d: d,
+      i: i
+    });
+  };
+
+  clickEvent = function(d,i, thisObj) {
+
+      console.log('Click Event');
+      console.dir( d );
+      console.dir( i );
+      console.dir( thisObj );
+
+      thisObj._observers.notify({
+          type: signalType.click,
+          dataType: dataTypes.graphNode,
+          d: d,
+          i: i
+      });
+  };
+
 
   renderGraph(){
     this._render(this.model, this.svgId, this.divId, this);
