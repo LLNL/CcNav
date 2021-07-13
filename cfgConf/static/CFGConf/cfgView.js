@@ -92,7 +92,14 @@ class CFGView {
       alert(error);
     });
   
-  }
+  };
+
+  highlight() {
+  };
+
+    register(fxn) {
+        this._observers.add(fxn);
+    }
 
   bindCFGView( thisObj ) {
 

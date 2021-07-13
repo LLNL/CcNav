@@ -269,6 +269,8 @@ OV.GetFileChoices = function() {
         // view_inline_tree.register(controller.dispatch);
         view_disassembly.register(controller.dispatch);
 
+
+        cfgView.register( controller.dispatch );
         //view_graph.register(controller.dispatch);
         // view_register_renamer.register(controller.dispatch);
         view_var_renamer.register(controller.dispatch);

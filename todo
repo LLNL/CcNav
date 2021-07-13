@@ -1,3 +1,8 @@
+Still at least 2 issues:
+1) When clicking on CFG nodes nothing else happens, the other panels don't update
+2) When clicking on other panels, the CFG panel does not update.
+
+
 GetFileChoices.js 227:
 I need to construct these somehow:
  json, callGraph, model
