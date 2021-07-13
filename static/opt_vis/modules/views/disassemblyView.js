@@ -265,10 +265,11 @@ var makeDisassemblyView = function(model, viewId, divId){
         //codeStr += new_html;
       }
 
-      var strike_span = "<span class='strikethrough'>" + currLoc.location + "</span> ";
+      var cLoc = currLoc ? (currLoc.location || "") : "";
+      var strike_span = "<span class='strikethrough'>" + cLoc + "</span> ";
       var repl = strike_span + new_html;
 
-      if( codeStr.indexOf(currLoc.location) > -1) {
+      if( currLoc && codeStr.indexOf(currLoc.location) > -1) {
         console.log('found it');
         codeStr = codeStr.replace( currLoc.location, repl );
       }

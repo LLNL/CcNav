@@ -248,13 +248,13 @@ OV.GetFileChoices = function() {
 
         controller = makeController(model);
 
-        // model.register(view_source.render);
+        model.register(view_source.render);
         model.register(view_source.highlight);
 
         // model.register(view_inline_tree.highlight);
         model.register(view_disassembly.highlight);
 
-        model.register(view_graph.highlight);
+        //model.register(view_graph.highlight);
         model.register(view_highlighted_items.render);
         // model.register(view_register_renamer.render);
         model.register(view_var_renamer.render);
@@ -269,7 +269,7 @@ OV.GetFileChoices = function() {
         // view_inline_tree.register(controller.dispatch);
         view_disassembly.register(controller.dispatch);
 
-        view_graph.register(controller.dispatch);
+        //view_graph.register(controller.dispatch);
         // view_register_renamer.register(controller.dispatch);
         view_var_renamer.register(controller.dispatch);
         view_callgraph.register(controller.dispatch);
