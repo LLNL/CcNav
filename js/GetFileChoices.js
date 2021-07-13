@@ -254,7 +254,7 @@ OV.GetFileChoices = function() {
         // model.register(view_inline_tree.highlight);
         model.register(view_disassembly.highlight);
 
-        //model.register(view_graph.highlight);
+        model.register(cfgView.highlight);
         model.register(view_highlighted_items.render);
         // model.register(view_register_renamer.render);
         model.register(view_var_renamer.render);

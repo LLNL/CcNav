@@ -95,6 +95,7 @@ class CFGView {
   };
 
   highlight() {
+      console.log('highlight now.')
   };
 
     register(fxn) {
