@@ -95,7 +95,37 @@ class CFGView {
   };
 
   highlight() {
-      console.log('highlight now.')
+
+      console.log('highlight now.');
+
+      cfgConfModel.CFGConfJSON["filtering"]["selectedNodes"] = ["B1", "B5"];
+      cfgView.renderGraph();
+
+/*    var graph_nodes = g.nodes();
+    var found_highlight = false;
+
+    // Note: Does caching this d3 selection and storing it in the view
+    // make it faster?
+    d3.selectAll('#' + svgId + " g.node.enter")
+      // .data(graph_nodes, function(d){return d;})
+    	// .filter(function(d) {return d !== "undefined";})
+      .classed("highlight", function(d){
+        if (g.node(d).highlight){
+
+          if(!found_highlight) {
+            found_highlight = true;
+            _centerToNode(d3.select(this));
+          }
+        }
+    		return g.node(d).highlight;
+    	})
+    	.classed("selected", function(d){
+    		return g.node(d).selected;
+    	})
+    	;
+
+    _highlightBackEdges();
+*/
   };
 
     register(fxn) {
