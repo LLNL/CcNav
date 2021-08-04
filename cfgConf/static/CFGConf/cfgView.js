@@ -98,7 +98,21 @@ class CFGView {
 
       console.log('highlight now.');
 
-      cfgConfModel.CFGConfJSON["filtering"]["selectedNodes"] = ["B1", "B5"];
+      var selectedNodes = [];
+      var graph_nodes = g.nodes();
+
+      console.dir(graph_nodes);
+
+      for( var x=0; x < graph_nodes.length; x++ ) {
+
+          var nodeId = graph_nodes[x];
+          if( g.node(nodeId).highlight ) {
+              console.log( "highlight=" + nodeId );
+              selectedNodes.push( nodeId );
+          }
+      }
+
+      cfgConfModel.CFGConfJSON["filtering"]["selectedNodes"] = selectedNodes;
       cfgView.renderGraph();
 
 /*    var graph_nodes = g.nodes();

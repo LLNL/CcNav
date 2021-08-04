@@ -1,7 +1,12 @@
 Still at least 2 issues:
-1) When clicking on CFG nodes nothing else happens, the other panels don't update
-2) When clicking on other panels, the CFG panel does not update.
+0) Source code to CFG window sometimes doesn't work.
+1) if clicking on B43 from dissaseembly window, cfg can not show becasue the node is not there.
+2) dissasembly view remains highlighted even when clicking on other nodes
+    * this happens in the live version too.
 
+3) 2nd Load issues:
+    * after loading first dataset, if you load another dataset then the source files still stick around
+    * sometimes those source files show up in CFG.
 
 GetFileChoices.js 227:
 I need to construct these somehow:
