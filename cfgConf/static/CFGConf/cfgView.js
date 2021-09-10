@@ -112,6 +112,12 @@ class CFGView {
           }
       }
 
+      var main_graph = cfgConfModel.graph;
+      var filteredGraph = Filtering.getKHopGraph(main_graph, selectedNodes, 5, 8, "both")
+      cfgConfModel.filteredGraph = filteredGraph
+      cfgConfModel.filteredDotString = convertToDot(filteredGraph);
+
+      console.dir( selectedNodes );
       cfgConfModel.CFGConfJSON["filtering"]["selectedNodes"] = selectedNodes;
       cfgView.renderGraph();
 

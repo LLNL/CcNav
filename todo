@@ -4,6 +4,41 @@ The two biggests bugs I’ve noticed are the following:
 2. (only if node not in current view)
     When clicking on the disassembly panel, the CFG panel does not update.
 
+-> this.model is incorrect -> need to find out why new model is not generated.
+    * CFGConf/cfgView.js: Line 115: selectedNodes -> this needs to be set correctly with the new set of nodes.
+var main_graph = model.get( "graph" )
+model.getHighlightedNodes( main_graph )
+    * getHighlightedNodes returns a subset of the graph
+    * there's some copies of the graph hanging around, source of bug?
+
+this.model is cfgConfModel which can be cfgConfModel.filteredDotString
+
+Line 61: cfgView.js
+    * modifiedDotFile is the thing that gets rendered.
+    * currently it is incorrect, it does not show B3 in it.
+    * the cfgConfModel.filteredGraph and cfgConfModel.filteredDotString
+     needs to be updated to show B3 and it's connected graph.
+
+I found _renderFiltered() in views/cfgView.js which filters the nodes
+that we need filtered, but it's in the old codebase.  I need to find out
+if it's present in the new codebase.
+
+Should i do something like:
+
+var main_graph = cfgConfModel.graph;
+var filteredGraph = Filtering.getKHopGraph(main_graph, ["B5", "B6", "B7"], 100, 20, "both")
+cfgConfModel.filteredGraph = filteredGraph
+cfgConfModel.filteredDotString = convertToDot(filteredGraph);
+cfgView.renderGraph();
+
+this_edge is an object with "v" and "w" attributes = {"v":2, "w":3}
+
+renderFiltered from the old implementation gets called every time
+you click on a dissambly line.
+
+This works:
+var filteredGraph = Filtering.getKHopGraph(cfgConfModel.graph, ["B3", "B4"], 5, 20);
+
 
 
  Still at least 2 issues:
