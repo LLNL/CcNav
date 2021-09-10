@@ -1,8 +1,16 @@
 The two biggests bugs I’ve noticed are the following:
 
-1. When clicking a line on the sourceCode panel, the CFG panel does  not update
-2. (only if node not in current view)
+DONE - 1. When clicking a line on the sourceCode panel, the CFG panel does  not update
+DONE - 2. (only if node not in current view)
     When clicking on the disassembly panel, the CFG panel does not update.
+
+Concern:
+- Is Khop distance correct?
+
+Next:
+- Dissassembly view, clear out the blue shaded areas so only last one shows?
+- make blue shading of dissassembly area cover teh whole B node.
+
 
 -> this.model is incorrect -> need to find out why new model is not generated.
     * CFGConf/cfgView.js: Line 115: selectedNodes -> this needs to be set correctly with the new set of nodes.
