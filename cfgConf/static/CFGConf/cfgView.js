@@ -31,7 +31,7 @@ class CFGView {
 
   // Render the graph using viz.js
   _render(model, svgId, divId, thisObj){
-    
+
     loopify_dagre.init(model.filteredDotString, model.filteredGraph);
     // // loopify_dagre.init(graphlibDotNew.write(graph_hg_edges), graph_hg_edges);
     // // loopify_dagre.init(graphlibDotNew.write(model.graphWithAuxNodes), 
@@ -106,6 +106,7 @@ class CFGView {
       for( var x=0; x < graph_nodes.length; x++ ) {
 
           var nodeId = graph_nodes[x];
+
           if( g.node(nodeId).highlight ) {
               console.log( "highlight=" + nodeId );
               selectedNodes.push( nodeId );
@@ -113,8 +114,9 @@ class CFGView {
       }
 
       var main_graph = cfgConfModel.graph;
-      var filteredGraph = Filtering.getKHopGraph(main_graph, selectedNodes, 5, 8, "both")
-      cfgConfModel.filteredGraph = filteredGraph
+      var filteredGraph = Filtering.getKHopGraph(main_graph, selectedNodes, 5, 8, "both");
+
+      cfgConfModel.filteredGraph = filteredGraph;
       cfgConfModel.filteredDotString = convertToDot(filteredGraph);
 
       console.dir( selectedNodes );
