@@ -1,20 +1,22 @@
-When clicking on B2, g.node("B2").highlight is not set.
-As a result, the cfgView->highlight function is not able
-to set the array: selectedNodes
-Once selectedNodes is fixed, it should work.
+- Deploy to Live for optvis. -> before Friday.
+- Follow up with whoever is doing the ESW.
 
 
-The two biggests bugs I’ve noticed are the following:
+B295 - dissassembly view line 295, it remains sleected yellow, even though i clicked on something else.
 
 DONE - 1. When clicking a line on the sourceCode panel, the CFG panel does  not update
 DONE - 2. (only if node not in current view)
     When clicking on the disassembly panel, the CFG panel does not update.
-
-Concern:
-- After switching the source code drop down:
+DONE - After switching the source code drop down:
     * still need to be able to update CFG window
     * the issue seems to be that selectedNodes is empty -> should have some.
     * g.node(nodeId).highlight -> this is not showing up as true but should be.
+    When clicking on B2, g.node("B2").highlight is not set.
+    As a result, the cfgView->highlight function is not able
+    to set the array: selectedNodes
+    Once selectedNodes is fixed, it should work.
+
+Concern:
 - Is Khop distance correct?
 
 
