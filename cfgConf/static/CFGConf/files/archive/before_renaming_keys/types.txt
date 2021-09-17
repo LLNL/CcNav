@@ -1,0 +1,16 @@
+"encodings": "borderWidth|borderColor|backgroundColor|color|width|height|area|borderStyle|stroke-width|stroke-color|opacity",
+
+"rank":"same|min|source|max|sink",
+
+"port": n | e | s | w | ne | se | nw | sw | c (default),
+
+"rankdir": "TB|BT|LR|RL",
+
+"encodings.type": "boolean|nominal|ordinal|quantitative"
+
+"constraints.type": "separation|alignment"
+
+"constraints.axis": "x|y"
+
+"layout.node.label": "id|full"
+

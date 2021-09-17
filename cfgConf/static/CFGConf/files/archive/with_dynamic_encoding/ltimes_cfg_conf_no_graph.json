@@ -1,0 +1,76 @@
+{
+	"data": {
+		"dotFile":"ltimes.dot",
+		"analysisFile":"ltimes.json"
+	},
+
+	"layout": {
+		"node": {
+			"shape": "box",
+			"style": "solid",
+			"label": "id",
+			"tooltip": true
+		},
+		"edge": {
+			"style": "solid",
+			"color": "black"
+		},
+		"loop": {
+			"background": true
+		},
+		"function": {
+			"boundary": true
+		}
+	},
+
+	"filtering": {
+		"selectedNodes": ["B1973", "B1974", "B1978", "B1986", "B1993", "B4052", "B4183", "B4205", "B4206", "B4430"],
+		"isKhop":true, 
+		"K":3, 
+		"minNodes":20, 
+		"isLoopFilter": true, 
+		"loopDepth":3,
+		"isFnFilter": false
+	},
+
+	"auxRules": {
+		"inDegThresh": 5,
+		"isFunctionOnly": true
+	},
+
+	"encodings": [
+		{
+			"for": "node",
+			"field": "isVec",
+			"type": "boolean",
+			"encoding": "borderColor"
+		},
+
+		{
+			"for": "node",
+			"field": "fpCount",
+			"type": "quantitative",
+			"encoding": "backgroundColor",
+			"scale": {
+				"type":"linear",
+				"domain": [1, 100],
+				"range": ["#e5f5f9", "#2ca25f"],
+				"interpolation": "hcl"
+			}
+		},
+
+		{
+			"for": "edge",
+			"field": "weight",
+			"type": "quantitative",
+			"encoding": "stroke-width",
+			"scale": {
+				"type":"log",
+				"range": [1, 10],
+				"clamp": true
+			}
+		}
+
+	]
+
+}

@@ -1,0 +1,41 @@
+{
+	"data": {
+		"graphFile":"ltimes.dot",
+		"analysisFile":"ltimes.json"
+	},
+
+	"layout": {
+		"node": {
+			"shape": "box",
+			"style": "solid",
+			"label": "id"
+		},
+		"edge": {
+			"style": "solid",
+			"color": "black"
+		},
+		"loop": {
+			"background": true
+		},
+		"function": {
+			"boundary": true
+		}
+	},
+
+	"filtering": {
+		"selectedNodes": ["B3805", "B4451"],
+		"isKhop":true, 
+		"K":3, 
+		"minNodes":20, 
+		"isLoopFilter": true
+	},
+
+	"auxRules": {
+		"isSplittingEnabled": true,
+		"inDegThresh": 3,
+		"auxList": ["__cxa_guard_acquire"],
+		"nonAuxList": [],
+		"maxSubgraphSize": "25p"
+	}
+
+}

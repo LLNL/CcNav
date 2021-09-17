@@ -11,6 +11,31 @@
     <script src="static/opt_vis/lib/dagre-d3.min.js"></script>
     <script src="static/opt_vis/lib/convexhull.js"></script>
 
+    <!-- CFGConf lib includes start here -->
+    <script>
+    	graphlibOld = graphlib;
+    	window.graphlib = null;
+    	graphlibDotOld = graphlibDot;
+    	window.graphlibDot = null;
+	</script>
+
+    <script src="cfgConf/static/CFGConf/lib/graphlib.js"></script>
+    <script src="cfgConf/static/CFGConf/lib/graphlib-dot.js"></script>
+    <script src="cfgConf/static/CFGConf/lib/viz.js"></script>
+    <script src="cfgConf/static/CFGConf/lib/full.render.js"></script>
+
+    <script>
+    	graphlibNew = graphlib;
+    	window.graphlib = graphlibOld;
+    	graphlibDotNew = graphlibDot;
+    	window.graphlibDot = graphlibDotOld;
+    	console.log("graphlib version: " + graphlib.version);
+    	console.log("graphlibdot version: " + graphlibDot.version);
+    	console.log("new graphlib version: " + graphlibNew.version);
+    	console.log("new graphlibdot version: " + graphlibDotNew.version);
+	</script>
+    <!-- CFGConf lib includes end here -->
+
     <!-- script src="static/opt_vis/lib/jquery-3.3.1.min.js"></script -->
     <script src="static/opt_vis/lib/jquery-1.11.1.min.js"></script>
 
@@ -28,6 +53,8 @@
 
 
     <link rel="stylesheet" type="text/css" href="static/opt_vis/style.css">
+    <link rel="stylesheet" type="text/css" href="cfgConf/static/CFGConf/style.css">
+
     <link rel="stylesheet" href="static/opt_vis/lib/atom-one-light.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -245,6 +272,15 @@
 <script src="js/CheckboxWindowManager.js"></script>
 <script src="js/Common.js"></script>
 <script src="js/AutoTester.js"></script>
+
+<script src="cfgConf/static/CFGConf/defs.js"></script>
+<script src="cfgConf/static/CFGConf/fileUtils.js"></script>
+<script src="cfgConf/static/CFGConf/utils.js"></script>
+<script src="cfgConf/static/CFGConf/graphUtils.js"></script>
+<script src="cfgConf/static/CFGConf/loopify_dagre.js"></script>
+<script src="cfgConf/static/CFGConf/cfgView.js"></script>
+<script src="cfgConf/static/CFGConf/filtering.js"></script>
+<script src="cfgConf/static/CFGConf/main.js"></script>
 
 </body>
 </html>

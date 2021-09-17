@@ -220,7 +220,24 @@ OV.GetFileChoices = function() {
         // view_inline_tree = makeTreeListView(model, 'assemblyContainer', 'middle');
         view_disassembly = makeDisassemblyView(model, 'text_assembly', 'middle');
 
-        view_graph = makeCFGGraphView(model, 'graphContainer', 'right');
+        //  this won't load parts of the "model.filteredGraph".  runCFGConf sets up the model first.
+        //var cfgView = new CFGView( model, 'graphContainer', 'right');
+        //cfgView.renderGraph();
+
+        /*var cfgConfModel = {};
+
+        cfgConfModel.CFGConfJSON = cfgConfJSON;
+        // make a copy of the json spec
+        cfgConfModel.CFGConfJSON["data"]["graphFile"] = DOT_FULL_DATA;
+        cfgConfModel.origCFGConfJSON = JSON.parse(JSON.stringify(cfgConfModel.CFGConfJSON));
+        cfgConfModel.graph = new graphlibNew.Graph({ directed: true, compound: true});
+        console.log(cfgConfModel.CFGConfJSON);
+        console.log(cfgConfModel.graph);*/
+
+        runCFGConf();
+        //initGraph( json, callGraph, model);
+
+        //view_graph = makeCFGGraphView(model, 'graphContainer', 'right');
         view_highlighted_items = makeHighlightedItemsView(model, 'highlightList');
 
         // view_register_renamer = makeRegRenamingView(model, 'reg_rename');
@@ -231,13 +248,13 @@ OV.GetFileChoices = function() {
 
         controller = makeController(model);
 
-        // model.register(view_source.render);
+        model.register(view_source.render);
         model.register(view_source.highlight);
 
         // model.register(view_inline_tree.highlight);
         model.register(view_disassembly.highlight);
 
-        model.register(view_graph.highlight);
+        model.register(cfgView.highlight);
         model.register(view_highlighted_items.render);
         // model.register(view_register_renamer.render);
         model.register(view_var_renamer.render);
@@ -252,7 +269,9 @@ OV.GetFileChoices = function() {
         // view_inline_tree.register(controller.dispatch);
         view_disassembly.register(controller.dispatch);
 
-        view_graph.register(controller.dispatch);
+
+        cfgView.register( controller.dispatch );
+        //view_graph.register(controller.dispatch);
         // view_register_renamer.register(controller.dispatch);
         view_var_renamer.register(controller.dispatch);
         view_callgraph.register(controller.dispatch);

@@ -1,28 +1,109 @@
-Step 1: Include js files
-cfconf -> static -> CFGConf -> *.js , lib/*.js
-
-Step 2: For all the js files that have the same name -
-cfgconf_main
-cfgconf_utils
+- Deploy to Live for optvis. -> before Friday.
+- Follow up with whoever is doing the ESW.
 
 
-cfgconf_cfgView.js
+B295 - dissassembly view line 295, it remains sleected yellow, even though i clicked on something else.
+
+DONE - 1. When clicking a line on the sourceCode panel, the CFG panel does  not update
+DONE - 2. (only if node not in current view)
+    When clicking on the disassembly panel, the CFG panel does not update.
+DONE - After switching the source code drop down:
+    * still need to be able to update CFG window
+    * the issue seems to be that selectedNodes is empty -> should have some.
+    * g.node(nodeId).highlight -> this is not showing up as true but should be.
+    When clicking on B2, g.node("B2").highlight is not set.
+    As a result, the cfgView->highlight function is not able
+    to set the array: selectedNodes
+    Once selectedNodes is fixed, it should work.
+
+Concern:
+- Is Khop distance correct?
 
 
-fileUtils.js, defs.js
-Step 3: cfgView.js
-2 different version of graphlib.js, graphlib-dot.js
-
-find a way to make both libraries run concurrently:
-1) hack the graphlib-dot.js to have a different global object (risky)
-2) port graphlib to graphlib-dot.js (lots of work).
+Next:
+- Dissassembly view, clear out the blue shaded areas so only last one shows?
+- make blue shading of dissassembly area cover teh whole B node.
 
 
-- function inlining tree and loop hierarchy
-    * separate into a new panel.
-    * it's own golden layout.
+-> this.model is incorrect -> need to find out why new model is not generated.
+    * CFGConf/cfgView.js: Line 115: selectedNodes -> this needs to be set correctly with the new set of nodes.
+var main_graph = model.get( "graph" )
+model.getHighlightedNodes( main_graph )
+    * getHighlightedNodes returns a subset of the graph
+    * there's some copies of the graph hanging around, source of bug?
 
-- Left off: Fixed the function inlining tree and loop heirarchy by setting a large enough height.  It's checked into dev.
+this.model is cfgConfModel which can be cfgConfModel.filteredDotString
+
+Line 61: cfgView.js
+    * modifiedDotFile is the thing that gets rendered.
+    * currently it is incorrect, it does not show B3 in it.
+    * the cfgConfModel.filteredGraph and cfgConfModel.filteredDotString
+     needs to be updated to show B3 and it's connected graph.
+
+I found _renderFiltered() in views/cfgView.js which filters the nodes
+that we need filtered, but it's in the old codebase.  I need to find out
+if it's present in the new codebase.
+
+Should i do something like:
+
+var main_graph = cfgConfModel.graph;
+var filteredGraph = Filtering.getKHopGraph(main_graph, ["B5", "B6", "B7"], 100, 20, "both")
+cfgConfModel.filteredGraph = filteredGraph
+cfgConfModel.filteredDotString = convertToDot(filteredGraph);
+cfgView.renderGraph();
+
+this_edge is an object with "v" and "w" attributes = {"v":2, "w":3}
+
+renderFiltered from the old implementation gets called every time
+you click on a dissambly line.
+
+This works:
+var filteredGraph = Filtering.getKHopGraph(cfgConfModel.graph, ["B3", "B4"], 5, 20);
+
+
+
+ Still at least 2 issues:
+0) Source code to CFG window sometimes doesn't work.
+1) if clicking on B43 from dissaseembly window, cfg can not show becasue the node is not there.
+2) dissasembly view remains highlighted even when clicking on other nodes
+    * this happens in the live version too.
+
+3) 2nd Load issues:
+    * after loading first dataset, if you load another dataset then the source files still stick around
+    * sometimes those source files show up in CFG.
+
+GetFileChoices.js 227:
+I need to construct these somehow:
+ json, callGraph, model
+Probably from new functions in the new code.
+
+Need to make dynamic: be able to enter any dir on input
+main.js line 68 -> currently this will return the hard coded
+dot file in the files directory: the graphFile mentioned in the ltimes_init.js
+
+but we need it to actually use the DOT file we already retrieved.
+
+6/1/21
+- currently working on integration
+- #gDiv is not in the body.
+- so cfgView.js line 71 fails because nothing to append it too.
+
+
+I can see the code goes to CFGView class's _render function:
+    * but it can't find #gDiv.
+    * graph correct,
+    * filtered graph not correct: 9
+
+      if( selectedNodes.length === 0 ) {
+          selectedNodes.push("B1");
+      }
+
+July 30th -> Sabin defense.
+
+next meeting with Matt:
+Release and Review
+Walk through code base
+
 
 10/23/2020:
 DONE - Optviz: make sure "phi" or "phidata" each only appear once.
@@ -55,6 +136,64 @@ DONE - Selected graph nodes, created a link from there to the disassemblyview.
 - Zoom:
     * place link (index.html 188) for plus and minus
     * zoom out - make zoom.
+
+
+
+Key things to get events working:
+  var _observers = makeSignaller();
+
+
+    d3.selectAll("#" + svgId + " g.node.enter")
+        .on("mouseover", function(d, i){
+          _showTooltip(d, i, divId, this);
+          _fireFocusEvent(d,i);
+
+
+        })
+        .on("mouseout", function(d, i){
+          _hideTooltip();
+          _fireFocusOutEvent(d,i);
+
+        })
+        .on("click", function(d, i){
+          // _clickEvent(d,i);
+          _highlightEvent(d,i);
+        })
+
+  var _highlightEvent = function(d,i){
+    _observers.notify({
+      type: signalType.highlight,
+      dataType: dataTypes.graphNode,
+      d: d,
+      i: i
+    });
+  }
+
+  var _clickEvent = function(d,i) {
+    _observers.notify({
+      type: signalType.click,
+      dataType: dataTypes.graphNode,
+      d: d,
+      i: i
+    });
+  }
+
+  var _fireFocusEvent = function(d, i) {
+    _observers.notify({
+      type: signalType.focus,
+      dataType: dataTypes.graphNode,
+      d: d,
+      i: i
+    });
+
+  };
+
+
+
+
+
+
+
 
 
 "mov <span class='strikethrough'>%rbx</span> <span class='highlight'>phi_data</span>,%rdi"

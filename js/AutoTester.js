@@ -31,6 +31,8 @@ OV.AutoTester = function() {
         set: set_,
         remove: remove_,
         LTIMES: "/g/g0/pascal/ltimes",
-        THREE: "/g/g0/pascal/inputs/3/a.out"
+        THREE: "/g/g0/pascal/inputs/3/a.out",
+        TWO: "/g/g0/pascal/inputs/2/a.out",
+        ONE: "/g/g0/pascal/inputs/1/a.out"
     }
 }();

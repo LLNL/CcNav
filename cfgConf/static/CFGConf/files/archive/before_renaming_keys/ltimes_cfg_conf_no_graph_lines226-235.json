@@ -1,0 +1,37 @@
+{
+	"data": {
+		"dotFile":"ltimes.dot",
+		"analysisFile":"ltimes.json"
+	},
+
+	"layout": {
+		"node": {
+			"shape": "box",
+			"style": "solid"
+		},
+		"edge": {
+			"style": "solid",
+			"color": "black"
+		},
+		"loop": {
+			"background": true
+		},
+		"function": {
+			"boundary": true
+		}
+	},
+
+	"filtering": {
+		"selectedNodes": ["B144", "B145", "B147", "B149", "B151", "B152", "B154", "B156", "B157", "B158", "B159", "B160", "B161", "B162", "B164", "B165", "B166", "B167", "B168", "B169", "B170"],
+		"isKhop":true, 
+		"K":3, 
+		"minNodes":20, 
+		"isLoopFilter": true
+	},
+
+	"auxRules": {
+		"inDegThresh": 5,
+		"isFunctionOnly": true
+	}
+
+}

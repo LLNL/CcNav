@@ -1,0 +1,36 @@
+{
+	"data": {
+		"dotFile":"singlefile.out.dot",
+		"analysisFile":"singlefile.out.json"
+	},
+
+	"layout": {
+		"node": {
+			"shape": "box",
+			"style": "solid"
+		},
+		"edge": {
+			"style": "solid",
+			"color": "black"
+		},
+		"loop": {
+			"background": true
+		},
+		"function": {
+			"boundary": true
+		}
+	},
+
+	"filtering": {
+		"selectedNodes": [],
+		"isKhop":true, 
+		"K":3, 
+		"minNodes":20, 
+		"isLoopFilter": true
+	},
+
+	"auxRules": {
+		"inDegThresh": 5,
+		"isFunctionOnly": true
+	}
+}

@@ -978,12 +978,19 @@ function updateCFG(dataSource, selectedAddrRanges){
   var bblocks = getBBlocksFromAddrRanges(dataSource, selectedAddrRanges);
 
   var bbIds = dataSource.graphNoLabel.nodes();
+
   for(var i=0; i<bbIds.length; i++){
-    dataSource.graphNoLabel.node(bbIds[i]).highlight = false;   
+
+      var bid = bbIds[i];
+      dataSource.graphNoLabel.node( bid ).highlight = false;
+      g.node(bid).highlight = false;
   }
 
   for(var i=0; i<bblocks.length; i++){
-    dataSource.graphNoLabel.node( "B" + bblocks[i].id).highlight = true;
+
+      var bid2 = "B" + bblocks[i].id;
+      dataSource.graphNoLabel.node( bid2 ).highlight = true;
+      g.node( bid2 ).highlight = true;
   }
 
 }
