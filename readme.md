@@ -78,32 +78,3 @@ The sample input files for the application can be found in the `static` director
 
 
 
-Potential problems:
-suexec failure: could not open log file., referer: https://lc.llnl.gov/lorenz_base/dev/pascal/optvis/
-
-Answer:
-Suexec Failure
-
-As you might recall, the primary reason for getting an suexec failure is because permissions of your executables are wrong. Group permissions must NOT include write access, otherwise the suexec will fail. 
-
-The error message you’re seeing is from suexec not being able to record the failure because the log file wasn’t available. I believe this has been fixed, but let me know if you see it again.
-
-
-This means that you need to point the GetFileChoices.cgi script to the correct python virtualenvironment:
-#!/usr/global/tools/lorenz/python/narf-env/bin/python
-
-the virtual env permission were a problem one time:
-This fixed the RZ GetFile.cgi issue.
-chmod -R go+x /usr/global/tools/lorenz/python/optvis-env2/*
-
-This fixed the CFG not loading issue (probably from findLoops.cgi insufficient perms) 
-chmod -R go+rx /usr/global/tools/lorenz/python/optvis-env2/*
-
-
-It could also mean that the persmissions are not correct:
-These work:
--rwx------ 1 pascal pascal 220 Nov 15 16:26 GetFileChoices.cgi
--rwx------ 1 pascal pascal 253 Nov 15 16:26 SubmitFileChoices.cgi
-
-This does not work:
--rw------- 1 pascal pascal 222 Nov 19 11:03 findLoops.cgi
