@@ -1,31 +1,31 @@
-Project Name: CCNAV
+# Project Name: CCNAV
 LLNL-CODE- 826840
 
 
-Description:
+# Description:
 
 
 
-Table of Contents: 
+# Table of Contents: 
 
 
-Installation:
-
-
-
-Usage:
+# Installation:
 
 
 
-Contributing:
+# Usage:
 
 
 
-Credits: 
+# Contributing:
+See CONTRIBUTING file.
+
+
+# Credits: 
 
 
 
-License:
+# License:
 The MIT License (MIT)
 
 Copyright (c) <year> Adam Veldhousen
