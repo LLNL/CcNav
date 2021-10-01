@@ -10,7 +10,7 @@ LLNL-CODE- 826840
 
 
 # Installation:
-
+Set up Docker.
 
 
 # Usage:
