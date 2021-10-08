@@ -10,7 +10,11 @@ LLNL-CODE- 826840
 
 
 # Installation:
-Set up Docker.
+## Set up Docker.
+docker build -t test_opt .
+docker-compose up
+
+https://docs.docker.com/compose/gettingstarted/
 
 
 # Usage:
