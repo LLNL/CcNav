@@ -1,6 +1,9 @@
 import time
 
 import redis
+
+from flask import Blueprint, render_template, abort
+from jinja2 import TemplateNotFound
 from flask import Flask
 from flask import render_template
 
@@ -21,5 +24,6 @@ def get_hit_count():
 @app.route('/')
 def hello():
     count = get_hit_count()
-    #return 'J555  Hello World! I have been seen {} times.\n'.format(count)
+    site = Blueprint('site', __name__, template_folder='templates')
+    #return 'Arc asdf5  Hello World! I have been seen {} times.\n'.format(count)
     return render_template("index.html")

@@ -18,7 +18,12 @@ https://docs.docker.com/compose/gettingstarted/
 
 
 # Usage:
-
+## Development mode
+Make sure the following is in place in docker-compose.yml in order for automatic reloading for development purposes.
+    volumes:
+      - .:/code
+    environment:
+      FLASK_ENV: development
 
 
 # Contributing:
