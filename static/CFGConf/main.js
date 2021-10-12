@@ -11,7 +11,7 @@ class Model {
 var cfgConfModel = new Model();
 var cfgView = new CFGView(cfgConfModel, "graphContainer", "right");
 
-var cfgConfPrefix = "cfgConf/static/CFGConf/files/";
+var cfgConfPrefix = "static/CFGConf/files/";
 // var cfgConfFile = "ltimes_cfg_conf_no_graph.json";
 // var cfgConfFile = "ltimes_cfg_conf_no_graph_lines171-181.json";
 // var cfgConfFile = "ltimes_cfg_conf_no_graph_lines226-235.json";
