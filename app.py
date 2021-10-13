@@ -7,7 +7,7 @@ from jinja2 import TemplateNotFound
 from flask import Flask
 from flask import render_template
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='.')
 cache = redis.Redis(host='redis', port=6379)
 
 def get_hit_count():
@@ -24,6 +24,6 @@ def get_hit_count():
 @app.route('/')
 def hello():
     count = get_hit_count()
-    site = Blueprint('site', __name__, template_folder='templates')
+    #site = Blueprint('site', __name__, template_folder='../')
     #return 'Arc asdf5  Hello World! I have been seen {} times.\n'.format(count)
     return render_template("index.html")
