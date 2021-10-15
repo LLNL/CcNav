@@ -22,7 +22,12 @@ Ajax = function() {
         };
 
         obj.error = par.error || function( dat ) {
-            ReusableView.alert('Error', "There was some kind of error returning data." );
+
+            var body2 = "Status: " + dat.status +
+                + '<br>statusText: ' + dat.stausText +
+                '<br>' + dat.responseText;
+
+            ReusableView.alert('Error', body2);
         };
 
         $.ajax(obj);
@@ -53,6 +58,18 @@ Ajax = function() {
                 $('.logged_in .who').html( dd.output.displayname );
             }
         }, true );
+    };
+
+
+    var container_call_ = function() {
+
+        //  The URL routing is specified in app.py
+        Ajax.call({
+            url: '/optvis_request',
+            type: "GET",
+            data: {},
+            dataType: "json"
+        });
     };
 
 

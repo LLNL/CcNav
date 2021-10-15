@@ -21,6 +21,19 @@ def get_hit_count():
             retries -= 1
             time.sleep(0.5)
 
+
+@app.route('/optvis_request')
+def optvis_request():
+
+    #import os
+    #ret = os.system()
+    import subprocess
+
+    command = './optparser/optparser.py open' # /g/g0/pascal/inputs/1/a.out'
+    time = subprocess.check_output( command )
+
+    return 'It is' + str(time)
+
 @app.route('/')
 def hello():
     count = get_hit_count()

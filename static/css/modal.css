@@ -25,6 +25,8 @@
 	padding: 30px;
 	min-width: 400px;
 	min-height: 200px;
+	max-height: 700px;
+    overflow-y: scroll;
 }
 
 .modal .close {
