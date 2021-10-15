@@ -27,9 +27,11 @@ def optvis_request():
 
     #import os
     #ret = os.system()
+    from flask import request
     import subprocess
 
-    command = './optparser/optparser.py open' # /g/g0/pascal/inputs/1/a.out'
+    command = request.args.get('command');
+    command = command.split(' ') # /g/g0/pascal/inputs/1/a.out'
     time = subprocess.check_output( command )
 
     return 'It is' + str(time)

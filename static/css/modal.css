@@ -23,7 +23,7 @@
 
 .modal .body {
 	padding: 30px;
-	min-width: 400px;
+	min-width: 600px;
 	min-height: 200px;
 	max-height: 700px;
     overflow-y: scroll;

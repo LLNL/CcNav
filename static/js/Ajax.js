@@ -61,19 +61,26 @@ Ajax = function() {
     };
 
 
-    var container_call_ = function() {
+    /*
+    Ajax.container_call({"command": "python ./optparser/optparser.py open /Users/aschwanden1/optvis/misc/sample_inputs/a0"})
+     */
+    var container_call_ = function( dat ) {
 
         //  The URL routing is specified in app.py
         Ajax.call({
             url: '/optvis_request',
             type: "GET",
-            data: {},
-            dataType: "json"
+            data: dat,
+            dataType: "json",
+            success: function(content) {
+                console.log( content );
+            }
         });
     };
 
 
     return {
+        container_call: container_call_,
         call: call_,
         get_me: get_me_
     }
