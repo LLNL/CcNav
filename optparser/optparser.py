@@ -6,7 +6,8 @@ import sys
 import tempfile
 import subprocess
 
-optparser_paths = [ "/usr/gapps/spot/optvis/toss_3_x86_64_ib/bin/optparser" ]
+optparser_paths = [ "/usr/gapps/spot/optvis/toss_3_x86_64_ib/bin/optparser",
+                    "/root/CcNav/optparser/optparser/optparser"]
 
 op_in = None
 op_out = None

@@ -36,6 +36,7 @@ def optvis_request():
 
     return 'It is' + str(time)
 
+
 @app.route('/')
 def hello():
     count = get_hit_count()
