@@ -33,8 +33,8 @@ optparser: optparser.o
 test: libtest.so.pdf libtest.so.json
 	json_verify < libtest.so.json
 
-libtest.so: test.c
-	$(CC) $(CXXFLAGS) -o $@ $< -g -shared -fPIC -nostartfiles
+#libtest.so: test.c
+#	$(CC) $(CXXFLAGS) -o $@ $< -g -shared -fPIC -nostartfiles
 
 libtest.so.json libtest.so.dot: libtest.so optparser
 	./optparser ./libtest.so
