@@ -26,8 +26,8 @@ def optvis_request():
     # the server think this is an error because it's nonzero, so let's catch it
     # to prevent them from sending an error response.
     try:
-        time = subprocess.check_output( command )
+        output = subprocess.check_output( command )
     except:
-        return 'It ' + str(time)
+        return 'It 0'
 
-    return 'It is' + str(time)
+    return 'It is' + str(output)
