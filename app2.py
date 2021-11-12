@@ -25,6 +25,6 @@ def optvis_request():
     # optparser.py open returns this: /tmp/optvis_zf90q08a
     # the server think this is an error because it's nonzero, so let's catch it
     # to prevent them from sending an error response.
-    output = subprocess.check_output( command )
+    output = subprocess.call( command )
 
     return 'It is' + str(output)
