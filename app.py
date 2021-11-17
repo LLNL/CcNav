@@ -32,7 +32,7 @@ def optvis_request():
 
     command = request.args.get('command');
     command = command.split(' ') # /g/g0/pascal/inputs/1/a.out'
-    time = subprocess.check_output( command )
+    time = subprocess.call( command )
 
     return 'It is' + str(time)
 

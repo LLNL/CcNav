@@ -15,7 +15,9 @@ RUN apt-get install -y libtbb2 libtbb-dev
 RUN apt-get install -y libboost-atomic-dev libboost-chrono-dev libboost-date-time-dev libboost-filesystem-dev libboost-system-dev libboost-thread-dev libboost-timer-dev
 RUN apt-get install -y curl xz-utils m4
 RUN apt-get install -y zlib1g zlib1g-dev
-RUN apt-get install -y python3-pip
+
+# got a warning message from running "open". it said: "UserWarning: redis-py works best with hiredis. Please consider installing"
+RUN apt-get install -y python3-pip libhiredis-dev
 #CMD [ "/bin/bash" ]
 
 #WORKDIR /code/binutils
@@ -48,10 +50,11 @@ RUN git clone https://github.com/LLNL/CcNav.git
 WORKDIR /root/CcNav
 RUN git checkout pa-docker-static-setup
 RUN git fetch
-RUN git        pull origin pa-docker-static-setup
+RUN git pull origin pa-docker-static-setup
 
 WORKDIR /root/CcNav/optparser/optparser
 RUN make -f Makefile.container
+RUN ls /root/CcNav/optparser/optparser/optparser
 
 #  create sample a.out executable for testing purposes.
 WORKDIR /root/CcNav/misc/sample_inputs/a0
