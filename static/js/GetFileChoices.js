@@ -446,6 +446,7 @@ OV.GetFileChoices = function() {
     return {
         get: get_,
         init: init_,
-        loadFile: loadFile_
+        loadFile: loadFile_,
+        pre_html: pre_html_
     }
 }();

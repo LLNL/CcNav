@@ -64,7 +64,7 @@ Ajax = function() {
     /*
     Ajax.container_call({"command": "python ./optparser/optparser.py open /Users/aschwanden1/optvis/misc/sample_inputs/a0"})
      */
-    var container_call_ = function( dat ) {
+    var container_call_ = function( dat, success ) {
 
         //  The URL routing is specified in app.py
         Ajax.call({
@@ -74,6 +74,7 @@ Ajax = function() {
             dataType: "json",
             success: function(content) {
                 console.log( content );
+                success( content );
             }
         });
     };
