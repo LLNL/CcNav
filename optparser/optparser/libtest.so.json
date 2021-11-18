@@ -1,0 +1,205 @@
+{
+	"lines": [
+		{ "file": "/usr/include/x86_64-linux-gnu/bits/stdio2.h", "line": "104", "from": 1185, "to": 1192 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "30", "from": 1184, "to": 1185 },
+		{ "file": "/usr/include/x86_64-linux-gnu/bits/stdio2.h", "line": "104", "from": 1194, "to": 1208 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "30", "from": 1192, "to": 1194 },
+		{ "file": "/usr/include/x86_64-linux-gnu/bits/stdio2.h", "line": "104", "from": 1212, "to": 1226 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "32", "from": 1208, "to": 1212 },
+		{ "file": "/usr/include/x86_64-linux-gnu/bits/stdio2.h", "line": "104", "from": 1227, "to": 1240 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "35", "from": 1226, "to": 1227 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "33", "from": 1240, "to": 1264 },
+		{ "file": "/usr/include/x86_64-linux-gnu/bits/stdio2.h", "line": "104", "from": 1272, "to": 1282 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "38", "from": 1264, "to": 1272 },
+		{ "file": "/usr/include/x86_64-linux-gnu/bits/stdio2.h", "line": "104", "from": 1286, "to": 1291 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "38", "from": 1282, "to": 1286 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "41", "from": 1291, "to": 1351 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "38", "from": 1351, "to": 1360 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "44", "from": 1360, "to": 1369 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "43", "from": 1369, "to": 1384 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "47", "from": 1384, "to": 1394 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "46", "from": 1394, "to": 1408 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "50", "from": 1408, "to": 1423 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "49", "from": 1423, "to": 1434 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "42", "from": 1434, "to": 1456 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "55", "from": 1456, "to": 1463 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "54", "from": 1463, "to": 1468 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "53", "from": 1468, "to": 1473 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "58", "from": 1473, "to": 1480 },
+		{ "file": "/root/CcNav/optparser/optparser/test.c", "line": "60", "from": 1480, "to": 1494 }
+	],
+	"functions": [
+		{ "name": "puts", "entry": 1120,
+		  "basicblocks": [
+			 { "id": 0, "start": 1120, "end": 1126, "flags": ["memread"] }
+		  ],
+		  "calls": [
+			{ "address": 1120, "target": 0}
+		  ]
+		},
+		{ "name": "getpid", "entry": 1136,
+		  "basicblocks": [
+			 { "id": 1, "start": 1136, "end": 1142, "flags": ["memread"] }
+		  ],
+		  "calls": [
+			{ "address": 1136, "target": 0}
+		  ]
+		},
+		{ "name": "__printf_chk", "entry": 1152,
+		  "basicblocks": [
+			 { "id": 2, "start": 1152, "end": 1158, "flags": ["memread"] }
+		  ],
+		  "calls": [
+			{ "address": 1152, "target": 0}
+		  ]
+		},
+		{ "name": "noinline_function", "entry": 1168,
+		  "basicblocks": [
+			 { "id": 3, "start": 1168, "end": 1174, "flags": ["memread"] }
+		  ],
+		  "calls": [
+			{ "address": 1168, "target": 0}
+		  ]
+		},
+		{ "name": "noinline_function", "entry": 1184,
+		  "basicblocks": [
+			 { "id": 4, "start": 1184, "end": 1208, "flags": ["memwrite", "call"] },
+			 { "id": 5, "start": 1208, "end": 1212 },
+			 { "id": 6, "start": 1212, "end": 1234, "flags": ["memread"] },
+			 { "id": 7, "start": 1240, "end": 1248, "flags": ["memwrite", "call"] },
+			 { "id": 8, "start": 1248, "end": 1250 }
+		  ],
+		  "vars": [
+			  {
+			    "name": "i", "file": "/root/CcNav/optparser/optparser/test.c", "line": "29", 
+			    "locations": [ 
+				    { "start": "940", "end": "953", "location": "%rdi" },
+				    { "start": "953", "end": "957", "location": "%rdx" },
+				    { "start": "957", "end": "96b", "location": "%rbx" },
+				    { "start": "96b", "end": "971", "location": "%rdx" },
+				    { "start": "972", "end": "982", "location": "%rbx" }
+			  ]
+			  }
+		  ],
+		  "inlines": [
+			{ "name": "printf",
+			  "vars": [
+				  {
+				    "name": "__fmt", "file": "/usr/include/x86_64-linux-gnu/bits/stdio2.h", "line": "102", 
+				    "locations": [ 
+					    { "start": "940", "end": "958", "location": "$0x5d6" }
+				  ]
+				  }
+			  ],
+			  "ranges": [
+				{ "start": 1185, "end": 1192},
+				{ "start": 1194, "end": 1208}
+			  ],
+			  "callsite_file": "/root/CcNav/optparser/optparser/test.c",
+			  "callsite_line": 31
+			},
+			{ "name": "printf",
+			  "vars": [
+				  {
+				    "name": "__fmt", "file": "/usr/include/x86_64-linux-gnu/bits/stdio2.h", "line": "102", 
+				    "locations": [ 
+					    { "start": "95c", "end": "972", "location": "$0x5de" }
+				  ]
+				  }
+			  ],
+			  "ranges": [
+				{ "start": 1212, "end": 1226},
+				{ "start": 1227, "end": 1240}
+			  ],
+			  "callsite_file": "/root/CcNav/optparser/optparser/test.c",
+			  "callsite_line": 34
+			}
+		  ],
+		  "calls": [
+			{ "address": 1203, "target": 1152, "target_func": ["__printf_chk"]},
+			{ "address": 1243, "target": 1168, "target_func": ["noinline_function"]},
+			{ "address": 1229, "target": 1152, "target_func": ["__printf_chk"]}
+		  ]
+		},
+		{ "name": "doloop", "entry": 1264,
+		  "basicblocks": [
+			 { "id": 9, "start": 1264, "end": 1291, "flags": ["memwrite", "call"] },
+			 { "id": 10, "start": 1291, "end": 1296, "flags": ["memwrite", "call"] },
+			 { "id": 11, "start": 1296, "end": 1344, "flags": ["memread"] },
+			 { "id": 12, "start": 1344, "end": 1360 },
+			 { "id": 13, "start": 1360, "end": 1374, "flags": ["memwrite"] },
+			 { "id": 14, "start": 1374, "end": 1384 },
+			 { "id": 15, "start": 1384, "end": 1399, "flags": ["memread", "memwrite"] },
+			 { "id": 16, "start": 1399, "end": 1408 },
+			 { "id": 17, "start": 1408, "end": 1428, "flags": ["memread", "memwrite"] },
+			 { "id": 18, "start": 1428, "end": 1439 },
+			 { "id": 19, "start": 1439, "end": 1440 },
+			 { "id": 20, "start": 1440, "end": 1456 },
+			 { "id": 21, "start": 1456, "end": 1468, "flags": ["memread", "memwrite"] },
+			 { "id": 22, "start": 1468, "end": 1473 },
+			 { "id": 23, "start": 1473, "end": 1480, "flags": ["memwrite", "call"] },
+			 { "id": 24, "start": 1480, "end": 1494, "flags": ["memread"] }
+		  ],
+		  "vars": [
+			  {
+			    "name": "i", "file": "/root/CcNav/optparser/optparser/test.c", "line": "37", 
+			    "locations": [ 
+				    { "start": "990", "end": "99f", "location": "%rdi" },
+				    { "start": "99f", "end": "a70", "location": "%rbx" }
+			  ]
+			  },
+			  {
+			    "name": "x", "file": "/root/CcNav/optparser/optparser/test.c", "line": "39", 
+			    "locations": [ 
+				    { "start": "9de", "end": "9ea", "location": "$0x0" },
+				    { "start": "a40", "end": "a47", "location": "$0x0" }
+			  ]
+			  },
+			  {
+			    "name": "y", "file": "/root/CcNav/optparser/optparser/test.c", "line": "39", 
+			    "locations": [ 
+				    { "start": "9b0", "end": "9de", "location": "$0x0" }
+			  ]
+			  }
+		  ],
+		  "inlines": [
+			{ "name": "printf",
+			  "vars": [
+
+			  ],
+			  "ranges": [
+				{ "start": 1272, "end": 1282},
+				{ "start": 1286, "end": 1291}
+			  ],
+			  "callsite_file": "/root/CcNav/optparser/optparser/test.c",
+			  "callsite_line": 40
+			}
+		  ],
+		  "loops": [
+			{ "name": "loop_1", "backedges": [ {"from": 18, "to": 12} ],
+			  "blocks": [14, 16, 18, 12, 13, 15, 17],
+			  "loops": [
+				{ "name": "loop_1.1", "backedges": [ {"from": 13, "to": 13} ],
+				  "blocks": [13]},
+				{ "name": "loop_1.2", "backedges": [ {"from": 15, "to": 15} ],
+				  "blocks": [15]},
+				{ "name": "loop_1.3", "backedges": [ {"from": 17, "to": 17} ],
+				  "blocks": [17]}
+			  ]
+			},
+			{ "name": "loop_2", "backedges": [ {"from": 22, "to": 20} ],
+			  "blocks": [20, 22, 21],
+			  "loops": [
+				{ "name": "loop_2.1", "backedges": [ {"from": 21, "to": 21} ],
+				  "blocks": [21]}
+			  ]
+			}
+		  ],
+		  "calls": [
+			{ "address": 1475, "target": 1168, "target_func": ["noinline_function"]},
+			{ "address": 1291, "target": 1136, "target_func": ["getpid"]},
+			{ "address": 1286, "target": 1120, "target_func": ["puts"]}
+		  ]
+		}
+	]
+}

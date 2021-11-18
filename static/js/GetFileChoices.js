@@ -359,7 +359,16 @@ OV.GetFileChoices = function() {
 
     var get_result_ = function( res ) {
 
-        var wrap = JSON.parse('{' + res.sourcefiles + '}');
+        var wrap;
+
+        if( typeof res.sourcefiles === "object" ) {
+            //  in container
+            wrap = res.sourcefiles;
+        } else {
+
+            //  LC gives us a string.
+            wrap = JSON.parse('{' + res.sourcefiles + '}');
+        }
 
         return {
             key: res.key,

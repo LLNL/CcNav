@@ -117,7 +117,7 @@ def dot(args):
     collectInput()
 
 def sourcefiles(args):
-    openOptparserFiles()    
+    openOptparserFiles()
     op_in.write("sourcefiles\n")
     collectInput()
 

@@ -18,6 +18,7 @@ OV.ContainerSetup = function() {
         }, after0);
     };
 
+
     var after0 = function( key ) {
 
         OV.opt_result = {};
@@ -40,7 +41,11 @@ OV.ContainerSetup = function() {
 
                 command_("sourcefiles", key , function( out3 ) {
 
-                    OV.opt_result.sourcefiles = out3;
+
+                    var parse_obj = JSON.parse('{' + out3 + '}' );
+
+                    OV.opt_result.sourcefiles = parse_obj;
+
                     console.dir( OV.opt_result );
 
                     Common.spinner(false);
