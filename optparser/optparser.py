@@ -40,12 +40,18 @@ def openOptparserFiles():
     try:
         fifo0file = os.path.join(key, "fifo0") #stdin
         fifo1file = os.path.join(key, "fifo1") #stdout
-        fifo2file = os.path.join(key, "fifo2") #stderr    
+        fifo2file = os.path.join(key, "fifo2") #stderr
+
+        fifo0file = fifo0file.replace("\n", "")
+        fifo1file = fifo1file.replace("\n", "")
+        fifo2file = fifo2file.replace("\n", "")
+
         op_in = open(fifo0file, "w", buffering=1)
         op_out = open(fifo1file, "r")
         op_err = open(fifo2file, "r")
         return op_in, op_out, op_err
-    except Exception:
+    except Exception as e:
+        print(e)
         raise TeardownError("Error: Optparser session %s closed.  Try reopening." % key)
 
 def collectInput():
