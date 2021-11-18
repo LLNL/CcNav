@@ -73,6 +73,7 @@ Ajax = function() {
             data: dat,
             dataType: "json",
             success: function(content) {
+
                 console.log( content );
                 success( content );
             }

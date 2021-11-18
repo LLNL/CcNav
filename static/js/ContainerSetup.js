@@ -10,10 +10,11 @@ OV.ContainerSetup = function() {
         }, after0);
     };
 
-    var load_ = function() {
+    //  /root/CcNav/misc/sample_inputs/a0/a.out
+    var load_ = function( executable_path ) {
 
         Ajax.container_call({
-            "command": "/usr/bin/python3 /root/CcNav/optparser/optparser.py open /root/CcNav/misc/sample_inputs/a0/a.out"
+            "command": "/usr/bin/python3 /root/CcNav/optparser/optparser.py open " + executable_path
         }, after0);
     };
 
