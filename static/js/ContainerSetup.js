@@ -1,3 +1,5 @@
+var ENV = ENV || {};
+
 OV.ContainerSetup = function() {
 
     var command_ = function( func, key, after0 ) {
@@ -56,6 +58,7 @@ OV.ContainerSetup = function() {
             });
         });
     };
+
 
     return {
         load: load_
