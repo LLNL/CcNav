@@ -440,10 +440,11 @@ OV.GetFileChoices = function() {
 
     var get_source_ = function( see_sourcecode, callback ) {
 
+        var url = window.isContainer ? "ContainerAJAX/GetFile.py" : 'ajax/GetFile.cgi';
         var dat = "see_sourcecode=" + see_sourcecode;
 
         Ajax.call({
-            url: 'ajax/GetFile.cgi',
+            url: url,
             type: "GET",
             data: dat,
             success: callback,
