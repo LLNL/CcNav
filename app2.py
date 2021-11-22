@@ -13,6 +13,21 @@ def hello():
     return render_template("index.html")
 
 
+@app.route('/get_file')
+def get_file():
+
+    from flask import request
+
+    # get the source for this filename.
+    file_path = request.args.get('see_sourcecode')
+
+    from pathlib import Path
+    contents = Path(file_path).read_text()
+
+    return contents
+
+
+
 @app.route('/optvis_request')
 def optvis_request():
 
