@@ -58,7 +58,7 @@ RUN ls /root/CcNav/optparser/optparser/optparser
 
 #  create sample a.out executable for testing purposes.
 WORKDIR /root/CcNav/misc/sample_inputs/a0
-RUN g++ hello.c
+RUN gcc -g hello.c
 
 WORKDIR /code
 COPY . .

@@ -421,8 +421,9 @@ OV.GetFileChoices = function() {
 
         get_source_( see_sourcecode, function( json ) {
 
+            var sourcecode = typeof json === 'object' ? json.see_sourcecode : json;
             //  We've received the actual source code and can load the editor now.
-            console.log( json.see_sourcecode );
+            console.log( sourcecode );
 
             //var model = makeModel();
             //view_source = makeSourceCodeView(model, 'text_src', 'left');
@@ -431,7 +432,7 @@ OV.GetFileChoices = function() {
             loadFile_( {
                 f_dot: model.dot,
                 f_json: model.parse,
-                f_src: json.see_sourcecode,
+                f_src: sourcecode,
                 source_filename: see_sourcecode
             } );
         } );
