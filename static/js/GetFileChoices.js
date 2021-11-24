@@ -354,8 +354,16 @@ OV.GetFileChoices = function() {
         //var comm22 = "command=/usr/gapps/spot/dev_spot.py getData /usr/gapps/spot/datasets/lulesh_gen/1000 ";
 
         Common.spinner("Open call.  getting key.");
-        $.getJSON(command_("open", executable), after_);
+
+        if( window.ENV.isContainer ) {
+
+            OV.ContainerSetup.load( executable );
+        } else {
+
+            $.getJSON(command_("open", executable), after_);
+        }
     };
+
 
     var get_result_ = function( res ) {
 
@@ -392,12 +400,14 @@ OV.GetFileChoices = function() {
 
         get_source_( source_filename, function( json ) {
 
-            console.log('source got = ' + json.see_sourcecode );
+            var sourcecode = typeof json === 'object' ? json.see_sourcecode : json;
+            //  We've received the actual source code and can load the editor now.
+            console.log( '2. source code: ' + sourcecode );
 
             loadFile_({
                 f_dot: model.dot,
                 f_json: model.parse,
-                f_src: json.see_sourcecode,
+                f_src: sourcecode,
                 source_filename: source_filename
             });
         });

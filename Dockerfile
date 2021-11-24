@@ -46,11 +46,11 @@ RUN apt-get install -y python3-pip libhiredis-dev
 #RUN make install
 
 WORKDIR /root/
-RUN git clone https://github.com/LLNL/CcNav.git
+RUN git  clone https://github.com/LLNL/CcNav.git
 WORKDIR /root/CcNav
-RUN git checkout pa-docker-static-setup
-RUN git fetch
-RUN git pull origin pa-docker-static-setup
+RUN git  checkout pa-docker-static-setup
+RUN git  fetch
+RUN git   pull origin pa-docker-static-setup
 
 WORKDIR /root/CcNav/optparser/optparser
 RUN make -f Makefile.container
