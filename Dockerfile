@@ -54,11 +54,6 @@ RUN git   pull origin pa-docker-static-setup
 
 WORKDIR /root/CcNav/optparser/optparser
 RUN make -f Makefile.container
-RUN ls /root/CcNav/optparser/optparser/optparser
-
-#  create sample a.out executable for testing purposes.
-WORKDIR /root/CcNav/misc/sample_inputs/a0
-RUN gcc -g hello.c
 
 WORKDIR /code
 COPY . .
@@ -68,6 +63,10 @@ ENV FLASK_RUN_HOST=0.0.0.0
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
+
+#  create sample a.out executable for testing purposes.
+WORKDIR  /root/CcNav/misc/sample_inputs/a0
+RUN gcc  -g /root/CcNav/misc/sample_inputs/a0/hello.c -o /code/a.out
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
