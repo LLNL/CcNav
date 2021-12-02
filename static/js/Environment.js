@@ -1,3 +1,0 @@
-var ENV = {
-    isContainer: true
-};
