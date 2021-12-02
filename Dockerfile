@@ -50,7 +50,7 @@ RUN git  clone https://github.com/LLNL/CcNav.git
 WORKDIR /root/CcNav
 RUN git  checkout pa-docker-static-setup
 RUN git  fetch
-RUN git   pull origin pa-docker-static-setup
+RUN git   pull  origin pa-docker-static-setup
 
 WORKDIR /root/CcNav/optparser/optparser
 RUN make -f Makefile.container
@@ -66,7 +66,7 @@ ENV LANG=C.UTF-8
 
 #  create sample a.out executable for testing purposes.
 WORKDIR  /root/CcNav/misc/sample_inputs/a0
-RUN gcc  -g /root/CcNav/misc/sample_inputs/a0/hello.c -o /code/a.out
+RUN gcc  -g /root/CcNav/misc/sample_inputs/a0/hello.c -o /code/a3.out
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
