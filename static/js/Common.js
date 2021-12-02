@@ -19,7 +19,7 @@ var Common = function() {
 
     var error_ = function( ret ) {
 
-        if( ret.error !== "" ) {
+        if( ret.error && ret.error !== "" ) {
 
             var prev = $('.main_message .error_text').html() || "";
             $('.main_message').html( '<div class="error_text">' + prev + "<div class='each_mess'>" + ret.error + '</div></div>');
