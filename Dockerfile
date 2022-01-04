@@ -67,6 +67,7 @@ ENV LANG=C.UTF-8
 #  create sample a.out executable for testing purposes.
 WORKDIR  /root/CcNav/misc/sample_inputs/a0
 RUN gcc  -g /root/CcNav/misc/sample_inputs/a0/hello.c -o /code/a3.out
+RUN chmod 755 /root/CcNav/misc/runflask.sh
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
@@ -81,4 +82,9 @@ WORKDIR /code
 #CMD ["script", "--return", "--quiet", "flask run", "/dev/null"]
 #CMD ["/bin/bash", "-c", "flask", "run"]
 #CMD ["flask", "run"]
-ENTRYPOINT ["flask", "run"]
+
+RUN addgroup ccnavgroup
+RUN useradd --create-home --shell /bin/bash -g ccnavgroup ccnavuser
+
+#ENTRYPOINT ["flask", "run"]
+CMD [ "/root/CcNav/misc/runflask.sh" ]
