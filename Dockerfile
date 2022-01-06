@@ -45,14 +45,15 @@ RUN apt-get install -y python3-pip libhiredis-dev
 #RUN make
 #RUN make install
 
-WORKDIR /root/
+WORKDIR /code
 RUN git  clone https://github.com/LLNL/CcNav.git
-WORKDIR /root/CcNav
+
+WORKDIR /code/CcNav
 RUN git  checkout pa-docker-static-setup
 RUN git  fetch
 RUN git   pull  origin pa-docker-static-setup
 
-WORKDIR /root/CcNav/optparser/optparser
+WORKDIR /code/CcNav/optparser/optparser
 RUN make -f Makefile.container
 
 WORKDIR /code
@@ -65,9 +66,11 @@ ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
 #  create sample a.out executable for testing purposes.
-WORKDIR  /root/CcNav/misc/sample_inputs/a0
-RUN gcc  -g /root/CcNav/misc/sample_inputs/a0/hello.c -o /code/a3.out
-RUN chmod 755 /root/CcNav/misc/runflask.sh
+WORKDIR  /code/CcNav/misc/sample_inputs/a0
+RUN gcc  -g /code/CcNav/misc/sample_inputs/a0/hello.c -o /code/a3.out
+
+RUN chmod 755 /code/CcNav/misc/fixperms.bash
+#RUN chmod 755 /code/CcNav/misc/runflask.sh
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
@@ -79,12 +82,9 @@ WORKDIR /code
 #RUN g++ -o optparser /code/CcNav/optparser/optparser/optparser.cc -g -O2 -std=c++11 -Wall -lparseAPI -linstructionAPI -lsymtabAPI -lboost_system -lcommon
 #RUN cp /code/CcNav/optparser/optparser.py .
 
-#CMD ["script", "--return", "--quiet", "flask run", "/dev/null"]
-#CMD ["/bin/bash", "-c", "flask", "run"]
-#CMD ["flask", "run"]
 
 RUN addgroup ccnavgroup
 RUN useradd --create-home --shell /bin/bash -g ccnavgroup ccnavuser
 
 #ENTRYPOINT ["flask", "run"]
-CMD [ "/root/CcNav/misc/runflask.sh" ]
+CMD [ "/code/CcNav/misc/runflask.sh" ]

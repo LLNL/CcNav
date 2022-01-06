@@ -4,7 +4,7 @@ OV.ContainerSetup = function() {
 
     var command_ = function( func, key, after0 ) {
 
-        var com = "/root/CcNav/optparser/optparser.py " + func +
+        var com = "/code/CcNav/optparser/optparser.py " + func +
                 " " + key;
 
         Ajax.container_call({
@@ -12,11 +12,11 @@ OV.ContainerSetup = function() {
         }, after0);
     };
 
-    //  /root/CcNav/misc/sample_inputs/a0/a.out
+    //  /code/CcNav/misc/sample_inputs/a0/a.out
     var load_ = function( executable_path ) {
 
         Ajax.container_call({
-            "command": "/usr/bin/python3 /root/CcNav/optparser/optparser.py open " + executable_path
+            "command": "/usr/bin/python3 /code/CcNav/optparser/optparser.py open " + executable_path
         }, after0);
     };
 
