@@ -2,5 +2,6 @@
 
 if [[ $UID == 0 ]] ; then
 
-    exec flask run
+    exec sudo -u ccnavuser flask run
+    #exec flask run
 fi
