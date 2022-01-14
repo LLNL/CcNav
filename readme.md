@@ -11,10 +11,30 @@ LLNL-CODE- 826840
 
 # Installation:
 ## Set up Docker.
-docker build -t test_opt .
-docker-compose up
+Sample Set up:
 
-https://docs.docker.com/compose/gettingstarted/
+docker build -t optvis_aa .
+
+Every time you run the following command, you will need to increment c1: c2, c3, etc.
+docker run -v "/Users/aschwanden1/optvis/:/code/CcNav/"  -p 5000:5000/tcp --name c1 optvis_aa
+
+Once you get this running, you enter this in the browser address bar:
+http://localhost:5000/
+
+By default, the dockerfile will build an executable sample file for basic testing: a3.out
+it is built by this command: 
+RUN gcc  -g /home/ccnavuser/CcNav/misc/sample_inputs/a0/hello.c -o /home/ccnavuser/a3.out
+
+Then look at the top left panel of your browser window.  
+For the executable input dir, enter the following:
+/home/ccnavuser/a3.out
+
+Then click the "Get" button.
+
+If you need to debug your application, you can do so from the command line with the following:
+docker exec -it c1 /bin/bash
+
+Notice that "c1" has to match the above docker run command.
 
 
 # Usage:
