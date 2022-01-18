@@ -2,7 +2,8 @@
 FROM ghcr.io/autamus/dyninst:11.0.1
 #FROM ubuntu:focal
 
-RUN apt-get update
+USER root
+RUN apt-get    update
 
 RUN apt-get install -y gcc g++
 RUN apt-get install -y cmake
@@ -15,6 +16,9 @@ RUN apt-get install -y libtbb2 libtbb-dev
 RUN apt-get install -y libboost-atomic-dev libboost-chrono-dev libboost-date-time-dev libboost-filesystem-dev libboost-system-dev libboost-thread-dev libboost-timer-dev
 RUN apt-get install -y curl xz-utils m4
 RUN apt-get install -y zlib1g zlib1g-dev
+
+# utrns out we need this to run flask as a user
+RUN apt-get install -y supervisor
 
 # got a warning message from running "open". it said: "UserWarning: redis-py works best with hiredis. Please consider installing"
 RUN apt-get install -y python3-pip libhiredis-dev
@@ -51,7 +55,7 @@ RUN chmod 755 /home/ccnavuser/CcNav/misc/fixperms.bash
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
-EXPOSE 5000
+EXPOSE 5000 5000/tcp
 
 WORKDIR /home/ccnavuser/CcNav
 WORKDIR /home/ccnavuser
@@ -63,5 +67,8 @@ WORKDIR /home/ccnavuser
 RUN addgroup ccnavgroup
 RUN useradd --create-home --shell /bin/bash -g ccnavgroup ccnavuser
 
-#ENTRYPOINT ["flask", "run"]
-CMD [ "/home/ccnavuser/CcNav/misc/runflask.sh" ]
+RUN echo "[program:flask_app]\r\nuser=ccnavuser" >> /etc/supervisor/supervisord.conf
+
+ENTRYPOINT ["flask", "run"]
+#CMD [ "/home/ccnavuser/CcNav/misc/runflask.sh" ]
+#CMD [ "sleep 5000000" ]
