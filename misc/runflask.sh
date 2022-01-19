@@ -8,6 +8,6 @@ if [[ $UID == 0 ]] ; then
     export LANG=C.UTF-8
 
     echo 'FLASK_APP='$FLASK_APP
-    exec sudo -u ccnavuser flask run
+    exec sudo --preserve-env=FLASK_APP,FLASK_RUN_HOST,LC_ALL,LANG -u ccnavuser flask run
     #exec flask run
 fi

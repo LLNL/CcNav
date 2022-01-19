@@ -66,9 +66,10 @@ WORKDIR /home/ccnavuser
 
 RUN addgroup ccnavgroup
 RUN useradd --create-home --shell /bin/bash -g ccnavgroup ccnavuser
+RUN chown -R ccnavuser /home/ccnavuser
 
 RUN echo "[program:flask_app]\r\nuser=ccnavuser" >> /etc/supervisor/supervisord.conf
 
-ENTRYPOINT ["flask", "run"]
-#CMD [ "/home/ccnavuser/CcNav/misc/runflask.sh" ]
+#ENTRYPOINT ["flask", "run"]
+CMD [ "/home/ccnavuser/CcNav/misc/runflask.sh" ]
 #CMD [ "sleep 5000000" ]
