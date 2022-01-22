@@ -6,3 +6,5 @@ __pycache__
 *.DS_Store
 .idea/*
 static/js/Environment.js
+._.DS_Store
+.idea

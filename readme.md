@@ -9,7 +9,6 @@ OptVis uses JS for the frontend and flask (python) for the backend.
 
 ## Requirements:
 flask
-redis
 
 ## Sample input files
 The sample input files for the application can be found in the `static` directory. The files are generated using the [lulesh](https://github.com/LLNL/lulesh) benchmark code. The sample files are `lulesh.cc`, `lulesh.o.dot`, and `lulesh.o.json`. 
