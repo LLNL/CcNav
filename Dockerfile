@@ -8,10 +8,9 @@ RUN useradd -ms /bin/bash ccnavuser
 USER ccnavuser
 WORKDIR /home/ccnavuser
 
-RUN  git  clone https://github.com/LLNL/CcNav.git
-
+RUN mkdir CcNav
 WORKDIR /home/ccnavuser/CcNav
-RUN git checkout develop
+COPY --chown=ccnavuser . .
 
 RUN echo "var ENV = { isContainer: true };" >> /home/ccnavuser/CcNav/static/js/Environment.js
 
