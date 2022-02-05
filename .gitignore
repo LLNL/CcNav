@@ -1,4 +1,3 @@
-.DS_Store
 # Thumbnails
 ._*
 *.pyc
@@ -6,5 +5,3 @@ __pycache__
 *.DS_Store
 .idea/*
 static/js/Environment.js
-._.DS_Store
-.idea
