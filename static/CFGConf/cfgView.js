@@ -83,7 +83,8 @@ class CFGView {
       // highlight the selected nodes
       thisObj.highlightSelNodes(model["CFGConfJSON"]["filtering"]["selectedNodes"], thisObj.nodeSVGMap);
 
-      if(model["CFGConfJSON"]["rendering"]["loop"]["background"]){
+      //  elDiv will be null if cfg panel is closed.
+      if( elDiv && model["CFGConfJSON"]["rendering"]["loop"]["background"]){
         // highlights back edges as well
         loopify_dagre.addBackground("bgFill", thisObj.svgId, thisObj.nodeSVGMap, thisObj.edgeSVGMap);
       }

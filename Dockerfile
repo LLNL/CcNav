@@ -8,7 +8,7 @@ RUN useradd -ms /bin/bash ccnavuser
 USER ccnavuser
 WORKDIR /home/ccnavuser
 
-RUN git clone https://github.com/LLNL/CcNav.git
+RUN  git  clone https://github.com/LLNL/CcNav.git
 
 WORKDIR /home/ccnavuser/CcNav
 RUN git checkout develop
