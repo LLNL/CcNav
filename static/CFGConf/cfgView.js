@@ -69,7 +69,13 @@ class CFGView {
       d3.select("#" + svgId).remove();
       svgElem.id = svgId;
       thisObj.svgElem = svgElem;
-      document.getElementById(divId).appendChild(svgElem);
+
+      var elDiv = document.getElementById(divId);
+
+      if( elDiv ) {
+          elDiv.appendChild(svgElem);
+      }
+      
       thisObj.setupZoom(svgId, thisObj);
       thisObj.createSVGNodeEdgeMaps(svgElem, thisObj);
       
