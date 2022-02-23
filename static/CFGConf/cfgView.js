@@ -72,10 +72,11 @@ class CFGView {
 
       var elDiv = document.getElementById(divId);
 
+      //  elDiv will be null if cfg panel is closed.
       if( elDiv ) {
           elDiv.appendChild(svgElem);
       }
-      
+
       thisObj.setupZoom(svgId, thisObj);
       thisObj.createSVGNodeEdgeMaps(svgElem, thisObj);
       
@@ -423,24 +424,31 @@ class CFGView {
 
     var svg = d3.select('#' + svgId);
     var inner = d3.select('#' + svgId + ' g');
-    var bbox = svg.node().getBBox();  
-    // getBBox gives the bounding box of the enclosed elements. 
-    // Its width and height can be set to a different value.
+    var snode = svg.node();
 
-    var graph_svg_width = bbox.width;
-    var initialScale = parseInt(svg.style("width"), 10) / graph_svg_width;
-    
-    var zoom = thisObj.renderVars.zoom = d3.behavior.zoom().on("zoom", function() {
-      inner.attr("transform", "translate(" + d3.event.translate + ")" +
-                                  "scale(" + d3.event.scale + ")");
-    });
-    
-    svg.call(zoom).on("dblclick.zoom", null);
+    //  snode will be null if cfg window is not present.
 
-    // zoom
-    //     // .translate([0 , 20])
-    //     .scale(initialScale)
-    //     .event(svg);
+    if( snode ) {
+
+        var bbox = snode.getBBox();
+        // getBBox gives the bounding box of the enclosed elements.
+        // Its width and height can be set to a different value.
+
+        var graph_svg_width = bbox.width;
+        var initialScale = parseInt(svg.style("width"), 10) / graph_svg_width;
+
+        var zoom = thisObj.renderVars.zoom = d3.behavior.zoom().on("zoom", function () {
+            inner.attr("transform", "translate(" + d3.event.translate + ")" +
+                "scale(" + d3.event.scale + ")");
+        });
+
+        svg.call(zoom).on("dblclick.zoom", null);
+
+        // zoom
+        //     // .translate([0 , 20])
+        //     .scale(initialScale)
+        //     .event(svg);
+    }
   }
 
   // Highlights the selected nodes 
