@@ -87,9 +87,9 @@ class CFGView {
       if( elDiv && model["CFGConfJSON"]["rendering"]["loop"]["background"]){
         // highlights back edges as well
         loopify_dagre.addBackground("bgFill", thisObj.svgId, thisObj.nodeSVGMap, thisObj.edgeSVGMap);
+        thisObj.updateHgNodeIcon(graph_hg_edges, thisObj.nodeSVGMap, thisObj.edgeSVGMap, thisObj);
       }
       
-      thisObj.updateHgNodeIcon(graph_hg_edges, thisObj.nodeSVGMap, thisObj.edgeSVGMap, thisObj);
       thisObj.bindCFGView( thisObj );
     })
     .catch(error => {
