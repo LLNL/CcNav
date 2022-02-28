@@ -1,20 +1,10 @@
 # GetFileChoices
 
-import os
-import sys
 import json
 import Response
-from pprint import pprint
-
-
-
 
 
 def getFiles():
-
-    #  eventually the FE will provide the location of the executable
-    cmd = "./optparser ./libtest.so"
-    #os.system(cmd)
 
     #  Read in the lulesh.o.json file
     file = open('../sample_inputs/lulesh.o.json')
